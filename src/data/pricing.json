@@ -1,0 +1,26 @@
+[
+    {
+        "id": "prod_001",
+        "price": 85000,
+        "currency": "KZT",
+        "in_stock": true,
+        "is_new": true,
+        "discount_percent": 0
+    },
+    {
+        "id": "prod_002",
+        "price": 92000,
+        "currency": "KZT",
+        "in_stock": true,
+        "is_new": false,
+        "discount_percent": 0
+    },
+    {
+        "id": "prod_003",
+        "price": 78000,
+        "currency": "KZT",
+        "in_stock": false,
+        "is_new": false,
+        "discount_percent": 0
+    }
+]

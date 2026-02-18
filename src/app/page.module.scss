@@ -1,0 +1,200 @@
+@use '../styles/variables' as *;
+
+.main {
+    min-height: 200vh; // Ensure scroll for testing
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    .heroContent {
+        position: absolute;
+        bottom: 80px;
+        left: 40px;
+        z-index: 2;
+        text-align: left;
+        color: rgb(255, 253, 250);
+        mix-blend-mode: normal;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        @media (min-width: 768px) {
+            bottom: 40px; // Adjusted for better screen fit
+            left: 60px;
+        }
+
+        .mainTitle {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 7.5rem); // Responsive but large
+            text-transform: uppercase;
+            line-height: 0.9;
+            font-weight: 400;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .row {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                white-space: nowrap;
+                flex-wrap: wrap;
+            }
+        }
+
+        .circleDivider {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            flex-shrink: 0;
+
+            @media (max-width: 768px) {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+
+    .videoBackground {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.1); // Very light overlay to keep video brightness
+        z-index: 2;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content {
+    padding: 160px 40px; // More whitespace
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transitionBanner {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #0D0D0D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    .bannerBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.1;
+        pointer-events: none;
+    }
+
+    .bannerContent {
+        z-index: 2;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .label {
+        font-family: var(--font-primary);
+        font-size: 0.8rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        opacity: 0.5;
+    }
+
+    .bannerTitle {
+        font-family: var(--font-heading);
+        font-size: clamp(4rem, 15vw, 12rem);
+        line-height: 0.85;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+
+        span {
+            display: block;
+
+            &:nth-child(2) {
+                padding-left: 20%;
+                color: #C5A059; // Gold accent
+            }
+
+            &:nth-child(3) {
+                padding-right: 15%;
+            }
+        }
+    }
+}
+
+.catalogHeader {
+    text-align: center;
+    margin-bottom: 60px;
+
+    h2 {
+        font-family: var(--font-heading);
+        font-size: 3rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); // Mobile
+    column-gap: 40px;
+    row-gap: 80px; // More space between rows
+    width: 100%;
+    max-width: 1600px; // Wider container
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr); // Tablet
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr); // Desktop
+        column-gap: 60px;
+    }
+}

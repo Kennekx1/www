@@ -1,0 +1,91 @@
+@use '../../../styles/variables' as *;
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; // Standard portrait
+    overflow: hidden;
+    background-color: #f0f0f0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+
+    &:hover img {
+        transform: scale(1.08); // Slightly more zoom, but slower
+    }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding-top: 10px;
+}
+
+.collection {
+    font-family: var(--font-primary);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-foreground);
+    opacity: 0.6;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem; // Smaller, more elegant
+    color: var(--color-foreground);
+    margin: 0;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+}
+
+.price {
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    color: var(--color-foreground);
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+}
+
+// Decorative Line Interaction
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-foreground);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+}
+
+.card:hover .line::after {
+    transform: scaleX(1);
+}

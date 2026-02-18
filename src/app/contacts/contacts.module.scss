@@ -1,0 +1,176 @@
+@use '../../styles/variables' as *;
+
+.container {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+
+    @media (min-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.infoSection {
+    font-family: var(--font-primary);
+
+    h2 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        color: var(--color-foreground);
+    }
+
+    p {
+        margin-bottom: 20px;
+        line-height: 1.8;
+        opacity: 0.8;
+        font-size: 1.1rem;
+    }
+
+    .contactDetails {
+        margin-top: 40px;
+
+        .detailItem {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+
+            span.label {
+                font-weight: 600;
+                width: 100px;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+                opacity: 0.6;
+            }
+
+            a {
+                text-decoration: none;
+                color: var(--color-foreground);
+                transition: color 0.3s;
+                border-bottom: 1px solid transparent;
+
+                &:hover {
+                    color: var(--color-accent-gold);
+                    border-bottom-color: var(--color-accent-gold);
+                }
+            }
+        }
+    }
+
+    .concierge {
+        margin-top: 60px;
+        background-color: #f9f9f9;
+        padding: 40px;
+        border-radius: 4px;
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #25D366;
+            /* WhatsApp Green */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-primary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            &:hover {
+                background-color: #128C7E;
+            }
+        }
+    }
+}
+
+.formSection {
+    background-color: #fff;
+    padding: 0 20px;
+
+    @media (min-width: 1024px) {
+        padding-left: 60px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .inputGroup {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            label {
+                font-family: var(--font-primary);
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                opacity: 0.6;
+                letter-spacing: 1px;
+            }
+
+            input,
+            textarea {
+                padding: 15px 0;
+                border: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                font-family: var(--font-primary);
+                font-size: 1rem;
+                background: transparent;
+                transition: border-color 0.3s;
+                resize: none;
+
+                &:focus {
+                    outline: none;
+                    border-bottom-color: var(--color-foreground);
+                }
+            }
+
+            textarea {
+                min-height: 100px;
+            }
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background-color: var(--color-foreground);
+            color: var(--color-background);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+            align-self: flex-start;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}

@@ -1,0 +1,229 @@
+[
+    {
+        "id": "prod_001",
+        "name": "LEGEND № 11.01",
+        "slug": "legend-11-01",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "290 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/legend_upgraded.png",
+        "image_hover": "/assets/original/images/products/legend-11-01.jpeg",
+        "description": "Аромат, который не оставит равнодушным. Аромат наполнен свежестью и силой. Он идеально подходит как для мужчин, так и для женщин.",
+        "group": "фужерный-фруктовый",
+        "themeColor": "#EBE4D8",
+        "notes": {
+            "upper": [
+                "абрикос",
+                "цитрон",
+                "апельсин",
+                "мята"
+            ],
+            "heart": [
+                "черная смородина",
+                "инжир",
+                "базилик",
+                "роза"
+            ],
+            "base": [
+                "финики",
+                "кориандр",
+                "амбретта"
+            ]
+        }
+    },
+    {
+        "id": "prod_002",
+        "name": "SANTAL & LEATHER",
+        "slug": "santal-leather",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "340 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/santal_upgraded.png",
+        "image_hover": "/assets/original/images/products/santal-leather.jpg",
+        "description": "Изысканное сочетание тепла сандала и мужественности кожи.",
+        "group": "древесные",
+        "themeColor": "#D9C6B0",
+        "notes": {
+            "upper": [
+                "бергамот"
+            ],
+            "heart": [
+                "фиалка",
+                "индийский кардамон"
+            ],
+            "base": [
+                "сандал",
+                "кожа",
+                "гималайский кедр",
+                "мускус"
+            ]
+        }
+    },
+    {
+        "id": "prod_003",
+        "name": "PROTAGONIST",
+        "slug": "protagonist",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "290 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/protagonist_upgraded.png",
+        "image_hover": "/assets/original/images/products/protagonist.jpg",
+        "description": "Восточный гурманский аромат, раскрывающий характер главного героя вашей истории.",
+        "group": "восточные гурманские",
+        "themeColor": "#D6BBA6",
+        "notes": {
+            "upper": [
+                "цветок апельсина",
+                "кардамон",
+                "бергамот"
+            ],
+            "heart": [
+                "корица",
+                "пралине"
+            ],
+            "base": [
+                "ваниль",
+                "мускус",
+                "гваяковое дерево"
+            ]
+        }
+    },
+    {
+        "id": "prod_004",
+        "name": "VOICE OF THE SEA",
+        "slug": "voice-of-the-sea",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "290 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/voice_upgraded.png",
+        "image_hover": "/assets/original/images/products/voice-of-the-sea.jpg",
+        "description": "Голос моря, зовущий к новым открытиям. Свежесть бриза и глубина океана.",
+        "group": "акватические, фруктовые",
+        "themeColor": "#D6E0E6",
+        "notes": {
+            "upper": [
+                "лайм",
+                "лимон"
+            ],
+            "heart": [
+                "калон",
+                "имбирь"
+            ],
+            "base": [
+                "звездчатый анис",
+                "амбра",
+                "дубовый мох",
+                "мускус"
+            ]
+        }
+    },
+    {
+        "id": "prod_005",
+        "name": "MUSK MELODY",
+        "slug": "musk-melody",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "290 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/musk_upgraded.png",
+        "image_hover": "/assets/original/images/products/musk-melody.jpg",
+        "description": "Нежная симфония чистоты и чувственности. Аромат, который обволакивает как тончайший шелк.",
+        "group": "мускусные",
+        "themeColor": "#F5F5F5",
+        "notes": {
+            "upper": [
+                "белый мускус"
+            ],
+            "heart": [
+                "ландыш",
+                "пудровые ноты"
+            ],
+            "base": [
+                "амбра",
+                "светлое дерево"
+            ]
+        }
+    },
+    {
+        "id": "prod_006",
+        "name": "ESSAY",
+        "slug": "essay",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "340 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": "Интеллектуальный аромат с запахом старых книг, дорогой бумаги и глубоких размышлений.",
+        "group": "древесные",
+        "themeColor": "#E2D8C9",
+        "notes": {
+            "upper": [
+                "пергамент",
+                "бергамот"
+            ],
+            "heart": [
+                "чернила",
+                "черный ирис"
+            ],
+            "base": [
+                "пачули",
+                "кедр",
+                "кожа"
+            ]
+        }
+    },
+    {
+        "id": "prod_007",
+        "name": "ETHNOS V.",
+        "slug": "ethnos-v",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "290 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/ethnos_upgraded.png",
+        "image_hover": "/assets/original/images/products/ethnos-v.jpg",
+        "description": "Яркое путешествие по экзотическим странам. Взрыв специй и красок восточного базара.",
+        "group": "восточные пряные",
+        "themeColor": "#D9A066",
+        "notes": {
+            "upper": [
+                "шафран",
+                "кардамон"
+            ],
+            "heart": [
+                "звездчатый анис",
+                "гвоздика"
+            ],
+            "base": [
+                "сандал",
+                "ваниль",
+                "уда"
+            ]
+        }
+    },
+    {
+        "id": "prod_008",
+        "name": "VELVET PEONY",
+        "slug": "velvet-peony",
+        "collection": "Коллекция ароматов",
+        "price_3ml": "320 ₽",
+        "price_100ml": "35 000 ₽",
+        "image": "/assets/original/images/products/velvet_upgraded.png",
+        "image_hover": "/assets/original/images/products/velvet-peony.jpg",
+        "description": "Роскошь распустившихся пионов на глубоком бархатном фоне. Романтика и страсть в каждом вдохе.",
+        "group": "цветочные",
+        "themeColor": "#996677",
+        "notes": {
+            "upper": [
+                "красный пион",
+                "роза"
+            ],
+            "heart": [
+                "пион",
+                "жасмин"
+            ],
+            "base": [
+                "пачули",
+                "мускус"
+            ]
+        }
+    }
+]

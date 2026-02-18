@@ -1,0 +1,149 @@
+@use '../../styles/variables' as *;
+
+.container {
+    padding: 80px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.textBlock {
+    margin-bottom: 60px;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    p {
+        font-family: var(--font-primary);
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.shopCard {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h3 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .address,
+    .city {
+        font-family: var(--font-primary);
+        font-size: 1rem;
+        margin-bottom: 5px;
+        opacity: 0.7;
+    }
+
+    .city {
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--color-foreground);
+        opacity: 0.9;
+    }
+
+    .hours {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+        opacity: 0.8;
+
+        span:first-child {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+    }
+
+    .mapButton {
+        margin-top: 25px;
+        background: transparent;
+        border: 1px solid var(--color-foreground);
+        color: var(--color-foreground);
+        padding: 10px 20px;
+        font-family: var(--font-primary);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+            background: var(--color-foreground);
+            color: #fff;
+        }
+    }
+}
+
+.mapPlaceholder {
+    width: 100%;
+    height: 500px;
+    background-color: #f5f5f5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .mapBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.15;
+        filter: grayscale(1);
+    }
+
+    .mapContent {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+
+        span {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: var(--color-foreground);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-family: var(--font-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+[
+    {
+        "label": "Главная",
+        "path": "/"
+    },
+    {
+        "label": "Каталог",
+        "path": "/catalog"
+    },
+    {
+        "label": "О Бренде",
+        "path": "/about"
+    },
+    {
+        "label": "Бутики",
+        "path": "/shops"
+    },
+    {
+        "label": "Контакты",
+        "path": "/contacts"
+    }
+]

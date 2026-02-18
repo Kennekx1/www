@@ -1,0 +1,183 @@
+@use '../../../styles/variables' as *;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0D0D0D;
+    z-index: 1000;
+    display: flex;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.videoSection {
+    display: none;
+
+    @media (min-width: 1024px) {
+        display: block;
+        width: 45%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: grayscale(0.5) contrast(1.2);
+        }
+
+        .videoOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 70%, #0D0D0D);
+        }
+    }
+}
+
+.menuSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    position: relative;
+
+    @media (min-width: 1024px) {
+        padding: 0 10%;
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    .closeIcon {
+        width: 30px;
+        height: 1px;
+        background: white;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: white;
+            transform: rotate(90deg);
+        }
+
+        transform: rotate(45deg);
+    }
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.navItem {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 1;
+    position: relative;
+    width: fit-content;
+    overflow: hidden;
+    padding: 5px 0;
+
+    .itemText {
+        display: inline-block;
+        transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .itemHoverText {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: inline-block;
+        transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        color: #C5A059;
+    }
+
+    &:hover {
+        .itemText {
+            transform: translateY(-100%);
+        }
+
+        .itemHoverText {
+            transform: translateY(-100%);
+        }
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 60px;
+    left: 40px;
+    display: flex;
+    gap: 60px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    @media (min-width: 1024px) {
+        left: 10%;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.brandName {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: var(--font-heading);
+    font-size: 15vw;
+    color: white;
+    opacity: 0.03;
+    pointer-events: none;
+}

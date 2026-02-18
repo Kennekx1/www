@@ -34,7 +34,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     }
 
     return (
-        <main>
+        <main style={{ '--theme-color': product.themeColor } as React.CSSProperties}>
+            <div className={styles.orb}></div>
+            <div className={styles.orb}></div>
+
             <div className={styles.productContainer}>
                 <div className={styles.imageSection}>
                     <Image

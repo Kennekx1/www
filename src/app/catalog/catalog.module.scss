@@ -2,12 +2,75 @@
 
 .catalogContainer {
     padding: 120px 20px 80px;
-    max-width: 1400px;
-    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-background);
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 10;
+    }
 
     @media (min-width: 1024px) {
-        padding: 160px 40px 100px;
+        padding: 180px 80px 100px;
     }
+}
+
+.orb {
+    position: fixed;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.1;
+    background: #D9C6B0;
+    z-index: 0;
+    pointer-events: none;
+
+    &:nth-child(1) {
+        top: -10%;
+        left: -10%;
+        animation: floatOrb 50s ease-in-out infinite;
+    }
+
+    &:nth-child(2) {
+        bottom: -10%;
+        right: -10%;
+        background: #D6BBA6;
+        animation: floatOrb 45s ease-in-out infinite reverse;
+    }
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(15%, 10%) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-10%, 20%) scale(0.95);
+    }
+}
+
+.innerContent {
+    position: relative;
+    z-index: 1;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .breadcrumbs {

@@ -22,12 +22,15 @@ export default function ProductCard({ product }: ProductCardProps) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={styles.image}
                 />
+                <div className={styles.discoverOverlay}>
+                    <span>Узнать больше</span>
+                </div>
             </div>
 
             <div className={styles.info}>
                 <span className={styles.collection}>{product.collection}</span>
                 <h3 className={styles.title}>{product.name}</h3>
-                <p className={styles.price}>{formatPrice(product.price, product.currency)}</p>
+                <p className={styles.price}>{product.price_3ml}</p>
 
                 {/* Decorative animated line */}
                 <div className={styles.line} />

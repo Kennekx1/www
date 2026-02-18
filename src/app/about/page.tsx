@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 
 import Reveal from '@/components/common/Reveal';
+import AromaMap from '@/components/home/AromaMap/AromaMap';
 
 export default function AboutPage() {
     return (
@@ -91,6 +92,63 @@ export default function AboutPage() {
                                 живут на коже, меняются вместе с вами и рассказывают вашу собственную историю.
                             </p>
                         </Reveal>
+                    </div>
+                </section>
+
+                {/* Traveler's Journal Timeline */}
+                <section className={styles.journalSection}>
+                    <Reveal>
+                        <span className={styles.sectionLabel}>Ольфакторный Дневник</span>
+                        <h2 className={styles.philosophyTitle}>Хронология Путешествий</h2>
+                    </Reveal>
+
+                    <div className={styles.timeline}>
+                        <div className={styles.timelineItem}>
+                            <div className={styles.year}>2011</div>
+                            <div className={styles.log}>
+                                <div className={styles.pin}></div>
+                                <h3>Северная Италия</h3>
+                                <p>Первые записи в дневнике. Обучение в Грасе и возвращение к истокам — в аптеку деда. Поиск того самого «запаха дождя над виноградниками».</p>
+                            </div>
+                        </div>
+
+                        <div className={styles.timelineItem}>
+                            <div className={styles.year}>2014</div>
+                            <div className={styles.log}>
+                                <div className={styles.pin}></div>
+                                <h3>Марокко, Фес</h3>
+                                <p>Запах кожи, обожженной солнцем, и прохладного атласского кедра. Здесь родился прототип «Santal & Leather».</p>
+                            </div>
+                        </div>
+
+                        <div className={styles.timelineItem}>
+                            <div className={styles.year}>2018</div>
+                            <div className={styles.log}>
+                                <div className={styles.pin}></div>
+                                <h3>Основание Vittorio</h3>
+                                <p>Открытие первой мастерской. Релиз легендарной коллекции ароматов, которые навсегда изменили представление о нишевой парфюмерии.</p>
+                            </div>
+                        </div>
+
+                        <div className={styles.timelineItem}>
+                            <div className={styles.year}>2021</div>
+                            <div className={styles.log}>
+                                <div className={styles.pin}></div>
+                                <h3>Япония, Киото</h3>
+                                <p>Медитация под цветущей сакурой. Тонкие грани мускуса и пудровых нот — рождение нежной мелодии «Musk Melody».</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Integration of Aroma Map into History */}
+                <section className={styles.mapSection}>
+                    <Reveal>
+                        <h2 className={styles.sectionTitle}>География Ароматов</h2>
+                        <p className={styles.mapSub}>Каждая точка на этой карте — это не просто город, это вдохновение, ставшее флаконом.</p>
+                    </Reveal>
+                    <div className={styles.mapContainer}>
+                        <AromaMap />
                     </div>
                 </section>
 

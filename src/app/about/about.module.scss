@@ -14,10 +14,10 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.03;
         pointer-events: none;
-        z-index: 100;
+        z-index: -1; // Moved to the very bottom
     }
 }
 
@@ -63,46 +63,87 @@
 }
 
 .hero {
-    height: 70vh;
+    height: 100vh;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     padding: 0 40px;
-    background-attachment: fixed;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: var(--color-background); // Back to light base
+    z-index: 1;
+    overflow: hidden;
+
+    // Background Image
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/original/images/about/about_hero_bg.png');
+        background-size: cover;
+        background-position: center 85%;
+        z-index: 1;
+        opacity: 1; // Full opacity for quality
+    }
+
+    // No darkening overlay, just a very subtle light gradient for text legs
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+        z-index: 2;
+    }
 
     .heroOverlay {
         text-align: center;
-        max-width: 900px;
-        z-index: 2;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        z-index: 10;
+        position: relative;
+        transform: translateY(-20px);
     }
 
     .since {
         display: block;
         font-family: var(--font-primary);
         font-size: 0.75rem;
-        letter-spacing: 6px;
-        margin-bottom: 30px;
-        opacity: 0.6;
+        letter-spacing: 0.8em;
+        margin-bottom: 25px;
+        opacity: 0.8;
         text-transform: uppercase;
+        color: #1a1a1a; // Pure deep black
     }
 
     h1 {
         font-family: var(--font-heading);
-        font-size: clamp(3rem, 10vw, 6rem);
+        font-size: clamp(3rem, 9vw, 6rem);
         text-transform: uppercase;
-        letter-spacing: 4px;
-        margin: 0;
-        line-height: 0.9;
+        letter-spacing: 0.02em;
+        margin: 0 auto;
+        line-height: 1.15;
+        font-weight: 400;
+        color: #1a1a1a; // Deep black
+        max-width: 12ch;
+        display: block;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8);
 
         @media (max-width: 768px) {
-            font-size: 3rem;
+            font-size: 2.8rem;
+            line-height: 1.2;
         }
     }
 
     .heroDivider {
-        width: 100px;
+        width: 45px;
         height: 1px;
         background: var(--color-foreground);
         margin: 50px auto 0;
@@ -202,6 +243,127 @@
         margin-bottom: 40px;
         opacity: 0.7;
         font-weight: 300;
+    }
+}
+
+.journalSection {
+    padding: 160px 40px;
+    background-color: #FBF9F7;
+    position: relative;
+    z-index: 1;
+
+    .sectionLabel {
+        display: block;
+        font-family: var(--font-primary);
+        font-size: 0.75rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        opacity: 0.5;
+        text-align: center;
+    }
+
+    .philosophyTitle {
+        text-align: center;
+        margin-bottom: 120px;
+    }
+}
+
+.timeline {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.timelineItem {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+
+    .year {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        color: var(--color-foreground);
+        opacity: 0.2;
+        line-height: 1;
+        min-width: 100px;
+    }
+
+    .log {
+        padding-top: 10px;
+        position: relative;
+
+        .pin {
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            margin-bottom: 25px;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 100%;
+                width: 40px;
+                height: 1px;
+                background: rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-family: var(--font-primary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+    }
+}
+
+.mapSection {
+    padding: 160px 0;
+    background: white;
+    text-align: center;
+
+    .sectionTitle {
+        margin-bottom: 20px;
+    }
+
+    .mapSub {
+        font-family: var(--font-primary);
+        font-size: 1.1rem;
+        opacity: 0.6;
+        margin-bottom: 80px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mapContainer {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+
+        // Overriding nested component styles if needed
+        :global(.aromaMap_container__S_Q_9) {
+            padding: 0;
+        }
     }
 }
 

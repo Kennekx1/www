@@ -16,9 +16,11 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
     const videoRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        let tl: gsap.core.Timeline | null = null;
+
         if (isOpen) {
             gsap.set(overlayRef.current, { visibility: 'visible' });
-            const tl = gsap.timeline();
+            tl = gsap.timeline();
 
             tl.fromTo(overlayRef.current,
                 { y: '-100%' },
@@ -40,8 +42,8 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 );
             }
         } else {
-            const tl = gsap.timeline({
-                onComplete: () => gsap.set(overlayRef.current, { visibility: 'hidden' })
+            tl = gsap.timeline({
+                onComplete: () => { gsap.set(overlayRef.current, { visibility: 'hidden' }); }
             });
 
             tl.to(overlayRef.current, {
@@ -50,6 +52,10 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 ease: 'power4.inOut'
             });
         }
+
+        return () => {
+            if (tl) tl.kill();
+        };
     }, [isOpen]);
 
     const navItems = [

@@ -8,7 +8,12 @@ export const metadata: Metadata = {
 };
 
 import Reveal from '@/components/common/Reveal';
-import AromaMap from '@/components/home/AromaMap/AromaMap';
+import dynamic from 'next/dynamic';
+
+const AromaMap = dynamic(() => import('@/components/home/AromaMap/AromaMap'), {
+    ssr: false,
+    loading: () => <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>Загрузка карты...</div>
+});
 
 export default function AboutPage() {
     return (

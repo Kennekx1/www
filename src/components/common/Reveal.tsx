@@ -34,7 +34,7 @@ export default function Reveal({
         if (direction === 'left') x = 50;
         if (direction === 'right') x = -50;
 
-        gsap.fromTo(element,
+        const anim = gsap.fromTo(element,
             {
                 opacity: 0,
                 x,
@@ -54,6 +54,13 @@ export default function Reveal({
                 }
             }
         );
+
+        return () => {
+            anim.kill();
+            if (anim.scrollTrigger) {
+                anim.scrollTrigger.kill();
+            }
+        };
     }, [direction, delay, duration]);
 
     return <div ref={elementRef} style={{ width: '100%', height: '100%' }}>{children}</div>;

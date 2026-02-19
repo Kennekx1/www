@@ -7,7 +7,12 @@ import { getAllProducts } from '@/utils/data';
 import styles from './page.module.scss';
 import HomeIntro from '@/components/home/HomeIntro/HomeIntro';
 import FragranceShowcase from '@/components/home/FragranceShowcase/FragranceShowcase';
-import AromaMap from '@/components/home/AromaMap/AromaMap';
+import dynamic from 'next/dynamic';
+
+const AromaMap = dynamic(() => import('@/components/home/AromaMap/AromaMap'), {
+  ssr: false,
+  loading: () => <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Загрузка карты...</div>
+});
 
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';

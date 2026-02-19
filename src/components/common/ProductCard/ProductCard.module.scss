@@ -4,80 +4,104 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     cursor: pointer;
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .imageContainer {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1.25;
+    aspect-ratio: 1 / 1.35;
     overflow: hidden;
-    background: radial-gradient(circle at center, #FBF9F7 0%, #F5F1EE 100%);
+    background: radial-gradient(circle at center, #FFFFFF 0%, #F9F9F9 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: box-shadow 0.5s ease;
+    border-radius: 4px;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        padding: 40px;
-        transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        will-change: transform;
-    }
-
-    &::after {
+    &::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.03) 100%);
+        background-color: rgba(0, 0, 0, 0.02);
         opacity: 0;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.6s ease;
+        z-index: 1;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 50px;
+        transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: transform;
+        z-index: 2;
     }
 
     .discoverOverlay {
         position: absolute;
-        bottom: 30px;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        width: auto;
         opacity: 0;
-        transform: translateY(20px);
+        visibility: hidden;
         transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        z-index: 2;
+        z-index: 10;
 
         span {
             font-family: var(--font-primary);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: white;
-            background: black;
-            padding: 12px 25px;
-            border-radius: 100px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 14px 28px;
+            border-radius: 40px;
+            white-space: nowrap;
         }
     }
 
-    &:hover {
-        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.04);
+    .newBadge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-family: var(--font-primary);
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: var(--color-foreground);
+        color: white;
+        padding: 6px 12px;
+        z-index: 10;
+        pointer-events: none;
+    }
 
-        img {
-            transform: scale(1.05) translateY(-5px);
+    &:hover {
+        background: #FFFFFF;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.06);
+
+        &::before {
+            opacity: 1;
         }
 
-        &::after {
-            opacity: 1;
+        img {
+            transform: scale(1.1);
         }
 
         .discoverOverlay {
             opacity: 1;
-            transform: translateY(0);
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
         }
     }
 }
@@ -87,45 +111,71 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 8px;
-    padding-top: 10px;
+    gap: 6px;
+    padding: 15px 0;
 }
 
 .collection {
     font-family: var(--font-primary);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--color-foreground);
-    opacity: 0.6;
+    letter-spacing: 0.4em;
+    color: var(--color-accent-dark-gold);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .title {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--color-foreground);
     margin: 0;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.02em;
     font-weight: 400;
     text-transform: uppercase;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .price {
     font-family: var(--font-primary);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--color-foreground);
-    opacity: 0.8;
+    opacity: 0.4;
     letter-spacing: 0.1em;
+    margin-top: 4px;
+    transition: all 0.6s ease;
 }
 
-// Decorative Line Interaction
+// Hover State Transitions for Info
+.card:hover {
+    .collection {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .title {
+        transform: translateY(-2px);
+    }
+
+    .price {
+        opacity: 1;
+        color: var(--color-foreground);
+    }
+
+    .line::after {
+        transform: scaleX(1);
+    }
+}
+
 .line {
-    width: 100%;
+    width: 30px;
     height: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.06);
+    margin-top: 20px;
     position: relative;
     overflow: hidden;
+    transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     &::after {
         content: '';
@@ -134,13 +184,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: var(--color-foreground);
+        background-color: var(--color-accent-dark-gold);
         transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
+        transform-origin: center;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 }
 
-.card:hover .line::after {
-    transform: scaleX(1);
+.card:hover .line {
+    width: 60px;
 }

@@ -70,7 +70,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
         <div className={styles.overlay} ref={overlayRef}>
             <div className={styles.videoSection} ref={videoRef}>
                 <video autoPlay muted loop playsInline>
-                    <source src="/assets/original/videos/menu-bg.mp4" type="video/mp4" />
+                    <source src="/assets/original/videos/video17sec.mp4" type="video/mp4" />
                 </video>
                 <div className={styles.videoOverlay}></div>
             </div>

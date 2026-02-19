@@ -38,14 +38,14 @@ export default function Home() {
     });
 
     // Reveal title
-    const titleLines = titleRef.current?.querySelectorAll('div');
+    const titleLines = titleRef.current?.querySelectorAll(`.${styles.line}`);
     if (titleLines) {
       gsap.from(titleLines, {
-        y: 100,
+        y: 60,
         opacity: 0,
-        duration: 2,
-        stagger: 0.3,
-        ease: 'power4.out',
+        duration: 1.5,
+        stagger: 0.2,
+        ease: 'power3.out',
         delay: 0.5,
       });
     }
@@ -80,16 +80,15 @@ export default function Home() {
           className={styles.videoBackground}
           ref={videoRef}
         >
-          <source src="/assets/original/videos/hero.mp4" type="video/mp4" />
+          <source src="/hero-video.mp4" type="video/mp4" />
         </video>
 
         <div className={styles.heroContent}>
           <h1 className={styles.mainTitle} ref={titleRef}>
-            <div>ИСТОРИИ,</div>
-            <div className={styles.row}>
-              РАССКАЗАННЫЕ
-              <div className={styles.circleDivider}></div>
-              АРОМАТАМИ
+            <div className={styles.line}>ИСТОРИИ,</div>
+            <div className={styles.line}>РАССКАЗАННЫЕ</div>
+            <div className={styles.line}>
+              <span className={styles.highlight}>АРОМАТАМИ</span>
             </div>
           </h1>
         </div>

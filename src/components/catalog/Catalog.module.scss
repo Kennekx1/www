@@ -9,51 +9,67 @@
 
 .filterBar {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     font-family: var(--font-primary);
-    font-size: 0.85rem;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    gap: 30px;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        padding: 30px 0;
+    }
 }
 
 .filters {
     display: flex;
-    gap: 35px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 
-    button {
+    @media (min-width: 1024px) {
+        gap: 40px;
+    }
+
+    .filterBtn {
         background: none;
         border: none;
         cursor: pointer;
         text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 2px;
-        opacity: 0.4;
-        transition: all 0.4s ease;
-        padding: 5px 0;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        opacity: 0.35;
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        padding: 8px 0;
         position: relative;
+        font-weight: 500;
 
         &::after {
             content: "";
             position: absolute;
             bottom: 0;
-            left: 0;
-            width: 100%;
+            left: 50%;
+            width: 0;
             height: 1px;
-            background: var(--color-foreground);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: var(--color-accent-dark-gold);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateX(-50%);
         }
 
-        &:hover,
+        &:hover {
+            opacity: 0.7;
+            letter-spacing: 4px;
+        }
+
         &.active {
             opacity: 1;
+            color: var(--color-foreground);
 
             &::after {
-                transform: scaleX(1);
-                transform-origin: left;
+                width: 100%;
             }
         }
     }
@@ -61,28 +77,55 @@
 
 .sort {
     position: relative;
+    border-left: 0;
+    padding-left: 0;
 
-    select {
+    @media (min-width: 1024px) {
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+        padding-left: 40px;
+    }
+
+    .sortSelect {
         appearance: none;
         background: transparent;
-        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0;
         font-family: var(--font-primary);
         text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
         cursor: pointer;
         outline: none;
-        padding-right: 20px;
+        padding: 10px 40px 10px 20px;
+        color: var(--color-foreground);
+        transition: all 0.3s ease;
 
-        // Custom arrow could be added here
+        &:hover {
+            border-color: var(--color-foreground);
+        }
     }
+
+    &::after {
+        content: "↓";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.gridContainer {
+    min-height: 400px;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 40px;
-    row-gap: 60px;
+    column-gap: 40px;
+    row-gap: 80px;
 
     @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
@@ -90,12 +133,16 @@
 
     @media (min-width: 1024px) {
         grid-template-columns: repeat(3, 1fr);
+        column-gap: 60px;
     }
 }
 
 .noResults {
     text-align: center;
-    padding: 100px 0;
+    padding: 120px 0;
     font-family: var(--font-primary);
-    opacity: 0.5;
+    opacity: 0.4;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
 }

@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import ProductCard from '@/components/common/ProductCard/ProductCard';
 import { Product } from '@/utils/data';
 import styles from './Catalog.module.scss';
 import clsx from 'clsx';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 interface CatalogProps {
     products: Product[];
@@ -13,6 +15,7 @@ interface CatalogProps {
 export default function Catalog({ products }: CatalogProps) {
     const [activeFilter, setActiveFilter] = useState<string>('all');
     const [sortOrder, setSortOrder] = useState<string>('default');
+    const gridRef = useRef<HTMLDivElement>(null);
 
     // Extract unique collections for filters
     const collections = useMemo(() => {
@@ -39,6 +42,24 @@ export default function Catalog({ products }: CatalogProps) {
         return result;
     }, [products, activeFilter, sortOrder]);
 
+    // Animation when data changes
+    useGSAP(() => {
+        const cards = gridRef.current?.children;
+        if (cards && cards.length > 0) {
+            gsap.fromTo(cards,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    stagger: 0.1,
+                    ease: 'power4.out',
+                    clearProps: 'all'
+                }
+            );
+        }
+    }, { dependencies: [filteredProducts], scope: gridRef });
+
     return (
         <div className={styles.catalogLayout}>
             <div className={styles.filterBar}>
@@ -46,7 +67,7 @@ export default function Catalog({ products }: CatalogProps) {
                     {collections.map(col => (
                         <button
                             key={col}
-                            className={clsx({ [styles.active]: activeFilter === col })}
+                            className={clsx(styles.filterBtn, { [styles.active]: activeFilter === col })}
                             onClick={() => setActiveFilter(col)}
                         >
                             {col === 'all' ? 'Все' : col}
@@ -58,6 +79,7 @@ export default function Catalog({ products }: CatalogProps) {
                     <select
                         value={sortOrder}
                         onChange={(e) => setSortOrder(e.target.value)}
+                        className={styles.sortSelect}
                     >
                         <option value="default">Сортировка</option>
                         <option value="price-asc">Цена: По возрастанию</option>
@@ -66,17 +88,19 @@ export default function Catalog({ products }: CatalogProps) {
                 </div>
             </div>
 
-            {filteredProducts.length > 0 ? (
-                <div className={styles.grid}>
-                    {filteredProducts.map(product => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
-                </div>
-            ) : (
-                <div className={styles.noResults}>
-                    В данной категории товаров пока нет.
-                </div>
-            )}
+            <div className={styles.gridContainer}>
+                {filteredProducts.length > 0 ? (
+                    <div className={styles.grid} ref={gridRef}>
+                        {filteredProducts.map(product => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className={styles.noResults}>
+                        В данной категории товаров пока нет.
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

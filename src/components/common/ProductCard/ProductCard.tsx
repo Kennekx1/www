@@ -15,6 +15,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     return (
         <Link href={`/product/${product.slug}`} className={styles.card}>
             <div className={styles.imageContainer}>
+                {product.is_new && <span className={styles.newBadge}>Новинка</span>}
                 <Image
                     src={product.image}
                     alt={product.name}

@@ -1,0 +1,400 @@
+@use '../../styles/variables' as *;
+
+.productPage {
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-color: var(--color-background);
+}
+
+.orb {
+    position: fixed;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    background: var(--color-accent-gold);
+    z-index: 0;
+    pointer-events: none;
+    transition: background 1s ease;
+
+    &:nth-child(1) {
+        top: -10%;
+        left: -10%;
+    }
+
+    &:nth-child(2) {
+        bottom: -10%;
+        right: -10%;
+        opacity: 0.1;
+    }
+}
+
+.productContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 24px;
+    gap: 60px;
+    position: relative;
+    z-index: 1;
+
+    @media (min-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+        padding: 180px 60px;
+        gap: 120px;
+    }
+}
+
+.imageSection {
+    position: relative;
+
+    .imageWrapper {
+        position: relative;
+        aspect-ratio: 4/5;
+        background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        border-radius: 4px;
+
+        img {
+            object-fit: contain;
+            padding: 40px;
+        }
+    }
+
+    .productTag {
+        position: absolute;
+        top: 40px;
+        left: -20px;
+        background: var(--color-foreground);
+        color: #fff;
+        padding: 8px 16px;
+        transform: rotate(-90deg) translateX(-100%);
+        transform-origin: left top;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: var(--font-primary);
+    }
+}
+
+.infoSection {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.backLink {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-accent-dark-gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.header {
+    .collection {
+        font-family: var(--font-primary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--color-accent-dark-gold);
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .title {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.1;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .group {
+        display: inline-block;
+        padding: 4px 12px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-foreground);
+        opacity: 0.6;
+    }
+}
+
+.shortDesc {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-foreground);
+    opacity: 0.8;
+}
+
+.configurator {
+    .configLabel {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+        font-weight: 700;
+    }
+}
+
+.volumeSelector {
+    display: flex;
+    gap: 16px;
+}
+
+.volumeOption {
+    flex: 1;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
+
+    .vol {
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .price {
+        font-size: 0.85rem;
+        opacity: 0.7;
+    }
+
+    &.active {
+        border-color: var(--color-foreground);
+        background: var(--color-foreground);
+        color: #fff;
+
+        .price {
+            opacity: 0.8;
+        }
+    }
+
+    &.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: #fcfcfc;
+
+        .status {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-accent-dark-gold);
+        }
+    }
+
+    &:not(.disabled):hover:not(.active) {
+        border-color: var(--color-accent-dark-gold);
+    }
+}
+
+.pyramidSection {
+    .sectionTitle {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        opacity: 0.4;
+    }
+}
+
+.pyramid {
+    position: relative;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.pyramidLine {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    bottom: 5px;
+    width: 1px;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.2) 10%,
+            rgba(0, 0, 0, 0.2) 90%,
+            rgba(0, 0, 0, 0) 100%);
+}
+
+.noteGroup {
+    position: relative;
+
+    .notePoint {
+        position: absolute;
+        left: -33px;
+        top: 4px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--color-foreground);
+        border: 2px solid var(--color-background);
+    }
+
+    .noteLabel {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+        color: var(--color-accent-dark-gold);
+        font-weight: 700;
+    }
+
+    .noteValues {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+    }
+
+    .note {
+        font-size: 1.1rem;
+        font-family: var(--font-heading);
+        color: var(--color-foreground);
+        opacity: 0.85;
+
+        &:not(:last-child)::after {
+            content: "•";
+            margin-left: 16px;
+            opacity: 0.3;
+            font-size: 0.8rem;
+            vertical-align: middle;
+        }
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+    }
+}
+
+.btnPrimary {
+    flex: 1;
+    background: var(--color-foreground);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.btnSecondary {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--color-foreground);
+    color: var(--color-foreground);
+    padding: 20px 40px;
+    border-radius: 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+}
+
+.storySection {
+    background-color: #f0f0f0;
+    padding: 120px 24px;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+    }
+}
+
+.storyContent {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .storyLabel {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--color-accent-dark-gold);
+    }
+
+    h2 {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 4vw, 3rem);
+        text-transform: uppercase;
+    }
+
+    p {
+        font-family: var(--font-primary);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        opacity: 0.7;
+    }
+
+    .quote {
+        font-style: italic;
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        color: var(--color-foreground);
+        opacity: 0.9;
+        margin: 20px 0;
+    }
+
+    .signature {
+        font-family: 'Brush Script MT', cursive;
+        font-size: 2.5rem;
+        color: var(--color-accent-dark-gold);
+        margin-top: 20px;
+    }
+}

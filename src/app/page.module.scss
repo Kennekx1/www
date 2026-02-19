@@ -13,53 +13,41 @@
     justify-content: center;
     align-items: center;
     color: white;
+    background-color: #000; // Ensure dark background for white text/video
 
     .heroContent {
         position: absolute;
-        bottom: 80px;
+        bottom: 12%;
         left: 40px;
-        z-index: 2;
+        z-index: 10;
         text-align: left;
         color: rgb(255, 253, 250);
-        mix-blend-mode: normal;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
 
-        @media (min-width: 768px) {
-            bottom: 40px; // Adjusted for better screen fit
-            left: 60px;
+        @media (min-width: 1024px) {
+            left: 80px;
         }
 
         .mainTitle {
             font-family: var(--font-heading);
-            font-size: clamp(3rem, 7vw, 7.5rem); // Responsive but large
+            font-size: clamp(3rem, 8vw, 7.5rem);
             text-transform: uppercase;
-            line-height: 0.9;
+            line-height: 1.1;
             font-weight: 400;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0px;
 
-            .row {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                white-space: nowrap;
-                flex-wrap: wrap;
+            .line {
+                overflow: hidden;
+                display: block;
             }
-        }
 
-        .circleDivider {
-            width: 80px;
-            height: 80px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            flex-shrink: 0;
-
-            @media (max-width: 768px) {
-                width: 40px;
-                height: 40px;
+            .highlight {
+                background-color: var(--color-accent-dark-gold); // Or the specific terracotta from official site
+                padding: 5px 20px;
+                display: inline-block;
+                color: #fff;
+                margin-top: 10px;
             }
         }
     }
@@ -72,6 +60,8 @@
         height: 100%;
         object-fit: cover;
         z-index: 1;
+        opacity: 1; // Explicitly set opacity
+        background: black; // Keep black as fallback, but video should be on top
     }
 
     .overlay {
@@ -80,8 +70,20 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.1); // Very light overlay to keep video brightness
+        background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
         z-index: 2;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
     }
 }
 

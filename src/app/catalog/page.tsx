@@ -25,8 +25,11 @@ export default function CatalogPage() {
                     unoptimized={true}
                     quality={100}
                     className={styles.heroImage}
-                    style={{ objectPosition: 'center 40%' }} /* Slightly shift to see caps better */
+                    style={{ objectPosition: 'center 40%' }}
                 />
+                {/* Vintage dust/scratches overlay exactly like About page */}
+                <div className={styles.heroNoiseOverlay}></div>
+
                 <div className={styles.heroOverlay}></div>
                 <div className={styles.heroContent}>
                     <div className={styles.breadcrumbs}>

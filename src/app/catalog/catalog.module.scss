@@ -25,6 +25,21 @@
         z-index: 0;
     }
 
+    .heroNoiseOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/original/images/main-noise.png');
+        background-repeat: repeat;
+        background-size: 500px; // keep the dust sharp
+        opacity: 0.25; // visible but not overpowering
+        mix-blend-mode: screen; // works best for making dust/scratches pop on dark bg
+        z-index: 1;
+        pointer-events: none;
+    }
+
     .heroOverlay {
         position: absolute;
         top: 0;
@@ -32,7 +47,7 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
-        z-index: 1;
+        z-index: 2;
         pointer-events: none;
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import ProductCard from '@/components/common/ProductCard/ProductCard';
 import { Product } from '@/utils/data';
 import styles from './Catalog.module.scss';

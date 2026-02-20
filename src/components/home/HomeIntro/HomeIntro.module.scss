@@ -1,14 +1,14 @@
 @use '../../../styles/variables' as *;
 
 .introSection {
-    padding: 100px 40px;
+    padding: 60px 20px;
     display: flex;
     flex-direction: column;
-    gap: 60px;
-    min-height: 80vh;
+    gap: 40px;
+    min-height: auto;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #FFFFFF 0%, #F5F1EE 100%);
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-smoke) 100%);
     position: relative;
 
     &::before {
@@ -27,6 +27,8 @@
         flex-direction: row;
         justify-content: space-between;
         padding: 140px 80px;
+        min-height: 80vh;
+        gap: 60px;
     }
 }
 

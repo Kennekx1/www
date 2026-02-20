@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Product, formatPrice } from '@/utils/data';
+import { Product } from '@/utils/data';
 import styles from './ProductDetailsClient.module.scss';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -182,7 +182,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     <p>Италия — это мой дом, моё вдохновение и моё начало. С детства я впитывал ароматы узких улочек, цветущих садов и солёного морского ветра.</p>
                     <p>{product.description}</p>
                     <p className={styles.quote}>
-                        "{product.name} — это не просто парфюм. Это отрывок из моей жизни, запечатанный во флаконе. Я хотел передать ту самую секунду абсолютного счастья."
+                        &quot;{product.name} — это не просто парфюм. Это отрывок из моей жизни, запечатанный во флаконе. Я хотел передать ту самую секунду абсолютного счастья.&quot;
                     </p>
                     <div className={styles.signature}>Vittorio</div>
                 </div>

@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 20px;
     z-index: 100;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     color: white;
@@ -48,13 +48,18 @@
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    letter-spacing: 5px;
+    font-family: var(--font-logo);
+    font-size: 1.4rem;
+    letter-spacing: 3px;
     text-decoration: none;
     color: inherit;
     transition: transform 0.4s ease;
     font-weight: 400;
+
+    @media (min-width: 768px) {
+        font-size: 1.8rem;
+        letter-spacing: 5px;
+    }
 }
 
 .leftSection,
@@ -72,14 +77,20 @@
     background: none;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 40px;
-    padding: 10px 25px;
+    padding: 8px 16px;
     color: inherit;
     font-family: var(--font-primary);
-    font-size: 0.75rem;
-    letter-spacing: 3px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
+
+    @media (min-width: 768px) {
+        padding: 10px 25px;
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+    }
 
     &:hover {
         background: currentColor;
@@ -92,13 +103,18 @@
     text-decoration: none;
     color: inherit;
     font-family: var(--font-primary);
-    font-size: 0.75rem;
-    letter-spacing: 3px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 10px;
     transition: opacity 0.3s;
+
+    @media (min-width: 768px) {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+    }
 
     &:hover {
         opacity: 0.6;
@@ -114,7 +130,7 @@
     bottom: 0;
     left: 0;
     height: 1px;
-    background: #C5A059;
+    background: var(--color-protagonist);
     z-index: 101;
     width: 0%;
     transition: width 0.1s linear;

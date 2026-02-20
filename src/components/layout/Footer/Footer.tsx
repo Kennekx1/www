@@ -7,7 +7,7 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={styles.mainContent}>
                 {/* Left: Subscription */}
-                <div className={styles.column} style={{ paddingLeft: '40px' }}>
+                <div className={styles.column}>
                     <h3 className={styles.title}>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
                     <p className={styles.subtitle}>Оформите подписку, чтобы быть в курсе наших новостей</p>
                     <div className={styles.subscribeForm}>
@@ -34,7 +34,7 @@ export default function Footer() {
                 </div>
 
                 {/* Right: Contacts */}
-                <div className={styles.column} style={{ paddingRight: '40px' }}>
+                <div className={styles.column}>
                     <h3 className={styles.title}>СВЯЗАТЬСЯ С НАМИ</h3>
                     <a href="tel:+78002224147" className={styles.contactLink}>8 800 222-41-47</a>
                     <a href="mailto:info@vittorio-parfum.ru" className={styles.contactLink}>info@vittorio-parfum.ru</a>
@@ -50,7 +50,7 @@ export default function Footer() {
 
             <div className={styles.bottomBar}>
                 <div>© 2026. Vittorio</div>
-                <div style={{ display: 'flex', gap: '20px' }}>
+                <div className={styles.linksGroup}>
                     <Link href="/delivery" className={styles.link}>Доставка и оплата</Link>
                     <Link href="/policy" className={styles.link}>Политика конфиденциальности</Link>
                     <Link href="/policy" className={styles.link}>Публичная оферта</Link>

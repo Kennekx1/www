@@ -1,15 +1,67 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.scss';
 import MenuOverlay from '../MenuOverlay/MenuOverlay';
 import clsx from 'clsx';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const headerRef = useRef<HTMLElement>(null);
+    const menuBtnRef = useRef<HTMLButtonElement>(null);
+    const cartBtnRef = useRef<HTMLAnchorElement>(null);
+
+    useGSAP(() => {
+        // Entrance animation
+        const tl = gsap.timeline();
+        tl.fromTo('.anim-item',
+            { y: -30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: 'power4.out', delay: 0.2 }
+        );
+
+        // Premium Magnetic effect for buttons
+        const createMagneticSetup = (element: HTMLElement | null) => {
+            if (!element) return;
+
+            const xTo = gsap.quickTo(element, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
+            const yTo = gsap.quickTo(element, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
+
+            const mouseMove = (e: MouseEvent) => {
+                const { clientX, clientY } = e;
+                const { height, width, left, top } = element.getBoundingClientRect();
+                const x = clientX - (left + width / 2);
+                const y = clientY - (top + height / 2);
+                xTo(x * 0.3);
+                yTo(y * 0.3);
+            };
+
+            const mouseLeave = () => {
+                xTo(0);
+                yTo(0);
+            };
+
+            element.addEventListener("mousemove", mouseMove);
+            element.addEventListener("mouseleave", mouseLeave);
+
+            return () => {
+                element.removeEventListener("mousemove", mouseMove);
+                element.removeEventListener("mouseleave", mouseLeave);
+            };
+        };
+
+        const cleanupMenu = createMagneticSetup(menuBtnRef.current);
+        const cleanupCart = createMagneticSetup(cartBtnRef.current);
+
+        return () => {
+            if (cleanupMenu) cleanupMenu();
+            if (cleanupCart) cleanupCart();
+        }
+    }, { scope: headerRef });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,21 +81,21 @@ export default function Header() {
 
     return (
         <>
-            <header className={clsx(styles.header, isScrolled && styles.scrolled)}>
-                <div className={styles.leftSection}>
-                    <button className={styles.menuBtn} onClick={() => setIsMenuOpen(true)}>
+            <header className={clsx(styles.header, isScrolled && styles.scrolled)} ref={headerRef}>
+                <div className={clsx(styles.leftSection, 'anim-item')}>
+                    <button className={styles.menuBtn} onClick={() => setIsMenuOpen(true)} ref={menuBtnRef}>
                         МЕНЮ
                     </button>
                 </div>
 
-                <div className={styles.logoContainer}>
+                <div className={clsx(styles.logoContainer, 'anim-item')}>
                     <Link href="/" className={styles.logo}>
                         VITTORIO
                     </Link>
                 </div>
 
-                <div className={styles.rightSection}>
-                    <Link href="/cart" className={styles.cartLink}>
+                <div className={clsx(styles.rightSection, 'anim-item')}>
+                    <Link href="/cart" className={styles.cartLink} ref={cartBtnRef}>
                         ЗАЯВКА <span className={styles.count}>(0)</span>
                     </Link>
                 </div>

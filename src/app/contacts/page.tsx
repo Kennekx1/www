@@ -33,7 +33,7 @@ export default function ContactsPage() {
                         </div>
                         <div className={styles.detailItem}>
                             <span className={styles.label}>Адрес:</span>
-                            <span>Алматы, пр. Достык 12, БЦ "Казахстан"</span>
+                            <span>Алматы, пр. Достык 12, БЦ &quot;Казахстан&quot;</span>
                         </div>
                     </div>
 

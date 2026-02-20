@@ -29,7 +29,7 @@
 
         .mainTitle {
             font-family: var(--font-heading);
-            font-size: clamp(3rem, 8vw, 7.5rem);
+            font-size: clamp(2.5rem, 8vw, 7.5rem);
             text-transform: uppercase;
             line-height: 1.1;
             font-weight: 400;
@@ -114,11 +114,11 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #0D0D0D;
+    background-color: var(--color-umbra);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--color-smoke);
 
     .bannerBg {
         position: absolute;
@@ -126,9 +126,19 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        opacity: 0.1;
-        pointer-events: none;
+        background-image: url("/assets/images/banners/page-17.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: 1;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(60, 58, 55, 0.4); // Серая умбра с прозрачностью
+            mix-blend-mode: multiply;
+        }
     }
 
     .bannerContent {
@@ -138,30 +148,34 @@
         flex-direction: column;
         align-items: center;
         gap: 40px;
+        backdrop-filter: blur(2px);
+        padding: 60px;
     }
 
     .label {
         font-family: var(--font-primary);
-        font-size: 0.8rem;
-        letter-spacing: 6px;
+        font-size: 0.9rem;
+        letter-spacing: 8px;
         text-transform: uppercase;
-        opacity: 0.5;
+        color: var(--color-silk);
+        font-weight: 500;
     }
 
     .bannerTitle {
         font-family: var(--font-heading);
-        font-size: clamp(4rem, 15vw, 12rem);
+        font-size: clamp(2.5rem, 12vw, 10rem);
         line-height: 0.85;
         text-transform: uppercase;
         display: flex;
         flex-direction: column;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
         span {
             display: block;
 
             &:nth-child(2) {
-                padding-left: 20%;
-                color: #C5A059; // Gold accent
+                padding-left: 15%;
+                color: var(--color-santal); // Using one of the brand colors instead of random gold
             }
 
             &:nth-child(3) {

@@ -1,14 +1,34 @@
 :root {
-    // Palette extracted from Vittorio Parfum
-    --color-background: #FBF9F7; // Warm Ivory
-    --color-foreground: #24221F; // Dark text
-    --color-black: #000000;
-    --color-accent-gold: #ACADA1; // Muted gold
-    --color-accent-dark-gold: #877553;
-    --color-burgundy: #70445C;
-    --color-brown: #7E4725;
+    // Базовые цвета (Base colors from Brandbook)
+    --color-umbra: #3C3A37; // Серая умбра (Main text/dark accents)
+    --color-quartz: #797672; // Кварцевый серый (Secondary text)
+    --color-smoke: #F8F5F1; // Дымчато-белый (Backgrounds)
+    --color-silk: #D6D1CA; // Серый шёлк (Borders/muted elements)
 
-    // Fonts
+    // Aliases
+    --color-background: var(--color-smoke);
+    --color-foreground: var(--color-umbra);
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+
+    // Цвета ароматов (Product colors)
+    --color-legend: #392E32;
+    --color-santal: #7E4725;
+    --color-protagonist: #877553;
+    --color-musk: #713B3B;
+    --color-essay: #625E37;
+    --color-ethnos: #3A4C4B;
+    --color-erato: #4B7078;
+    --color-voice: #2E4568;
+    --color-velvet: #71455D;
+
+    // Шрифты (Fonts)
     --font-primary: 'Mulish', sans-serif;
     --font-heading: 'FoglihtenNo06', 'Times New Roman', serif;
+    --font-logo: 'BaskervilleOldFacRUS', 'Georgia', serif;
+    // Legacy Aliases for existing components
+    --color-accent-gold: var(--color-silk);
+    --color-accent-dark-gold: var(--color-protagonist);
+    --color-burgundy: var(--color-velvet);
+    --color-brown: var(--color-santal);
 }

@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './ProductCard.module.scss';
-import { Product, formatPrice } from '@/utils/data';
+import { Product } from '@/utils/data';
 
 import Link from 'next/link';
 

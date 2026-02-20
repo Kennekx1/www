@@ -3,7 +3,7 @@
 .showcase {
     width: 100%;
     position: relative;
-    background-color: #F4EFED;
+    background-color: var(--color-smoke);
     transition: background-color 0.8s ease; // Smooth color shift
     overflow: hidden;
 }
@@ -130,8 +130,8 @@
 .story {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    padding: 100px 40px;
+    min-height: auto;
+    padding: 60px 20px;
     position: relative;
 
     @media (min-width: 1024px) {
@@ -159,7 +159,11 @@
 
 .contentSide {
     flex: 1.2;
-    padding-right: 60px;
+    padding-right: 0;
+
+    @media (min-width: 1024px) {
+        padding-right: 60px;
+    }
 }
 
 .label {
@@ -174,20 +178,29 @@
 
 .title {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     line-height: 1;
+
+    @media (min-width: 768px) {
+        margin-bottom: 40px;
+    }
 }
 
 .description {
     font-family: var(--font-primary);
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.6;
     max-width: 500px;
     opacity: 0.8;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     font-weight: 300;
+
+    @media (min-width: 768px) {
+        font-size: 1.2rem;
+        margin-bottom: 80px;
+    }
 }
 
 .notesTable {
@@ -285,8 +298,8 @@
     transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
-    background: #3D3B38;
-    color: white;
+    background: var(--color-umbra);
+    color: var(--color-smoke);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -301,7 +314,7 @@
 
     &:hover {
         transform: translate(-50%, -50%) scale(1.1);
-        background: #000;
+        background: var(--color-black);
     }
 }
 
@@ -317,7 +330,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     opacity: 0.6;
-    background: white;
+    background: var(--color-smoke);
 
     span {
         cursor: pointer;
@@ -336,7 +349,7 @@
 
             &::before {
                 content: '✦';
-                color: #C5A059;
+                color: var(--color-santal);
             }
         }
     }

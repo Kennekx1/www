@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ScrollIndicator from '../components/common/ScrollIndicator/ScrollIndicator';
-import ProductCard from '../components/common/ProductCard/ProductCard';
 import { getAllProducts } from '@/utils/data';
 import styles from './page.module.scss';
 import HomeIntro from '@/components/home/HomeIntro/HomeIntro';

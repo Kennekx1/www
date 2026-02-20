@@ -14,7 +14,7 @@
     border-radius: 50%;
     filter: blur(120px);
     opacity: 0.15;
-    background: var(--color-accent-gold);
+    background: var(--color-santal);
     z-index: 0;
     pointer-events: none;
     transition: background 1s ease;
@@ -36,8 +36,8 @@
     grid-template-columns: 1fr;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 120px 24px;
-    gap: 60px;
+    padding: 100px 20px 60px;
+    gap: 40px;
     position: relative;
     z-index: 1;
 
@@ -54,7 +54,7 @@
     .imageWrapper {
         position: relative;
         aspect-ratio: 4/5;
-        background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
+        background: var(--color-smoke);
         box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
         overflow: hidden;
         border-radius: 4px;
@@ -91,7 +91,7 @@
     font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--color-accent-dark-gold);
+    color: var(--color-santal);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -110,17 +110,22 @@
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 3px;
-        color: var(--color-accent-dark-gold);
+        color: var(--color-santal);
         display: block;
         margin-bottom: 12px;
     }
 
     .title {
         font-family: var(--font-heading);
-        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-size: clamp(2rem, 5vw, 4rem);
         line-height: 1.1;
         margin-bottom: 20px;
         text-transform: uppercase;
+        letter-spacing: 1px;
+
+        @media (min-width: 768px) {
+            letter-spacing: 2px;
+        }
     }
 
     .group {
@@ -128,7 +133,7 @@
         padding: 4px 12px;
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 20px;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: var(--color-foreground);
@@ -138,10 +143,14 @@
 
 .shortDesc {
     font-family: var(--font-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.7;
     color: var(--color-foreground);
     opacity: 0.8;
+
+    @media (min-width: 768px) {
+        font-size: 1.1rem;
+    }
 }
 
 .configurator {
@@ -202,12 +211,12 @@
             font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--color-accent-dark-gold);
+            color: var(--color-quartz);
         }
     }
 
     &:not(.disabled):hover:not(.active) {
-        border-color: var(--color-accent-dark-gold);
+        border-color: var(--color-santal);
     }
 }
 
@@ -261,7 +270,7 @@
         text-transform: uppercase;
         letter-spacing: 2px;
         margin-bottom: 12px;
-        color: var(--color-accent-dark-gold);
+        color: var(--color-santal);
         font-weight: 700;
     }
 
@@ -272,17 +281,25 @@
     }
 
     .note {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-family: var(--font-heading);
         color: var(--color-foreground);
         opacity: 0.85;
 
+        @media (min-width: 768px) {
+            font-size: 1.1rem;
+        }
+
         &:not(:last-child)::after {
             content: "•";
-            margin-left: 16px;
+            margin-left: 10px;
             opacity: 0.3;
             font-size: 0.8rem;
             vertical-align: middle;
+
+            @media (min-width: 768px) {
+                margin-left: 16px;
+            }
         }
     }
 }
@@ -336,10 +353,14 @@
 }
 
 .storySection {
-    background-color: #f0f0f0;
-    padding: 120px 24px;
+    background-color: var(--color-silk);
+    padding: 100px 20px;
     position: relative;
     z-index: 1;
+
+    @media (min-width: 768px) {
+        padding: 120px 24px;
+    }
 
     &::after {
         content: "";
@@ -366,20 +387,25 @@
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 4px;
-        color: var(--color-accent-dark-gold);
+        color: var(--color-santal);
     }
 
     h2 {
         font-family: var(--font-heading);
         font-size: clamp(2rem, 4vw, 3rem);
         text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     p {
         font-family: var(--font-primary);
-        font-size: 1.1rem;
+        font-size: 1rem;
         line-height: 1.8;
         opacity: 0.7;
+
+        @media (min-width: 768px) {
+            font-size: 1.1rem;
+        }
     }
 
     .quote {
@@ -392,9 +418,9 @@
     }
 
     .signature {
-        font-family: 'Brush Script MT', cursive;
+        font-family: var(--font-logo);
         font-size: 2.5rem;
-        color: var(--color-accent-dark-gold);
+        color: var(--color-santal);
         margin-top: 20px;
     }
 }

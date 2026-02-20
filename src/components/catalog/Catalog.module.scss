@@ -21,14 +21,19 @@
     @media (min-width: 1024px) {
         flex-direction: row;
         padding: 30px 0;
+        margin-bottom: 80px;
     }
 }
 
 .filters {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
+
+    @media (min-width: 768px) {
+        gap: 30px;
+    }
 
     @media (min-width: 1024px) {
         gap: 40px;
@@ -54,7 +59,7 @@
             left: 50%;
             width: 0;
             height: 1px;
-            background: var(--color-accent-dark-gold);
+            background: var(--color-santal);
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
             transform: translateX(-50%);
         }
@@ -124,11 +129,13 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    column-gap: 40px;
-    row-gap: 80px;
+    column-gap: 20px;
+    row-gap: 50px;
 
     @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
+        column-gap: 40px;
+        row-gap: 60px;
     }
 
     @media (min-width: 1024px) {

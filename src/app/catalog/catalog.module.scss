@@ -1,7 +1,7 @@
 @use '../../styles/variables' as *;
 
 .catalogContainer {
-    padding: 120px 20px 80px;
+    padding: 100px 20px 60px;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
@@ -31,8 +31,8 @@
     height: 50vw;
     border-radius: 50%;
     filter: blur(100px);
-    opacity: 0.1;
-    background: #D9C6B0;
+    opacity: 0.15;
+    background: var(--color-protagonist);
     z-index: 0;
     pointer-events: none;
 
@@ -45,7 +45,8 @@
     &:nth-child(2) {
         bottom: -10%;
         right: -10%;
-        background: #D6BBA6;
+        background: var(--color-velvet);
+        opacity: 0.15;
         animation: floatOrb 45s ease-in-out infinite reverse;
     }
 }
@@ -102,12 +103,18 @@
 
 .title {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 2.2rem;
     text-transform: uppercase;
     font-weight: 400;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
     line-height: 1.1;
+
+    @media (min-width: 480px) {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        margin-bottom: 40px;
+    }
 
     @media (min-width: 768px) {
         font-size: 4rem;
@@ -124,8 +131,13 @@
 .description {
     max-width: 800px;
     font-family: var(--font-primary);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     line-height: 1.8;
     opacity: 0.8;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+
+    @media (min-width: 768px) {
+        font-size: 0.95rem;
+        margin-bottom: 60px;
+    }
 }

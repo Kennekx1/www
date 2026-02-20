@@ -14,6 +14,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
     const overlayRef = useRef<HTMLDivElement>(null);
     const linksRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLDivElement>(null);
+    const closeBtnRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         let tl: gsap.core.Timeline | null = null;
@@ -53,8 +54,41 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
             });
         }
 
+        // Magnetic effect for close button
+        const createMagneticSetup = (element: HTMLElement | null) => {
+            if (!element) return;
+
+            const xTo = gsap.quickTo(element, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
+            const yTo = gsap.quickTo(element, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
+
+            const mouseMove = (e: MouseEvent) => {
+                const { clientX, clientY } = e;
+                const { height, width, left, top } = element.getBoundingClientRect();
+                const x = clientX - (left + width / 2);
+                const y = clientY - (top + height / 2);
+                xTo(x * 0.4);
+                yTo(y * 0.4);
+            };
+
+            const mouseLeave = () => {
+                xTo(0);
+                yTo(0);
+            };
+
+            element.addEventListener("mousemove", mouseMove);
+            element.addEventListener("mouseleave", mouseLeave);
+
+            return () => {
+                element.removeEventListener("mousemove", mouseMove);
+                element.removeEventListener("mouseleave", mouseLeave);
+            };
+        };
+
+        const cleanupClose = createMagneticSetup(closeBtnRef.current);
+
         return () => {
             if (tl) tl.kill();
+            if (cleanupClose) cleanupClose();
         };
     }, [isOpen]);
 
@@ -76,7 +110,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
             </div>
 
             <div className={styles.menuSection}>
-                <button className={styles.closeButton} onClick={onClose}>
+                <button className={styles.closeButton} onClick={onClose} ref={closeBtnRef}>
                     <span className={styles.closeText}>ЗАКРЫТЬ</span>
                     <div className={styles.closeIcon}></div>
                 </button>

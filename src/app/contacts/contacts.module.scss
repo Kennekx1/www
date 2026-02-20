@@ -1,20 +1,101 @@
 @use '../../styles/variables' as *;
 
-.container {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
+.splitLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-background);
 
     @media (min-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
+        height: 100vh;
     }
 }
 
-.infoSection {
+.imagePanel {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    overflow: hidden;
+
+    @media (min-width: 1024px) {
+        height: 100%;
+        width: 50%;
+        flex-shrink: 0;
+    }
+}
+
+.bgImage {
+    object-fit: cover;
+    z-index: 0;
+}
+
+.imageOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 1;
+}
+
+.imageContent {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: var(--color-smoke);
+
+    @media (min-width: 1024px) {
+        bottom: 60px;
+        left: 60px;
+    }
+}
+
+.mainTitle {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
     font-family: var(--font-primary);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Right Side: Content Panel */
+.contentPanel {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px 80px;
+    background-color: var(--color-smoke);
+    /* Using slightly off-white instead of pure white */
+    overflow-y: auto;
+    color: var(--color-foreground);
+
+    @media (min-width: 1024px) {
+        padding: 120px 60px;
+        align-items: center;
+        /* Center vertically on desktop */
+    }
+}
+
+.innerContent {
+    width: 100%;
+    max-width: 500px;
+}
+
+.header {
+    margin-bottom: 50px;
 
     h2 {
         font-family: var(--font-heading);
@@ -23,154 +104,171 @@
         text-transform: uppercase;
         color: var(--color-foreground);
     }
+}
 
-    p {
-        margin-bottom: 20px;
-        line-height: 1.8;
-        opacity: 0.8;
-        font-size: 1.1rem;
-    }
+.divider {
+    width: 80px;
+    height: 1px;
+    background-color: var(--color-protagonist);
+    margin-bottom: 30px;
+}
 
-    .contactDetails {
-        margin-top: 40px;
+.description {
+    font-family: var(--font-primary);
+    line-height: 1.8;
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
 
-        .detailItem {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
+/* Contact Details Group */
+.contactDetails {
+    margin-top: 40px;
+    margin-bottom: 50px;
 
-            span.label {
-                font-weight: 600;
-                width: 100px;
-                text-transform: uppercase;
-                font-size: 0.9rem;
-                opacity: 0.6;
-            }
+    .detailItem {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 25px;
 
-            a {
-                text-decoration: none;
-                color: var(--color-foreground);
-                transition: color 0.3s;
-                border-bottom: 1px solid transparent;
-
-                &:hover {
-                    color: var(--color-accent-gold);
-                    border-bottom-color: var(--color-accent-gold);
-                }
-            }
-        }
-    }
-
-    .concierge {
-        margin-top: 60px;
-        background-color: #f9f9f9;
-        padding: 40px;
-        border-radius: 4px;
-
-        h3 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+        @media (min-width: 480px) {
+            flex-direction: row;
         }
 
-        button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #25D366;
-            /* WhatsApp Green */
-            color: #fff;
-            border: none;
-            cursor: pointer;
+        .label {
             font-family: var(--font-primary);
-            text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 1px;
-            transition: background-color 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-bottom: 5px;
+
+            @media (min-width: 480px) {
+                width: 120px;
+                margin-bottom: 0;
+            }
+        }
+
+        a,
+        span {
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            text-decoration: none;
+            color: var(--color-foreground);
+            transition: opacity 0.3s;
 
             &:hover {
-                background-color: #128C7E;
+                opacity: 0.6;
             }
         }
     }
 }
 
+/* Forms styling */
 .formSection {
-    background-color: #fff;
-    padding: 0 20px;
-
-    @media (min-width: 1024px) {
-        padding-left: 60px;
-        border-left: 1px solid rgba(0, 0, 0, 0.1);
-    }
+    margin-bottom: 50px;
 
     h3 {
         font-family: var(--font-heading);
-        font-size: 2rem;
-        margin-bottom: 30px;
+        font-size: 1.5rem;
+        margin-bottom: 25px;
         text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputGroup {
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        background: transparent;
+        font-family: var(--font-primary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-foreground);
+        transition: border-color 0.3s;
+        border-radius: 0;
+
+        &::placeholder {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        &:focus {
+            outline: none;
+            border-bottom-color: var(--color-protagonist);
+        }
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    textarea {
+        min-height: 40px;
+        resize: vertical;
+        padding-top: 20px;
+    }
+}
 
-        .inputGroup {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+.submitBtn {
+    margin-top: 10px;
+    padding: 15px 0;
+    background-color: var(--color-foreground);
+    color: var(--color-smoke);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100%;
 
-            label {
-                font-family: var(--font-primary);
-                font-size: 0.9rem;
-                text-transform: uppercase;
-                opacity: 0.6;
-                letter-spacing: 1px;
-            }
+    &:hover {
+        background-color: var(--color-protagonist);
+    }
+}
 
-            input,
-            textarea {
-                padding: 15px 0;
-                border: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-                font-family: var(--font-primary);
-                font-size: 1rem;
-                background: transparent;
-                transition: border-color 0.3s;
-                resize: none;
+/* Concierge Extra block at bottom */
+.concierge {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 30px;
+}
 
-                &:focus {
-                    outline: none;
-                    border-bottom-color: var(--color-foreground);
-                }
-            }
+.conciergeText {
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 15px;
+}
 
-            textarea {
-                min-height: 100px;
-            }
-        }
+/* Redesigned Button for Premium feel */
+.whatsappBtn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    background: transparent;
+    color: var(--color-foreground);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.4s ease;
 
-        button[type="submit"] {
-            margin-top: 20px;
-            padding: 15px 40px;
-            background-color: var(--color-foreground);
-            color: var(--color-background);
-            border: none;
-            cursor: pointer;
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: opacity 0.3s;
-            align-self: flex-start;
-
-            &:hover {
-                opacity: 0.8;
-            }
-        }
+    &:hover {
+        border-color: var(--color-foreground);
+        background: var(--color-foreground);
+        color: var(--color-smoke);
     }
 }

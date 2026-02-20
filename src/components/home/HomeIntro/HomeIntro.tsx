@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './HomeIntro.module.scss';
 import React, { useRef } from 'react';
 import Reveal from '@/components/common/Reveal';
@@ -8,6 +9,7 @@ import gsap from 'gsap';
 export default function HomeIntro() {
     const containerRef = useRef<HTMLDivElement>(null);
     const bigTextRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
         gsap.to(bigTextRef.current, {
@@ -19,6 +21,18 @@ export default function HomeIntro() {
                 end: 'bottom top',
                 scrub: true,
             },
+        });
+
+        // Parallax for the new image wrapper
+        gsap.to(imageRef.current, {
+            y: 100, // moves down while scrolling down
+            ease: 'none',
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
         });
     }, { scope: containerRef });
 
@@ -43,9 +57,21 @@ export default function HomeIntro() {
                 </Reveal>
             </div>
 
-            {/* The giant VITTORIO text (can serve as a backdrop) */}
-            <div className={styles.bigTextContainer} aria-hidden="true" ref={bigTextRef}>
-                <span className={styles.verticalText}>VITTORIO</span>
+            {/* Image panel instead of just empty space */}
+            <div className={styles.imagePanel}>
+                <div className={styles.imageWrapper}>
+                    <Image
+                        ref={imageRef}
+                        src="/assets/images/banners/page-11.jpg"
+                        alt="Vittorio Perfume Texture"
+                        fill
+                        className={styles.parallaxImage}
+                    />
+                </div>
+                {/* The giant VITTORIO text overlays the image slightly */}
+                <div className={styles.bigTextContainer} aria-hidden="true" ref={bigTextRef}>
+                    <span className={styles.verticalText}>VITTORIO</span>
+                </div>
             </div>
         </section>
     );

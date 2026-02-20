@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from "@/components/common/SmoothScroll";
-import { CartProvider } from "@/context/CartContext";
 
 export default function RootLayout({
   children,
@@ -19,13 +18,11 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <CartProvider>
-          <SmoothScroll>
-            <Header />
-            {children}
-            <Footer />
-          </SmoothScroll>
-        </CartProvider>
+        <SmoothScroll>
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

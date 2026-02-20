@@ -7,10 +7,8 @@ import MenuOverlay from '../MenuOverlay/MenuOverlay';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useCart } from '@/context/CartContext';
 
 export default function Header() {
-    const { totalItems } = useCart();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -97,8 +95,8 @@ export default function Header() {
                 </div>
 
                 <div className={clsx(styles.rightSection, 'anim-item')}>
-                    <Link href="/cart" className={styles.cartLink} ref={cartBtnRef}>
-                        ЗАЯВКА <span className={styles.count}>({totalItems})</span>
+                    <Link href="/contacts" className={styles.cartLink} ref={cartBtnRef}>
+                        СВЯЗАТЬСЯ
                     </Link>
                 </div>
 

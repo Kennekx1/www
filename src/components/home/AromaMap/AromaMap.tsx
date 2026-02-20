@@ -3,13 +3,14 @@
 import React from 'react';
 import styles from './AromaMap.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const mapPoints = [
-    { id: 1, name: 'Italy', x: '48%', y: '35%', fragrance: 'Santal & Leather' },
-    { id: 2, name: 'Morocco', x: '45%', y: '45%', fragrance: 'Protagonist' },
-    { id: 3, name: 'Japan', x: '85%', y: '40%', fragrance: 'Musk Melody' },
-    { id: 4, name: 'Brazil', x: '30%', y: '75%', fragrance: 'Voice of the Sea' },
-    { id: 5, name: 'France', x: '46%', y: '30%', fragrance: 'Legend № 11.01' },
+    { id: 1, name: 'Italy', x: '48%', y: '35%', fragrance: 'Santal & Leather', slug: 'santal-leather' },
+    { id: 2, name: 'Morocco', x: '45%', y: '45%', fragrance: 'Protagonist', slug: 'protagonist' },
+    { id: 3, name: 'Japan', x: '85%', y: '40%', fragrance: 'Musk Melody', slug: 'musk-melody' },
+    { id: 4, name: 'Brazil', x: '30%', y: '75%', fragrance: 'Voice of the Sea', slug: 'voice-of-the-sea' },
+    { id: 5, name: 'France', x: '46%', y: '30%', fragrance: 'Legend № 11.01', slug: 'legend-11-01' },
 ];
 
 import Reveal from '@/components/common/Reveal';
@@ -38,10 +39,12 @@ export default function AromaMap() {
                         />
 
                         {mapPoints.map((point, index) => (
-                            <div
+                            <Link
                                 key={point.id}
+                                href={`/product/${point.slug}`}
                                 className={styles.point}
                                 style={{ left: point.x, top: point.y }}
+                                title={`Посмотреть ${point.fragrance}`}
                             >
                                 <Reveal delay={0.5 + index * 0.1} duration={0.8}>
                                     <div className={styles.pulse}></div>
@@ -49,9 +52,10 @@ export default function AromaMap() {
                                     <div className={styles.tooltip}>
                                         <span className={styles.location}>{point.name}</span>
                                         <span className={styles.fragrance}>{point.fragrance}</span>
+                                        <span className={styles.exploreText}>Исследовать →</span>
                                     </div>
                                 </Reveal>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 

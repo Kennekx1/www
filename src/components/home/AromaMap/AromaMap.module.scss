@@ -192,6 +192,18 @@
     font-size: 1.4rem;
     color: var(--color-foreground);
     letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.exploreText {
+    font-family: var(--font-primary);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-protagonist);
+    opacity: 0.8;
+    margin-top: 4px;
+    transition: opacity 0.3s;
 }
 
 .legend {

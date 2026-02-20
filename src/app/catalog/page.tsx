@@ -17,33 +17,16 @@ export default function CatalogPage() {
     return (
         <main className={styles.catalogWrapper}>
             <section className={styles.heroSection}>
-                {/* Clean dark background */}
-                <div className={styles.heroBackground}></div>
-
-                {/* Widescreen presentation of 5 bottles */}
-                <div className={styles.bottlesShowcase}>
-                    {[
-                        { src: '/assets/original/images/products/legend_upgraded.png', name: 'LEGEND 11.01' },
-                        { src: '/assets/original/images/products/santal_upgraded.png', name: 'SANTAL & LEATHER' },
-                        { src: '/assets/original/images/products/protagonist_upgraded.png', name: 'PROTAGONIST' },
-                        { src: '/assets/original/images/products/voice_upgraded.png', name: 'VOICE OF THE SEA' },
-                        { src: '/assets/original/images/products/musk_upgraded.png', name: 'MUSK MELODY' }
-                    ].map((bottle, idx) => (
-                        <div key={idx} className={styles.bottleWrapper}>
-                            <div className={styles.imageContainer}>
-                                <Image
-                                    src={bottle.src}
-                                    alt={bottle.name}
-                                    fill
-                                    className={styles.realBottleImage}
-                                    sizes="(max-width: 768px) 30vw, 15vw"
-                                />
-                            </div>
-                            <span className={styles.bottleName}>{bottle.name}</span>
-                        </div>
-                    ))}
-                </div>
-
+                <Image
+                    src="/assets/images/banners/catalog_hero_bottles.png"
+                    alt="Vittorio Parfum Collection"
+                    fill
+                    priority
+                    unoptimized={true}
+                    quality={100}
+                    className={styles.heroImage}
+                    style={{ objectPosition: 'center 40%' }} /* Slightly shift to see caps better */
+                />
                 <div className={styles.heroOverlay}></div>
                 <div className={styles.heroContent}>
                     <div className={styles.breadcrumbs}>

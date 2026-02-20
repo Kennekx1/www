@@ -20,13 +20,8 @@
         padding: 0 80px 80px;
     }
 
-    .heroBackground {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-umbra);
+    .heroImage {
+        object-fit: cover;
         z-index: 0;
     }
 
@@ -36,63 +31,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(60, 58, 55, 0.4) 0%, rgba(60, 58, 55, 0.8) 100%);
-        z-index: 2;
-        pointer-events: none;
-    }
-
-    .bottlesShowcase {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 1200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
         z-index: 1;
-
-        @media (min-width: 768px) {
-            gap: 40px;
-        }
-
-        @media (min-width: 1024px) {
-            gap: 60px;
-        }
-    }
-
-    .bottleWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 15%;
-        /* Scale relative to container */
-        max-width: 180px;
-        transform: translateY(20px);
-    }
-
-    .imageContainer {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 1 / 1.5;
-        margin-bottom: 20px;
-    }
-
-    .realBottleImage {
-        object-fit: contain;
-        filter: drop-shadow(0 30px 20px rgba(0, 0, 0, 0.6));
-    }
-
-    .bottleName {
-        font-family: var(--font-primary);
-        font-size: clamp(0.4rem, 1vw, 0.7rem);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: rgba(255, 255, 255, 0.8);
-        text-align: center;
-        white-space: nowrap;
+        pointer-events: none;
     }
 
     .heroContent {

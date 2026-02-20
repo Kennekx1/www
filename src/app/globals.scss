@@ -103,3 +103,39 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+// Minimal Toast Notification
+.cart-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--color-umbra);
+  color: var(--color-smoke);
+  padding: 15px 25px;
+  border-radius: 4px;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 9999;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  pointer-events: none; // Controlled by JS/GSAP usually
+
+  // Checkmark
+  &::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--color-protagonist);
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+  }
+}

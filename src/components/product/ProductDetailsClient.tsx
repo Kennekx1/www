@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/utils/data';
+import { useCart } from '@/context/CartContext';
 import styles from './ProductDetailsClient.module.scss';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -22,6 +23,8 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
     const imageRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
     const pyramidRef = useRef<HTMLDivElement>(null);
+
+    const { addToCart } = useCart();
 
     useGSAP(() => {
         const mm = gsap.matchMedia();
@@ -164,11 +167,22 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     </div>
 
                     <div className={styles.actions}>
-                        <Link href="/contacts" className={styles.btnPrimary}>
+                        <button
+                            className={styles.btnPrimary}
+                            onClick={() => {
+                                addToCart(product, '3ml');
+                                // Trigger Toast Animation
+                                gsap.fromTo('.cart-toast',
+                                    { y: 50, opacity: 0 },
+                                    { y: 0, opacity: 1, duration: 0.5, clearProps: 'all' }
+                                );
+                                gsap.to('.cart-toast', { y: 50, opacity: 0, delay: 3, duration: 0.5 });
+                            }}
+                        >
+                            Добавить в корзину
+                        </button>
+                        <button className={styles.btnSecondary} onClick={() => window.location.href = '/contacts'}>
                             Оформить заказ
-                        </Link>
-                        <button className={styles.btnSecondary}>
-                            Найти в Рив Гош
                         </button>
                     </div>
                 </div>
@@ -187,6 +201,9 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     <div className={styles.signature}>Vittorio</div>
                 </div>
             </section>
+
+            {/* Global toast hidden by default, animated via GSAP */}
+            <div className={`cart-toast`}>Товар добавлен в корзину</div>
         </div>
     );
 }

@@ -18,7 +18,7 @@ export default function CatalogPage() {
         <main className={styles.catalogWrapper}>
             <section className={styles.heroSection}>
                 <Image
-                    src="/assets/images/banners/page-07.jpg"
+                    src="/assets/images/banners/catalog_hero.png"
                     alt="Vittorio Parfum Collection"
                     fill
                     priority

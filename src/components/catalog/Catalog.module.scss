@@ -90,35 +90,99 @@
         padding-left: 40px;
     }
 
-    .sortSelect {
-        appearance: none;
+    .customSelect {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         background: transparent;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 0;
         font-family: var(--font-primary);
         text-transform: uppercase;
         font-size: 0.7rem;
         letter-spacing: 2px;
         cursor: pointer;
         outline: none;
-        padding: 10px 40px 10px 20px;
+        padding: 5px 0;
+        min-width: 180px;
         color: var(--color-foreground);
         transition: all 0.3s ease;
+        position: relative;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        @media (min-width: 1024px) {
+            padding: 5px 10px;
+            border-bottom: none;
+        }
+
+        .arrow {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-right: 1px solid var(--color-foreground);
+            border-bottom: 1px solid var(--color-foreground);
+            transform: translateY(-2px) rotate(45deg);
+            transition: transform 0.3s ease;
+            opacity: 0.6;
+            margin-left: 15px;
+        }
+
+        &.open .arrow {
+            transform: translateY(2px) rotate(-135deg);
+        }
 
         &:hover {
-            border-color: var(--color-foreground);
+            opacity: 0.7;
         }
     }
 
-    &::after {
-        content: "↓";
+    .optionsList {
         position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.8rem;
-        pointer-events: none;
-        opacity: 0.5;
+        top: calc(100% + 15px);
+        right: 0;
+        background: var(--color-white);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        z-index: 50;
+        min-width: 200px;
+        display: flex;
+        flex-direction: column;
+        animation: fadeIn 0.2s ease forwards;
+
+        @media (max-width: 1023px) {
+            left: 0;
+            right: auto;
+        }
+    }
+
+    .optionItem {
+        padding: 12px 20px;
+        font-family: var(--font-primary);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        color: var(--color-foreground);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        text-align: left;
+
+        &:hover,
+        &.selected {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.02);
+            padding-left: 25px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

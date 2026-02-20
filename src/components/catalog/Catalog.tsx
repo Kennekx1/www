@@ -15,7 +15,9 @@ interface CatalogProps {
 export default function Catalog({ products }: CatalogProps) {
     const [activeFilter, setActiveFilter] = useState<string>('all');
     const [sortOrder, setSortOrder] = useState<string>('default');
+    const [isSortOpen, setIsSortOpen] = useState(false);
     const gridRef = useRef<HTMLDivElement>(null);
+    const sortRef = useRef<HTMLDivElement>(null);
 
     // Extract unique collections for filters
     const collections = useMemo(() => {
@@ -60,6 +62,28 @@ export default function Catalog({ products }: CatalogProps) {
         }
     }, { dependencies: [filteredProducts], scope: gridRef });
 
+    // Handle click outside to close custom select
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+                setIsSortOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const sortOptions = [
+        { value: 'default', label: 'По умолчанию' },
+        { value: 'price-asc', label: 'Сначала дешевле' },
+        { value: 'price-desc', label: 'Сначала дороже' }
+    ];
+
+    const currentSortLabel = sortOptions.find(opt => opt.value === sortOrder)?.label || 'Сортировка';
+
     return (
         <div className={styles.catalogLayout}>
             <div className={styles.filterBar}>
@@ -75,16 +99,30 @@ export default function Catalog({ products }: CatalogProps) {
                     ))}
                 </div>
 
-                <div className={styles.sort}>
-                    <select
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                        className={styles.sortSelect}
+                <div className={styles.sort} ref={sortRef}>
+                    <div
+                        className={clsx(styles.customSelect, { [styles.open]: isSortOpen })}
+                        onClick={() => setIsSortOpen(!isSortOpen)}
                     >
-                        <option value="default">Сортировка</option>
-                        <option value="price-asc">Цена: По возрастанию</option>
-                        <option value="price-desc">Цена: По убыванию</option>
-                    </select>
+                        <span>{currentSortLabel}</span>
+                        <span className={styles.arrow}></span>
+                    </div>
+                    {isSortOpen && (
+                        <div className={styles.optionsList}>
+                            {sortOptions.map(option => (
+                                <div
+                                    key={option.value}
+                                    className={clsx(styles.optionItem, { [styles.selected]: sortOrder === option.value })}
+                                    onClick={() => {
+                                        setSortOrder(option.value);
+                                        setIsSortOpen(false);
+                                    }}
+                                >
+                                    {option.label}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
 

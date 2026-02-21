@@ -36,6 +36,7 @@ export default function AromaMap() {
                             fill
                             style={{ objectFit: 'contain' }}
                             className={styles.mapSvg}
+                            sizes="(max-width: 1024px) 100vw, 1200px"
                         />
 
                         {mapPoints.map((point, index) => (
@@ -63,12 +64,15 @@ export default function AromaMap() {
                         <Image
                             src="/assets/original/images/map-legend.svg"
                             alt="Map Legend"
-                            width={200}
-                            height={100}
+                            width={300}
+                            height={150}
                             style={{ objectFit: 'contain' }}
                         />
                     </div>
                 </div>
+            </div>
+            <div className={styles.discoveryText}>
+                The Art of Discovery • 2026
             </div>
         </section>
     );

@@ -66,6 +66,7 @@ export default function HomeIntro() {
                         alt="Vittorio Perfume Texture"
                         fill
                         className={styles.parallaxImage}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                     />
                 </div>
                 {/* The giant VITTORIO text overlays the image slightly */}

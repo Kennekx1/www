@@ -58,6 +58,18 @@
             height: 80px;
         }
     }
+
+    &.darkTheme {
+        color: var(--color-foreground);
+
+        &::before {
+            opacity: 0;
+        }
+
+        .menuBtn {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+    }
 }
 
 .logoContainer {

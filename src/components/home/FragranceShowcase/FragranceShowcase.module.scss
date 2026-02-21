@@ -104,7 +104,7 @@
         font-family: var(--font-heading);
         font-size: 35vw;
         color: #000;
-        opacity: 0.06;
+        opacity: 0.03; // Reduced from 0.06
         line-height: 0.8;
         letter-spacing: -2vw;
         text-transform: uppercase;
@@ -131,8 +131,9 @@
     display: flex;
     flex-direction: column;
     min-height: auto;
-    padding: 60px 20px;
+    padding: 100px 20px 60px; // More top padding for mobile to clear previous content
     position: relative;
+    z-index: 1;
 
     @media (min-width: 1024px) {
         flex-direction: row;
@@ -160,9 +161,11 @@
 .contentSide {
     flex: 1.2;
     padding-right: 0;
+    margin-bottom: 40px; // Add space between text and image on mobile
 
     @media (min-width: 1024px) {
         padding-right: 60px;
+        margin-bottom: 0;
     }
 }
 
@@ -178,13 +181,14 @@
 
 .title {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-size: clamp(2rem, 10vw, 5rem);
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     line-height: 1;
 
     @media (min-width: 768px) {
         margin-bottom: 40px;
+        font-size: clamp(2.5rem, 8vw, 5rem);
     }
 }
 
@@ -250,9 +254,13 @@
             height: 100%;
             fill: rgba(0, 0, 0, 0.6);
             font-family: var(--font-primary);
-            font-size: 14px;
+            font-size: 10px; // Smaller on mobile
             letter-spacing: 2px;
             text-transform: uppercase;
+
+            @media (min-width: 768px) {
+                font-size: 14px;
+            }
         }
     }
 }
@@ -279,7 +287,7 @@
 
 .priceBar {
     position: absolute;
-    bottom: 0;
+    bottom: -40px; // Moved down on mobile
     left: 10%;
     width: 80%;
     display: flex;
@@ -287,15 +295,20 @@
     padding: 20px 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     font-family: var(--font-primary);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
+
+    @media (min-width: 1024px) {
+        bottom: 0;
+        font-size: 0.9rem;
+    }
 }
 
 .cartButton {
     position: absolute;
     top: 50%;
-    left: 0;
-    transform: translate(-50%, -50%);
+    right: -50px; // Moved to the right side instead of left, to avoid overlapping with contentSide
+    transform: translateY(-50%);
     width: 100px;
     height: 100px;
     background: var(--color-umbra);
@@ -313,8 +326,20 @@
     border: none;
 
     &:hover {
-        transform: translate(-50%, -50%) scale(1.1);
+        transform: translateY(-50%) scale(1.1);
         background: var(--color-black);
+    }
+
+    @media (max-width: 1023px) {
+        right: 0;
+        top: 90%; // Moved lower on mobile
+        transform: translateX(20%); // Offset slightly for reachability
+        width: 80px;
+        height: 80px;
+
+        &:hover {
+            transform: scale(1.1) translateX(20%);
+        }
     }
 }
 

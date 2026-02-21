@@ -43,8 +43,8 @@
 
     @media (min-width: 1024px) {
         grid-template-columns: 1fr 1fr;
-        padding: 180px 60px;
-        gap: 120px;
+        padding: 160px 60px 80px; // Optimized padding
+        gap: 80px;
     }
 }
 
@@ -88,7 +88,8 @@
 }
 
 .backLink {
-    font-size: 0.75rem;
+    grid-column: 1 / -1; // Span full width if in grid
+    font-size: 0.7rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--color-santal);
@@ -98,6 +99,12 @@
     gap: 8px;
     opacity: 0.7;
     transition: opacity 0.3s;
+    margin-bottom: -20px; // Tighten space to header on mobile
+
+    @media (min-width: 1024px) {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
 
     &:hover {
         opacity: 1;
@@ -232,10 +239,15 @@
 
 .pyramid {
     position: relative;
-    padding-left: 30px;
+    padding-left: 25px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px; // Slightly tighter on mobile
+
+    @media (min-width: 768px) {
+        padding-left: 30px;
+        gap: 40px;
+    }
 }
 
 .pyramidLine {
@@ -306,26 +318,34 @@
 
 .actions {
     display: flex;
-    gap: 16px;
-    margin-top: 20px;
+    flex-direction: column; // Stacked by default for mobile
+    gap: 12px;
+    margin-top: 10px;
 
-    @media (max-width: 600px) {
-        flex-direction: column;
+    @media (min-width: 768px) {
+        flex-direction: row;
+        gap: 16px;
+        margin-top: 20px;
     }
 }
 
 .btnPrimary {
-    flex: 1;
     background: var(--color-foreground);
     color: #fff;
-    padding: 20px 40px;
+    padding: 18px 30px;
     border-radius: 40px;
     text-decoration: none;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: transform 0.3s, box-shadow 0.3s;
+
+    @media (min-width: 768px) {
+        flex: 1;
+        padding: 20px 40px;
+        font-size: 0.85rem;
+    }
 
     &:hover {
         transform: translateY(-2px);
@@ -334,18 +354,23 @@
 }
 
 .btnSecondary {
-    flex: 1;
     background: transparent;
     border: 1px solid var(--color-foreground);
     color: var(--color-foreground);
-    padding: 20px 40px;
+    padding: 18px 30px;
     border-radius: 40px;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
     transition: background-color 0.3s;
+
+    @media (min-width: 768px) {
+        flex: 1;
+        padding: 20px 40px;
+        font-size: 0.85rem;
+    }
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.05);

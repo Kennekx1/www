@@ -131,11 +131,11 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
 
                 <div className={styles.footer}>
                     <div className={styles.socials}>
-                        <a href="#">Instagram</a>
-                        <a href="#">Telegram</a>
+                        <a href="https://vk.com/vittoriocouture" target="_blank" rel="noopener noreferrer">Vk</a>
+                        <a href="https://t.me/VittorioParfum" target="_blank" rel="noopener noreferrer">Telegram</a>
                     </div>
                     <div className={styles.policy}>
-                        <Link href="/policy">Privacy Policy</Link>
+                        <Link href="/policy" onClick={onClose}>Privacy Policy</Link>
                     </div>
                 </div>
 

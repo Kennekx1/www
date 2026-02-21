@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './Header.module.scss';
 import MenuOverlay from '../MenuOverlay/MenuOverlay';
 import clsx from 'clsx';
@@ -12,9 +13,13 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const pathname = usePathname();
     const headerRef = useRef<HTMLElement>(null);
     const menuBtnRef = useRef<HTMLButtonElement>(null);
     const cartBtnRef = useRef<HTMLAnchorElement>(null);
+
+    // Pages that have a dark hero section and need white header text at the top
+    const isDarkHeroPage = pathname === '/' || pathname === '/about' || pathname === '/catalog';
 
     useGSAP(() => {
         // Entrance animation
@@ -79,9 +84,15 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const headerClasses = clsx(
+        styles.header,
+        isScrolled && styles.scrolled,
+        !isDarkHeroPage && !isScrolled && styles.darkTheme
+    );
+
     return (
         <>
-            <header className={clsx(styles.header, isScrolled && styles.scrolled)} ref={headerRef}>
+            <header className={headerClasses} ref={headerRef}>
                 <div className={clsx(styles.leftSection, 'anim-item')}>
                     <button className={styles.menuBtn} onClick={() => setIsMenuOpen(true)} ref={menuBtnRef}>
                         МЕНЮ

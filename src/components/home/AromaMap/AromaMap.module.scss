@@ -28,9 +28,21 @@
         font-family: var(--font-heading);
         font-size: 25vw;
         color: var(--color-foreground);
-        opacity: 0.02;
+        opacity: 0.03; // Increased slightly
         line-height: 1;
         pointer-events: none;
+    }
+
+    .discoveryText {
+        position: absolute;
+        right: 5%;
+        bottom: 15%;
+        font-family: var(--font-primary);
+        font-size: 0.7rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        opacity: 0.3;
     }
 }
 
@@ -108,15 +120,15 @@
 }
 
 .dot {
-    width: 14px;
-    height: 14px;
+    width: 18px; // Increased from 14
+    height: 18px; // Increased from 14
     background-color: var(--color-protagonist);
     border-radius: 50%;
     position: relative;
     z-index: 2;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 15px rgba(135, 117, 83, 0.6); // Based on protagonist color rgb(135, 117, 83)
-    border: 2px solid #fff;
+    box-shadow: 0 0 20px rgba(135, 117, 83, 0.8); // More glow
+    border: 3px solid #fff;
 }
 
 .pulse {
@@ -124,12 +136,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
     background-color: var(--color-protagonist);
     border-radius: 50%;
-    opacity: 0.6;
-    animation: pulse 2.5s infinite;
+    opacity: 0.8;
+    animation: pulse 3s infinite;
 }
 
 @keyframes pulse {

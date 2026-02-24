@@ -51,17 +51,42 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
         });
 
         // Common animations
-        const noteItems = pyramidRef.current?.querySelectorAll(`.${styles.noteGroup}`);
-        if (noteItems) {
-            gsap.from(noteItems, {
-                x: -20,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
+        const pyramidLineFill = pyramidRef.current?.querySelector(`.${styles.pyramidLineFill}`);
+        const noteItems = pyramidRef.current?.querySelectorAll('.note-group');
+
+        if (pyramidLineFill && noteItems) {
+            // Set initial state
+            gsap.set(noteItems, { opacity: 0.3, x: -10 });
+            gsap.set(pyramidLineFill, { scaleY: 0, transformOrigin: "top center" });
+
+            // Animate line filling up
+            gsap.to(pyramidLineFill, {
+                scaleY: 1,
+                ease: "none",
                 scrollTrigger: {
                     trigger: pyramidRef.current,
-                    start: 'top 85%',
+                    start: 'top 60%',
+                    end: 'bottom 60%',
+                    scrub: true,
                 }
+            });
+
+            // Animate each note group as the line passes it
+            noteItems.forEach((item, i) => {
+                const innerPoint = item.querySelector(`.${styles.notePointInner}`);
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 60%', // Trigger when the item reaches 60% of viewport
+                        end: 'bottom 40%',
+                        toggleActions: 'play reverse play reverse',
+                        // scrub is not used here so it snaps/animates nicely when reaching the point
+                    }
+                });
+
+                tl.to(item, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" })
+                    .to(innerPoint, { scale: 1, backgroundColor: 'var(--color-santal)', duration: 0.4, ease: "back.out(2)" }, "<");
             });
         }
 
@@ -117,14 +142,18 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
 
                     {/* Pyramid Section */}
                     <div className={styles.pyramidSection}>
-                        <h3 className={styles.sectionTitle}>Пирамида аромата</h3>
+                        <h3 className={styles.sectionTitle}>Слои аромата</h3>
                         <div className={styles.pyramid} ref={pyramidRef}>
-                            <div className={styles.pyramidLine}></div>
+                            <div className={styles.pyramidLine}>
+                                <div className={styles.pyramidLineFill} />
+                            </div>
 
                             {typeof notes === 'object' && !Array.isArray(notes) && (
                                 <>
-                                    <div className={styles.noteGroup}>
-                                        <div className={styles.notePoint}></div>
+                                    <div className={`${styles.noteGroup} note-group`}>
+                                        <div className={styles.notePoint}>
+                                            <div className={styles.notePointInner} />
+                                        </div>
                                         <div className={styles.noteLabel}>Верхние ноты</div>
                                         <div className={styles.noteValues}>
                                             {notes.upper.map((n, i) => (
@@ -133,8 +162,10 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                                         </div>
                                     </div>
 
-                                    <div className={styles.noteGroup}>
-                                        <div className={styles.notePoint}></div>
+                                    <div className={`${styles.noteGroup} note-group`}>
+                                        <div className={styles.notePoint}>
+                                            <div className={styles.notePointInner} />
+                                        </div>
                                         <div className={styles.noteLabel}>Ноты сердца</div>
                                         <div className={styles.noteValues}>
                                             {notes.heart.map((n, i) => (
@@ -143,8 +174,10 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                                         </div>
                                     </div>
 
-                                    <div className={styles.noteGroup}>
-                                        <div className={styles.notePoint}></div>
+                                    <div className={`${styles.noteGroup} note-group`}>
+                                        <div className={styles.notePoint}>
+                                            <div className={styles.notePointInner} />
+                                        </div>
                                         <div className={styles.noteLabel}>Базовые ноты</div>
                                         <div className={styles.noteValues}>
                                             {notes.base.map((n, i) => (

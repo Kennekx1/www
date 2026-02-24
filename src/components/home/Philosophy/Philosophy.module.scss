@@ -1,4 +1,4 @@
-@import '@/styles/variables.scss';
+@use '../../../styles/variables' as *;
 
 .philosophy {
     background-color: #3C3A37; // СЕРАЯ УМБРА
@@ -75,6 +75,7 @@
         align-items: flex-start;
         border-top: 1px solid rgba(214, 209, 202, 0.2); // СЕРЫЙ ШЁЛК 20%
         padding-top: 2.5rem;
+        transform-style: preserve-3d;
 
         .number {
             font-family: var(--font-heading);
@@ -83,6 +84,7 @@
             margin-bottom: 1.5rem;
             opacity: 0.5;
             line-height: 1;
+            transform: translateZ(20px);
         }
 
         .cardTitle {
@@ -93,6 +95,7 @@
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             color: #F8F5F1;
+            transform: translateZ(30px);
         }
 
         .description {

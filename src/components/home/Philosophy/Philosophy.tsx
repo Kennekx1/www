@@ -40,6 +40,44 @@ const Philosophy: React.FC = () => {
                 start: 'top 75%',
             }
         });
+
+        // Philosophy Cards 3D Tilt
+        const philosophyCards = document.querySelectorAll(`.${styles.card}`);
+        philosophyCards.forEach((card) => {
+            const el = card as HTMLElement;
+
+            const onMouseMove = (e: MouseEvent) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                gsap.to(el, {
+                    rotateX,
+                    rotateY,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    transformPerspective: 1000,
+                });
+            };
+
+            const onMouseLeave = () => {
+                gsap.to(el, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                });
+            };
+
+            el.addEventListener('mousemove', onMouseMove);
+            el.addEventListener('mouseleave', onMouseLeave);
+        });
     }, { scope: sectionRef });
 
     return (
@@ -51,13 +89,13 @@ const Philosophy: React.FC = () => {
                         <span className={styles.subtitle}>Эстетика Совершенства</span>
                     </Reveal>
                     <Reveal>
-                        <h2 className={styles.title}>МАСТЕРСТВО<br/>И ФИЛОСОФИЯ</h2>
+                        <h2 className={styles.title}>МАСТЕРСТВО<br />И ФИЛОСОФИЯ</h2>
                     </Reveal>
                 </div>
 
                 <div className={styles.grid}>
                     {pillars.map((pillar) => (
-                        <div key={pillar.id} className={styles.card}>
+                        <div key={pillar.id} className={styles.card} data-cursor-text="ИЗУЧИТЬ">
                             <div className={styles.number}>{pillar.id}</div>
                             <h3 className={styles.cardTitle}>{pillar.title}</h3>
                             <p className={styles.description}>{pillar.description}</p>

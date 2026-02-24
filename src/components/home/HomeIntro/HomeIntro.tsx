@@ -46,7 +46,7 @@ export default function HomeIntro() {
             </div>
 
             {/* Image panel instead of just empty space */}
-            <div className={styles.imagePanel}>
+            <div className={styles.imagePanel} data-cursor-text="ИСТИНА">
                 <div className={styles.imageWrapper}>
                     <Image
                         ref={imageRef}

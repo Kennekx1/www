@@ -99,7 +99,7 @@ export default function Home() {
       <HomeIntro />
 
       {/* Atmospheric Transition Banner */}
-      <section className={styles.transitionBanner}>
+      <section className={styles.transitionBanner} data-cursor-text="РАСКРЫТЬ">
         <div className={styles.bannerContent}>
           <span className={styles.label}>Эстетика Совершенства</span>
           <h2 className={styles.bannerTitle}>

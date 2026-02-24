@@ -17,6 +17,8 @@ export default function AboutClient() {
     const heroRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (!heroRef.current || !bgRef.current) return;
@@ -49,10 +51,103 @@ export default function AboutClient() {
                 }
             );
         }
-    }, { scope: heroRef });
+
+        // Timeline Animation
+        const timelineLineFill = timelineRef.current?.querySelector(`.${styles.timelineLineFill}`);
+        const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
+
+        if (timelineLineFill && timelineItems) {
+            // Set initial state
+            gsap.set(timelineItems, { opacity: 0.2, x: -20 });
+            gsap.set(timelineLineFill, { scaleY: 0, transformOrigin: "top center" });
+
+            // Animate line filling up
+            gsap.to(timelineLineFill, {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: timelineRef.current,
+                    start: 'top 50%',
+                    end: 'bottom 50%',
+                    scrub: true,
+                }
+            });
+
+            // Animate each timeline group as the line passes it
+            timelineItems.forEach((item) => {
+                const innerPoint = item.querySelector(`.${styles.pinInner}`);
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 50%', // Trigger when the item reaches 50% of viewport
+                        end: 'bottom 20%',
+                        toggleActions: 'play reverse play reverse',
+                    }
+                });
+
+                tl.to(item, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" })
+                    .to(innerPoint, { scale: 1, backgroundColor: 'var(--color-santal)', duration: 0.4, ease: "back.out(2)" }, "<");
+            });
+        }
+
+        // Image Parallax (Alchemy of Memory / Craftsmanship)
+        const visualImages = document.querySelectorAll(`.${styles.visualImage}`);
+        visualImages.forEach((img) => {
+            gsap.to(img, {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // Philosophy Cards 3D Tilt
+        const philosophyCards = document.querySelectorAll(`.${styles.valueCard}`);
+        philosophyCards.forEach((card) => {
+            const el = card as HTMLElement;
+
+            const onMouseMove = (e: MouseEvent) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                gsap.to(el, {
+                    rotateX,
+                    rotateY,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    transformPerspective: 1000,
+                });
+            };
+
+            const onMouseLeave = () => {
+                gsap.to(el, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                });
+            };
+
+            el.addEventListener('mousemove', onMouseMove);
+            el.addEventListener('mouseleave', onMouseLeave);
+        });
+
+    }, { scope: containerRef });
 
     return (
-        <main className={styles.aboutContainer}>
+        <main className={styles.aboutContainer} ref={containerRef}>
             <div className={styles.orb}></div>
             <div className={styles.orb}></div>
 
@@ -86,7 +181,7 @@ export default function AboutClient() {
                 <section className={styles.splitSection}>
                     <div className={styles.visualWrapper}>
                         <Reveal direction="right" duration={1.2}>
-                            <div className={styles.premiumPlaceholder}>
+                            <div className={styles.premiumPlaceholder} data-cursor-text="ИЗУЧИТЬ">
                                 <Image
                                     src="/assets/original/images/about/perfumer_new.png"
                                     alt="Парфюмер Витторио"
@@ -120,7 +215,7 @@ export default function AboutClient() {
                 <section className={`${styles.splitSection} ${styles.reversed}`}>
                     <div className={styles.visualWrapper}>
                         <Reveal direction="left" duration={1.2}>
-                            <div className={styles.premiumPlaceholder}>
+                            <div className={styles.premiumPlaceholder} data-cursor-text="ИЗУЧИТЬ">
                                 <Image
                                     src="/assets/original/images/about/craftmanship_detail.png"
                                     alt="Детали мастерства"
@@ -156,38 +251,50 @@ export default function AboutClient() {
                         <h2 className={styles.philosophyTitle}>Хронология Путешествий</h2>
                     </Reveal>
 
-                    <div className={styles.timeline}>
-                        <div className={styles.timelineItem}>
+                    <div className={styles.timeline} ref={timelineRef}>
+                        <div className={styles.timelineLine}>
+                            <div className={styles.timelineLineFill} />
+                        </div>
+
+                        <div className={`${styles.timelineItem} timeline-item`}>
                             <div className={styles.year}>2011</div>
                             <div className={styles.log}>
-                                <div className={styles.pin}></div>
+                                <div className={styles.pin}>
+                                    <div className={styles.pinInner} />
+                                </div>
                                 <h3>Северная Италия</h3>
                                 <p>Первые записи в дневнике. Обучение в Грасе и возвращение к истокам — в аптеку деда. Поиск того самого «запаха дождя над виноградниками».</p>
                             </div>
                         </div>
 
-                        <div className={styles.timelineItem}>
+                        <div className={`${styles.timelineItem} timeline-item`}>
                             <div className={styles.year}>2014</div>
                             <div className={styles.log}>
-                                <div className={styles.pin}></div>
+                                <div className={styles.pin}>
+                                    <div className={styles.pinInner} />
+                                </div>
                                 <h3>Марокко, Фес</h3>
                                 <p>Запах кожи, обожженной солнцем, и прохладного атласского кедра. Здесь родился прототип «Santal & Leather».</p>
                             </div>
                         </div>
 
-                        <div className={styles.timelineItem}>
+                        <div className={`${styles.timelineItem} timeline-item`}>
                             <div className={styles.year}>2018</div>
                             <div className={styles.log}>
-                                <div className={styles.pin}></div>
+                                <div className={styles.pin}>
+                                    <div className={styles.pinInner} />
+                                </div>
                                 <h3>Основание Vittorio</h3>
                                 <p>Открытие первой мастерской. Релиз легендарной коллекции ароматов, которые навсегда изменили представление о нишевой парфюмерии.</p>
                             </div>
                         </div>
 
-                        <div className={styles.timelineItem}>
+                        <div className={`${styles.timelineItem} timeline-item`}>
                             <div className={styles.year}>2021</div>
                             <div className={styles.log}>
-                                <div className={styles.pin}></div>
+                                <div className={styles.pin}>
+                                    <div className={styles.pinInner} />
+                                </div>
                                 <h3>Япония, Киото</h3>
                                 <p>Медитация под цветущей сакурой. Тонкие грани мускуса и пудровых нот — рождение нежной мелодии «Musk Melody».</p>
                             </div>

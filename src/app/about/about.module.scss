@@ -220,9 +220,12 @@
 
     .visualImage {
         width: 100%;
-        height: 100%;
+        height: 140%;
+        top: -20%;
+        /* object-fit cover handles ratio */
         object-fit: cover;
         transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: transform;
     }
 
     .vLabel {
@@ -353,10 +356,36 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 80px;
+    position: relative; // important for the line
 
     @media (max-width: 1024px) {
         grid-template-columns: 1fr;
     }
+}
+
+.timelineLine {
+    position: absolute;
+    left: 20px; // align with pins more or less on mobile
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: rgba(0, 0, 0, 0.05);
+
+    @media (min-width: 768px) {
+        left: 20px; // tune based on layout
+        display: none; // It gets tricky with 2 columns, but we will style it for mobile mostly or adjust for 2 columns.
+    }
+}
+
+.timelineLineFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-santal);
+    transform: scaleY(0);
+    transform-origin: top center;
 }
 
 .timelineItem {
@@ -393,12 +422,19 @@
         position: relative;
 
         .pin {
-            width: 8px;
-            height: 8px;
-            background: var(--color-foreground);
+            width: 10px;
+            height: 10px;
+            background: var(--color-background);
+            border: 2px solid var(--color-foreground);
             border-radius: 50%;
             margin-bottom: 25px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            // Re-align line slightly
+            z-index: 2;
 
             &::after {
                 content: "";
@@ -409,6 +445,15 @@
                 height: 1px;
                 background: rgba(0, 0, 0, 0.1);
             }
+        }
+
+        .pinInner {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: transparent; // Fills up on scroll
+            transform: scale(0);
+            transition: transform 0.4s ease, background-color 0.4s ease;
         }
 
         h3 {
@@ -502,13 +547,15 @@
         padding: 60px 40px;
         background: var(--color-white);
         border: 1px solid rgba(0, 0, 0, 0.03);
-        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        /* Remove long transition for hover to not conflict with GSAP */
+        transition: box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         display: flex;
         flex-direction: column;
         align-items: center;
+        transform-style: preserve-3d;
+        cursor: pointer;
 
         &:hover {
-            transform: translateY(-15px);
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
             border-color: rgba(0, 0, 0, 0.08);
         }
@@ -519,6 +566,8 @@
             text-transform: uppercase;
             margin-bottom: 30px;
             letter-spacing: 1px;
+            /* Inner parallax effect: pop out slightly */
+            transform: translateZ(30px);
         }
 
         p {
@@ -526,6 +575,7 @@
             font-size: 1rem;
             line-height: 1.8;
             opacity: 0.6;
+            transform: translateZ(20px);
         }
     }
 }

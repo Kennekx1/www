@@ -12,10 +12,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const AromaMap = dynamic(() => import('@/components/home/AromaMap/AromaMap'), {
-    ssr: false,
-    loading: () => <div style={{ height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-smoke)' }}>Загрузка карты...</div>
-});
 
 export default function AboutClient() {
     const heroRef = useRef<HTMLElement>(null);
@@ -199,16 +195,6 @@ export default function AboutClient() {
                     </div>
                 </section>
 
-                {/* Integration of Aroma Map into History */}
-                <section className={styles.mapSection}>
-                    <Reveal>
-                        <h2 className={styles.sectionTitle}>География Ароматов</h2>
-                        <p className={styles.mapSub}>Каждая точка на этой карте — это не просто город, это вдохновение, ставшее флаконом.</p>
-                    </Reveal>
-                    <div className={styles.mapContainer}>
-                        <AromaMap />
-                    </div>
-                </section>
 
                 {/* Philosophy & Values */}
                 <section className={styles.philosophySection}>

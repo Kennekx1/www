@@ -68,34 +68,6 @@
     }
 }
 
-.bigTextContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    user-select: none;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.verticalText {
-    font-family: var(--font-heading);
-    font-size: 15vw;
-    line-height: 1;
-    text-transform: uppercase;
-    color: var(--color-white);
-    opacity: 0.8;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    mix-blend-mode: overlay;
-
-    @media (min-width: 1024px) {
-        font-size: 12vw;
-    }
-}
 
 .divider {
     width: 100px;

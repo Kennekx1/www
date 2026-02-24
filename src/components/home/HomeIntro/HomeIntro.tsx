@@ -8,21 +8,9 @@ import gsap from 'gsap';
 
 export default function HomeIntro() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const bigTextRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
-        gsap.to(bigTextRef.current, {
-            y: -150,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-            },
-        });
-
         // Parallax for the new image wrapper
         gsap.to(imageRef.current, {
             y: 100, // moves down while scrolling down
@@ -68,10 +56,6 @@ export default function HomeIntro() {
                         className={styles.parallaxImage}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                     />
-                </div>
-                {/* The giant VITTORIO text overlays the image slightly */}
-                <div className={styles.bigTextContainer} aria-hidden="true" ref={bigTextRef}>
-                    <span className={styles.verticalText}>VITTORIO</span>
                 </div>
             </div>
         </section>

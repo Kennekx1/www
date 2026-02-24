@@ -62,7 +62,7 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
             const amountToScroll = 100 * (featured.length - 1);
 
             const tween = gsap.to(scrollTracksRef.current, {
-                xPercent: -amountToScroll,
+                x: `-${amountToScroll}vw`,
                 ease: "none",
                 scrollTrigger: {
                     trigger: containerRef.current,

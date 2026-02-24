@@ -8,9 +8,9 @@ import HomeIntro from '@/components/home/HomeIntro/HomeIntro';
 import FragranceShowcase from '@/components/home/FragranceShowcase/FragranceShowcase';
 import dynamic from 'next/dynamic';
 
-const AromaJournal = dynamic(() => import('@/components/home/AromaJournal/AromaJournal'), {
+const Philosophy = dynamic(() => import('@/components/home/Philosophy/Philosophy'), {
   ssr: false,
-  loading: () => <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Загрузка дневника...</div>
+  loading: () => <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Загрузка...</div>
 });
 
 import { useGSAP } from '@gsap/react';
@@ -114,8 +114,8 @@ export default function Home() {
       {/* Fragrance Showcase - Stories Layout */}
       <FragranceShowcase products={products} />
 
-      {/* Aroma Journal Section */}
-      <AromaJournal />
+      {/* Philosophy Section */}
+      <Philosophy />
 
     </main>
   );

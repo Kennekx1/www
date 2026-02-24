@@ -30,8 +30,18 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 
     @media (min-width: 1024px) {
+        border-bottom: none;
+        padding-bottom: 0;
+
         &:first-child {
             align-items: flex-start;
             text-align: left;

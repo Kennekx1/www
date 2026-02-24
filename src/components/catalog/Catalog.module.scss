@@ -27,12 +27,26 @@
 
 .filters {
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Firefox
+
+    &::-webkit-scrollbar {
+        display: none; // Chrome/Safari
+    }
 
     @media (min-width: 768px) {
         gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: auto;
+        overflow-x: visible;
+        padding: 0;
     }
 
     @media (min-width: 1024px) {

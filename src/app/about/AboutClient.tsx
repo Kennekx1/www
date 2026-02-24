@@ -20,12 +20,14 @@ const AromaMap = dynamic(() => import('@/components/home/AromaMap/AromaMap'), {
 export default function AboutClient() {
     const heroRef = useRef<HTMLElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
 
     useGSAP(() => {
         if (!heroRef.current || !bgRef.current) return;
 
+        // Parallax background
         gsap.to(bgRef.current, {
-            yPercent: 20, // Move the background image slightly down as we scroll
+            yPercent: 20,
             ease: 'none',
             scrollTrigger: {
                 trigger: heroRef.current,
@@ -34,6 +36,23 @@ export default function AboutClient() {
                 scrub: true,
             },
         });
+
+        // Title Reveal Animation
+        const titleRows = titleRef.current?.querySelectorAll(`.${styles.titleText}`);
+        if (titleRows) {
+            gsap.fromTo(titleRows,
+                { y: '120%', rotateX: -30, opacity: 0 },
+                {
+                    y: '0%',
+                    rotateX: 0,
+                    opacity: 1,
+                    duration: 1.8,
+                    stagger: 0.2,
+                    ease: 'power4.out',
+                    delay: 0.8
+                }
+            );
+        }
     }, { scope: heroRef });
 
     return (
@@ -45,13 +64,24 @@ export default function AboutClient() {
             <header ref={heroRef} className={styles.hero}>
                 <div ref={bgRef} className={styles.heroBackground}></div>
                 <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
-                    <Reveal direction="down">
-                        <div className={styles.heroOverlay}>
+                    <div className={styles.heroOverlay}>
+                        <Reveal direction="down" delay={0.2}>
                             <span className={styles.since}>PHILOSOPHY & HERITAGE</span>
-                            <h1>Искусство Путешествий</h1>
+                        </Reveal>
+
+                        <h1 ref={titleRef}>
+                            <span className={styles.titleRow}>
+                                <span className={styles.titleText}>Искусство</span>
+                            </span>
+                            <span className={styles.titleRow}>
+                                <span className={styles.titleText}>Путешествий</span>
+                            </span>
+                        </h1>
+
+                        <Reveal delay={1.2}>
                             <div className={styles.heroDivider}></div>
-                        </div>
-                    </Reveal>
+                        </Reveal>
+                    </div>
                 </div>
             </header>
 
@@ -62,7 +92,7 @@ export default function AboutClient() {
                         <Reveal direction="right" duration={1.2}>
                             <div className={styles.premiumPlaceholder}>
                                 <Image
-                                    src="/assets/original/images/welcome/perfumer_premium.png"
+                                    src="/assets/original/images/about/perfumer_new.png"
                                     alt="Парфюмер Витторио"
                                     fill
                                     style={{ objectFit: 'cover' }}
@@ -96,7 +126,7 @@ export default function AboutClient() {
                         <Reveal direction="left" duration={1.2}>
                             <div className={styles.premiumPlaceholder}>
                                 <Image
-                                    src="/assets/original/images/welcome/detail_premium.png"
+                                    src="/assets/original/images/about/craftmanship_detail.png"
                                     alt="Детали мастерства"
                                     fill
                                     style={{ objectFit: 'cover' }}

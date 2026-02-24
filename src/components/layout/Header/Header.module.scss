@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 30px; // Slightly more padding on mobile
     z-index: 100;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     color: white;
@@ -68,6 +68,19 @@
 
         .menuBtn {
             border-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &.contactsHeader:not(.scrolled) {
+        mix-blend-mode: difference;
+        color: #ffffff; // Difference from white is black, difference from black is white
+
+        &::before {
+            opacity: 0;
+        }
+
+        .menuBtn {
+            border-color: rgba(255, 255, 255, 0.5);
         }
     }
 }

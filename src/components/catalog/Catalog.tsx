@@ -129,8 +129,12 @@ export default function Catalog({ products }: CatalogProps) {
             <div className={styles.gridContainer}>
                 {filteredProducts.length > 0 ? (
                     <div className={styles.grid} ref={gridRef}>
-                        {filteredProducts.map(product => (
-                            <ProductCard key={product.id} product={product} />
+                        {filteredProducts.map((product, index) => (
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                                priority={index < 3}
+                            />
                         ))}
                     </div>
                 ) : (

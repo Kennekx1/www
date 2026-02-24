@@ -107,17 +107,11 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     </p>
 
                     <div className={styles.configurator}>
-                        <div className={styles.configLabel}>Выберите объем:</div>
-                        <div className={styles.volumeSelector}>
-                            <button className={`${styles.volumeOption} ${styles.active}`}>
-                                <span className={styles.vol}>3 мл</span>
-                                <span className={styles.price}>{product.price_3ml}</span>
-                            </button>
-                            <button className={`${styles.volumeOption} ${styles.disabled}`}>
-                                <span className={styles.vol}>100 мл</span>
-                                <span className={styles.price}>{product.price_100ml}</span>
-                                <span className={styles.status}>Скоро в продаже</span>
-                            </button>
+                        <div className={styles.configLabel}>Объем:</div>
+                        <div className={styles.volumeValue}>
+                            <span className={styles.vol}>100 мл</span>
+                            <span className={styles.priceDivider}>—</span>
+                            <span className={styles.finalPrice}>{product.price_100ml}</span>
                         </div>
                     </div>
 
@@ -164,11 +158,11 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     </div>
 
                     <div className={styles.actions}>
-                        <Link href="/contacts" className={styles.btnPrimary}>
+                        <Link href={`/contacts?product=${product.slug}`} className={styles.btnPrimary}>
                             Оформить заказ
                         </Link>
                         <button className={styles.btnSecondary}>
-                            Найти в Рив Гош
+                            Найти в Beautymania
                         </button>
                     </div>
                 </div>

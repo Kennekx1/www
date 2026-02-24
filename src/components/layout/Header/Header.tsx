@@ -18,8 +18,9 @@ export default function Header() {
     const menuBtnRef = useRef<HTMLButtonElement>(null);
     const cartBtnRef = useRef<HTMLAnchorElement>(null);
 
-    // Pages that have a dark hero section and need white header text at the top
-    const isDarkHeroPage = pathname === '/' || pathname === '/about' || pathname === '/catalog';
+    // Pages that have a dark hero section or split layout and need transparent header at the top
+    const isDarkHeroPage = pathname === '/' || pathname === '/about' || pathname === '/catalog' || pathname === '/contacts';
+    const isContacts = pathname === '/contacts';
 
     useGSAP(() => {
         // Entrance animation
@@ -87,7 +88,8 @@ export default function Header() {
     const headerClasses = clsx(
         styles.header,
         isScrolled && styles.scrolled,
-        !isDarkHeroPage && !isScrolled && styles.darkTheme
+        !isDarkHeroPage && !isScrolled && styles.darkTheme,
+        isContacts && styles.contactsHeader
     );
 
     return (

@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Product } from '@/utils/data';
 import styles from './FragranceShowcase.module.scss';
+import Link from 'next/link';
 import Reveal from '@/components/common/Reveal';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -138,7 +139,9 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                                 </div>
                             </Reveal>
 
-                            <button className={styles.cartButton}>В КОРЗИНУ</button>
+                            <Link href={`/product/${product.slug}`} className={styles.cartButton}>
+                                ПОДРОБНЕЕ
+                            </Link>
 
                             <div className={styles.priceBar}>
                                 <span>100 мл</span>

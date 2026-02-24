@@ -36,11 +36,10 @@ export interface NavItem {
 // --- Utilities ---
 
 export function getAllProducts(): Product[] {
-    return productsData.map(product => {
-        // Parse price string "290 ₽" to number 290 for sorting
-        const priceNum = product.price_3ml
-            ? parseInt(product.price_3ml.replace(/\D/g, ''))
-            : 0;
+    return (productsData as any[]).map(product => {
+        // Parse price string "80 000 ₸" to number 80000 for sorting
+        const priceStr = product.price_100ml || product.price_3ml || "0";
+        const priceNum = parseInt(priceStr.replace(/\s/g, '').replace(/\D/g, '')) || 0;
 
         return {
             ...product, // Spread original properties

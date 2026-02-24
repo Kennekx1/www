@@ -321,6 +321,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
+    text-decoration: none; // Reset Link styling
     z-index: 10;
     transition: all 0.4s ease;
     border: none;
@@ -331,14 +332,15 @@
     }
 
     @media (max-width: 1023px) {
-        right: 0;
-        top: 90%; // Moved lower on mobile
-        transform: translateX(20%); // Offset slightly for reachability
-        width: 80px;
-        height: 80px;
+        right: 50%;
+        top: auto;
+        bottom: -40px;
+        transform: translateX(50%);
+        width: 90px;
+        height: 90px;
 
         &:hover {
-            transform: scale(1.1) translateX(20%);
+            transform: translateX(50%) scale(1.1);
         }
     }
 }

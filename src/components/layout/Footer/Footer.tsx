@@ -40,10 +40,18 @@ export default function Footer() {
                     <a href="mailto:info@vittorio-parfum.ru" className={styles.contactLink}>info@vittorio-parfum.ru</a>
 
                     <div style={{ marginTop: '20px', fontSize: '0.8rem', fontStyle: 'italic', opacity: 0.7 }}>
-                        Ароматы Vittorio можно приобрести в магазинах
+                        Ароматы Vittorio представлены в магазинах
                     </div>
                     <div className={styles.partnerLogo}>
-                        РИВ ГОШ
+                        BEAUTYMANIA
+                    </div>
+                    <div className={styles.locations}>
+                        <div className={styles.locItem}>
+                            <strong>АЛМАТЫ:</strong> ТРЦ MEGA Center Alma-Ata
+                        </div>
+                        <div className={styles.locItem}>
+                            <strong>АСТАНА:</strong> ТЦ Ханшатыр
+                        </div>
                     </div>
                 </div>
             </div>

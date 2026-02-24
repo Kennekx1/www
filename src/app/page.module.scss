@@ -154,11 +154,16 @@
 
     .label {
         font-family: var(--font-primary);
-        font-size: 0.9rem;
-        letter-spacing: 8px;
+        font-size: 0.75rem;
+        letter-spacing: 4px; // Reduced for mobile
         text-transform: uppercase;
         color: var(--color-silk);
         font-weight: 500;
+
+        @media (min-width: 1024px) {
+            font-size: 0.9rem;
+            letter-spacing: 8px;
+        }
     }
 
     .bannerTitle {

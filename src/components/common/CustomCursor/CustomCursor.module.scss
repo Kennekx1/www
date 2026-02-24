@@ -26,20 +26,3 @@
     background-color: #D6D1CA; // СЕРЫЙ ШЁЛК
     border-radius: 50%;
 }
-
-// Global rule to hide standard cursor ONLY when the custom one is active
-:global {
-    @media (pointer: fine) {
-        body {
-            cursor: none;
-
-            a,
-            button,
-            input,
-            textarea,
-            [role="button"] {
-                cursor: none;
-            }
-        }
-    }
-}

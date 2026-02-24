@@ -1,0 +1,222 @@
+@use '../../../styles/variables' as *;
+
+.aromaJournal {
+    padding: 160px 0;
+    background-color: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+    color: var(--color-smoke);
+}
+
+.leatherBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/leather_texture.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 120px;
+
+    .subtitle {
+        font-family: var(--font-primary);
+        font-size: 0.8rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--color-protagonist);
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .title {
+        font-family: var(--font-heading);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+}
+
+.journalEntries {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
+
+.entry {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    width: 100%;
+
+    &.even {
+        flex-direction: row;
+    }
+
+    &.odd {
+        flex-direction: row-reverse;
+    }
+}
+
+.imageWrapper {
+    flex: 1.2;
+    position: relative;
+
+    .photoFrame {
+        background: #151515;
+        padding: 15px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        position: relative;
+        transform: rotate(-1deg);
+        transition: transform 0.6s ease;
+
+        &:hover {
+            transform: rotate(0) scale(1.02);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+    }
+
+    .image {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: contrast(1.1) grayscale(0.2);
+    }
+}
+
+.handwrittenCoords {
+    position: absolute;
+    bottom: -30px;
+    right: 20px;
+    font-family: 'Inter', sans-serif; // Or a handwritten font if we had one
+    font-style: italic;
+    font-size: 0.75rem;
+    opacity: 0.4;
+    letter-spacing: 2px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .location {
+        font-family: var(--font-primary);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--color-protagonist);
+        margin-bottom: 20px;
+    }
+
+    .fragranceName {
+        font-family: var(--font-heading);
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 30px;
+        color: #fff;
+    }
+
+    .description {
+        font-family: var(--font-primary);
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 450px;
+        margin-bottom: 40px;
+    }
+}
+
+.exploreLink {
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+
+    svg {
+        width: 20px;
+        transition: transform 0.4s ease;
+    }
+
+    &:hover {
+        color: var(--color-protagonist);
+
+        svg {
+            transform: translateX(10px);
+        }
+    }
+}
+
+.footerText {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    font-family: var(--font-primary);
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    opacity: 0.3;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+}
+
+@media (max-width: 1024px) {
+    .aromaJournal {
+        padding: 100px 0;
+    }
+
+    .entry {
+        flex-direction: column !important;
+        gap: 60px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .content {
+        align-items: center;
+    }
+
+    .description {
+        max-width: 100%;
+    }
+}

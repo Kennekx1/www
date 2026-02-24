@@ -1,0 +1,45 @@
+@use '../../../styles/variables' as *;
+
+.cursorRing,
+.cursorDot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%); // Center it exactly on cursor
+    will-change: transform;
+    mix-blend-mode: difference;
+}
+
+.cursorRing {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(214, 209, 202, 0.5); // СЕРЫЙ ШЁЛК
+    border-radius: 50%;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.cursorDot {
+    width: 6px;
+    height: 6px;
+    background-color: #D6D1CA; // СЕРЫЙ ШЁЛК
+    border-radius: 50%;
+}
+
+// Global rule to hide standard cursor ONLY when the custom one is active
+:global {
+    @media (pointer: fine) {
+        body {
+            cursor: none;
+
+            a,
+            button,
+            input,
+            textarea,
+            [role="button"] {
+                cursor: none;
+            }
+        }
+    }
+}

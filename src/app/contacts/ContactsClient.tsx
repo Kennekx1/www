@@ -103,7 +103,7 @@ function ContactsContent() {
                                             defaultValue={product ? `Заказ: ${product.name}` : ''}
                                         ></textarea>
                                     </div>
-                                    <button type="submit" className={styles.submitBtn}>
+                                    <button type="submit" className={styles.submitBtn} data-cursor-text="ОТПРАВИТЬ">
                                         {product ? 'ПОДТВЕРДИТЬ ЗАКАЗ' : 'ОТПРАВИТЬ ЗАЯВКУ'} <span>→</span>
                                     </button>
                                 </form>
@@ -114,7 +114,7 @@ function ContactsContent() {
                     <Reveal direction="up" delay={0.8}>
                         <div className={styles.concierge}>
                             <p className={styles.conciergeText}>Или свяжитесь с нами напрямую:</p>
-                            <a href="https://wa.me/77051234567" target="_blank" rel="noopener noreferrer" className={styles.whatsappBtn}>
+                            <a href="https://wa.me/77051234567" target="_blank" rel="noopener noreferrer" className={styles.whatsappBtn} data-cursor-text="WHATSAPP">
                                 WHATSAPP КОНСЬЕРЖ
                             </a>
                         </div>

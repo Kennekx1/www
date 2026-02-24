@@ -191,12 +191,12 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
                     </div>
 
                     <div className={styles.actions}>
-                        <Link href={`/contacts?product=${product.slug}`} className={styles.btnPrimary}>
-                            Оформить заказ
+                        <Link href="/contacts" className={styles.btnPrimary} data-cursor-text="CONTACT">
+                            Узнать наличие в бутиках
                         </Link>
-                        <button className={styles.btnSecondary}>
-                            Найти в Beautymania
-                        </button>
+                        <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary} data-cursor-text="WHATSAPP">
+                            Связаться в WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>

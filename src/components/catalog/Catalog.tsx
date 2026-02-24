@@ -7,6 +7,11 @@ import styles from './Catalog.module.scss';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { Flip } from 'gsap/dist/Flip';
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(Flip);
+}
 
 interface CatalogProps {
     products: Product[];
@@ -18,6 +23,7 @@ export default function Catalog({ products }: CatalogProps) {
     const [isSortOpen, setIsSortOpen] = useState(false);
     const gridRef = useRef<HTMLDivElement>(null);
     const sortRef = useRef<HTMLDivElement>(null);
+    const flipStateRef = useRef<Flip.FlipState | null>(null);
 
     // Extract unique collections for filters
     const collections = useMemo(() => {
@@ -44,11 +50,46 @@ export default function Catalog({ products }: CatalogProps) {
         return result;
     }, [products, activeFilter, sortOrder]);
 
+    // Capture state before change
+    const triggerFlipState = () => {
+        if (!gridRef.current) return;
+        const q = gsap.utils.selector(gridRef);
+        flipStateRef.current = Flip.getState(q('.catalogItem'));
+    };
+
+    const changeFilter = (col: string) => {
+        if (col === activeFilter) return;
+        triggerFlipState();
+        setActiveFilter(col);
+    };
+
+    const changeSort = (val: string) => {
+        if (val === sortOrder) return;
+        triggerFlipState();
+        setSortOrder(val);
+        setIsSortOpen(false);
+    };
+
     // Animation when data changes
     useGSAP(() => {
-        const cards = gridRef.current?.children;
-        if (cards && cards.length > 0) {
-            gsap.fromTo(cards,
+        if (!gridRef.current) return;
+        const q = gsap.utils.selector(gridRef);
+        const items = q('.catalogItem');
+
+        if (flipStateRef.current && items.length > 0) {
+            Flip.from(flipStateRef.current, {
+                targets: items,
+                duration: 0.8,
+                ease: 'power3.inOut',
+                absolute: true,
+                stagger: 0.03,
+                onEnter: elements => gsap.fromTo(elements, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, delay: 0.1 }),
+                onLeave: elements => gsap.to(elements, { opacity: 0, scale: 0.8, duration: 0.4 })
+            });
+            flipStateRef.current = null;
+        } else if (!flipStateRef.current && items.length > 0) {
+            // Initial load
+            gsap.fromTo(items,
                 { opacity: 0, y: 30 },
                 {
                     opacity: 1,
@@ -92,7 +133,7 @@ export default function Catalog({ products }: CatalogProps) {
                         <button
                             key={col}
                             className={clsx(styles.filterBtn, { [styles.active]: activeFilter === col })}
-                            onClick={() => setActiveFilter(col)}
+                            onClick={() => changeFilter(col)}
                         >
                             {col === 'all' ? 'Все' : col}
                         </button>
@@ -113,10 +154,7 @@ export default function Catalog({ products }: CatalogProps) {
                                 <div
                                     key={option.value}
                                     className={clsx(styles.optionItem, { [styles.selected]: sortOrder === option.value })}
-                                    onClick={() => {
-                                        setSortOrder(option.value);
-                                        setIsSortOpen(false);
-                                    }}
+                                    onClick={() => changeSort(option.value)}
                                 >
                                     {option.label}
                                 </div>
@@ -130,11 +168,12 @@ export default function Catalog({ products }: CatalogProps) {
                 {filteredProducts.length > 0 ? (
                     <div className={styles.grid} ref={gridRef}>
                         {filteredProducts.map((product, index) => (
-                            <ProductCard
-                                key={product.id}
-                                product={product}
-                                priority={index < 3}
-                            />
+                            <div key={product.id} className="catalogItem" data-flip-id={product.id}>
+                                <ProductCard
+                                    product={product}
+                                    priority={index < 3}
+                                />
+                            </div>
                         ))}
                     </div>
                 ) : (

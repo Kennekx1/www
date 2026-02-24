@@ -1,7 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import Catalog from '@/components/catalog/Catalog';
+import CatalogHeroClient from '@/components/catalog/CatalogHeroClient';
 import { getAllProducts } from '@/utils/data';
 import styles from './catalog.module.scss';
 import type { Metadata } from 'next';
@@ -16,30 +15,7 @@ export default function CatalogPage() {
 
     return (
         <main className={styles.catalogWrapper}>
-            <section className={styles.heroSection}>
-                <Image
-                    src="/assets/images/banners/catalog_hero_bottles.png"
-                    alt="Vittorio Parfum Collection"
-                    fill
-                    priority
-                    unoptimized={true}
-                    quality={100}
-                    className={styles.heroImage}
-                    style={{ objectPosition: 'center 40%' }}
-                />
-                {/* Vintage dust/scratches overlay exactly like About page */}
-                <div className={styles.heroNoiseOverlay}></div>
-
-                <div className={styles.heroOverlay}></div>
-                <div className={styles.heroContent}>
-                    <div className={styles.breadcrumbs}>
-                        <Link href="/">Главная</Link>
-                        <span>•</span>
-                        <span style={{ fontWeight: 600 }}>Коллекция ароматов</span>
-                    </div>
-                    <h1 className={styles.heroTitle}>КОЛЛЕКЦИЯ АРОМАТОВ</h1>
-                </div>
-            </section>
+            <CatalogHeroClient />
 
             <div className={styles.catalogContainer}>
                 <div className={styles.innerContent}>

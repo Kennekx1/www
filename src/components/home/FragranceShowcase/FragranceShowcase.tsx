@@ -18,6 +18,34 @@ interface ShowcaseProps {
     products: Product[];
 }
 
+const ExpandableRow = ({ label, value }: { label: string, value: string }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if (!contentRef.current) return;
+        if (isOpen) {
+            gsap.to(contentRef.current, { height: 'auto', duration: 0.4, opacity: 1, ease: 'power2.out' });
+        } else {
+            gsap.to(contentRef.current, { height: 0, duration: 0.4, opacity: 0, ease: 'power2.inOut' });
+        }
+    }, [isOpen]);
+
+    return (
+        <div className={`${styles.row} ${isOpen ? styles.open : ''}`} onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>
+            <div className={styles.rowHeader}>
+                <span className={styles.rowLabel}>{label}</span>
+                <span className={styles.rowToggle}>{isOpen ? '[ — ]' : '[ + ]'}</span>
+            </div>
+            <div className={styles.rowContent} ref={contentRef} style={{ height: 0, opacity: 0, overflow: 'hidden' }}>
+                <div className={styles.rowValue}>
+                    {value}
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export default function FragranceShowcase({ products }: ShowcaseProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollTracksRef = useRef<HTMLDivElement>(null);
@@ -139,24 +167,12 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                                     </p>
 
                                     <div className={styles.notesTable}>
-                                        <div className={styles.row}>
-                                            <span className={styles.rowLabel}>группа аромата</span>
-                                            <span className={styles.rowValue}>{product.group}</span>
-                                        </div>
+                                        <ExpandableRow label="группа аромата" value={product.group || ''} />
                                         {typeof product.notes === 'object' && !Array.isArray(product.notes) && (
                                             <>
-                                                <div className={styles.row}>
-                                                    <span className={styles.rowLabel}>верхние ноты</span>
-                                                    <span className={styles.rowValue}>{product.notes.upper.join(', ')}</span>
-                                                </div>
-                                                <div className={styles.row}>
-                                                    <span className={styles.rowLabel}>ноты сердца</span>
-                                                    <span className={styles.rowValue}>{product.notes.heart.join(', ')}</span>
-                                                </div>
-                                                <div className={styles.row}>
-                                                    <span className={styles.rowLabel}>базовые ноты</span>
-                                                    <span className={styles.rowValue}>{product.notes.base.join(', ')}</span>
-                                                </div>
+                                                <ExpandableRow label="верхние ноты" value={product.notes.upper.join(', ')} />
+                                                <ExpandableRow label="ноты сердца" value={product.notes.heart.join(', ')} />
+                                                <ExpandableRow label="базовые ноты" value={product.notes.base.join(', ')} />
                                             </>
                                         )}
                                     </div>

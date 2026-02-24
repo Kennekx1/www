@@ -231,22 +231,57 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 
     .row {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 0;
+        padding: 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         font-family: var(--font-primary);
         font-size: 0.9rem;
+        transition: background-color 0.3s;
 
-        .rowLabel {
-            opacity: 0.5;
-            text-transform: lowercase;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+
+            .rowToggle {
+                opacity: 1;
+            }
         }
 
-        .rowValue {
-            text-align: right;
-            max-width: 60%;
+        &.open {
+            .rowLabel {
+                opacity: 0.9;
+                color: var(--color-black);
+            }
         }
+    }
+
+    .rowHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+    }
+
+    .rowLabel {
+        opacity: 0.6;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: opacity 0.3s, color 0.3s;
+    }
+
+    .rowToggle {
+        font-family: var(--font-primary);
+        font-weight: 300;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+
+    .rowValue {
+        padding-bottom: 20px;
+        opacity: 0.8;
+        line-height: 1.6;
+        padding-right: 20px;
+        font-size: 0.95rem;
     }
 }
 

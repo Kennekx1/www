@@ -9,6 +9,7 @@ export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const cursorDotRef = useRef<HTMLDivElement>(null);
     const [isHovering, setIsHovering] = useState(false);
+    const [cursorText, setCursorText] = useState<string | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -38,54 +39,72 @@ export default function CustomCursor() {
             });
         };
 
-        const updateHoverState = () => {
-            const hoverables = document.querySelectorAll('a, button, input, textarea, [role="button"]');
+        const onMouseOver = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const interactable = target.closest('[data-cursor-text], a, button, input, textarea, [role="button"]');
 
-            hoverables.forEach((el) => {
-                const element = el as HTMLElement;
-                element.addEventListener('mouseenter', () => setIsHovering(true));
-                element.addEventListener('mouseleave', () => setIsHovering(false));
-            });
+            if (interactable) {
+                setIsHovering(true);
+                const text = interactable.getAttribute('data-cursor-text');
+                setCursorText(text || null);
+            } else {
+                setIsHovering(false);
+                setCursorText(null);
+            }
         };
 
         window.addEventListener('mousemove', onMouseMove);
-        updateHoverState();
+        window.addEventListener('mouseover', onMouseOver);
 
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
-            const hoverables = document.querySelectorAll('a, button, input, textarea, [role="button"]');
-            hoverables.forEach((el) => {
-                const element = el as HTMLElement;
-                element.removeEventListener('mouseenter', () => setIsHovering(true));
-                element.removeEventListener('mouseleave', () => setIsHovering(false));
-            });
+            window.removeEventListener('mouseover', onMouseOver);
         };
     }, [pathname]); // Re-run when path changes to re-attach hover listeners
 
     useEffect(() => {
         const cursor = cursorRef.current;
-        if (!cursor) return;
+        const dot = cursorDotRef.current;
+        if (!cursor || !dot) return;
 
-        if (isHovering) {
+        if (cursorText) {
+            // Text mode
             gsap.to(cursor, {
-                scale: 2.5,
-                backgroundColor: 'rgba(214, 209, 202, 0.1)', // СЕРЫЙ ШЁЛК with low opacity
+                width: 80,
+                height: 80,
+                backgroundColor: 'rgba(214, 209, 202, 0.9)', // Solid brand color
                 borderColor: 'transparent',
                 duration: 0.3
             });
-        } else {
+            gsap.to(dot, { opacity: 0, duration: 0.2 });
+        } else if (isHovering) {
+            // Normal hover mode
             gsap.to(cursor, {
-                scale: 1,
+                width: 75,
+                height: 75,
+                backgroundColor: 'rgba(214, 209, 202, 0.1)',
+                borderColor: 'transparent',
+                duration: 0.3
+            });
+            gsap.to(dot, { opacity: 1, duration: 0.2 });
+        } else {
+            // Default mode
+            gsap.to(cursor, {
+                width: 30,
+                height: 30,
                 backgroundColor: 'transparent',
                 borderColor: 'rgba(214, 209, 202, 0.5)',
                 duration: 0.3
             });
+            gsap.to(dot, { opacity: 1, duration: 0.2 });
         }
-    }, [isHovering]);
+    }, [isHovering, cursorText]);
 
     return (
         <>
-            <div ref={cursorRef} className={styles.cursorRing} />
+            <div ref={cursorRef} className={styles.cursorRing}>
+                {cursorText && <span className={styles.cursorText}>{cursorText}</span>}
+            </div>
             <div ref={cursorDotRef} className={styles.cursorDot} />
         </>
     );

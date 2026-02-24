@@ -16,32 +16,12 @@ interface ProductCardProps {
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
     const cardRef = useRef<HTMLAnchorElement>(null);
     const imageContainerRef = useRef<HTMLDivElement>(null);
-    const overlayRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        if (!cardRef.current || !overlayRef.current) return;
-
-        const overlay = overlayRef.current;
-        const xTo = gsap.quickTo(overlay, "x", { duration: 0.6, ease: "power3" });
-        const yTo = gsap.quickTo(overlay, "y", { duration: 0.6, ease: "power3" });
-
-        const onMouseMove = (e: MouseEvent) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = cardRef.current!.getBoundingClientRect();
-
-            // Calculate relative position (-0.5 to 0.5)
-            const x = (clientX - left) / width - 0.5;
-            const y = (clientY - top) / height - 0.5;
-
-            // Move overlay slightly towards the mouse (magnetic/parallax effect)
-            xTo(x * 60);
-            yTo(y * 60);
-        };
+        if (!cardRef.current) return;
 
         const onMouseEnter = () => {
-            gsap.to(overlay, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" });
-
             // Animate text reveal in info section
             const infoElements = infoRef.current?.children;
             if (infoElements) {
@@ -55,8 +35,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         };
 
         const onMouseLeave = () => {
-            gsap.to(overlay, { opacity: 0, scale: 0.8, x: 0, y: 0, duration: 0.4, ease: "power2.inOut" });
-
             // Reset info section
             const infoElements = infoRef.current?.children;
             if (infoElements) {
@@ -69,19 +47,17 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             }
         };
 
-        cardRef.current.addEventListener('mousemove', onMouseMove);
         cardRef.current.addEventListener('mouseenter', onMouseEnter);
         cardRef.current.addEventListener('mouseleave', onMouseLeave);
 
         return () => {
-            cardRef.current?.removeEventListener('mousemove', onMouseMove);
             cardRef.current?.removeEventListener('mouseenter', onMouseEnter);
             cardRef.current?.removeEventListener('mouseleave', onMouseLeave);
         };
     }, { scope: cardRef });
 
     return (
-        <Link href={`/product/${product.slug}`} className={styles.card} ref={cardRef}>
+        <Link href={`/product/${product.slug}`} className={styles.card} ref={cardRef} data-cursor-text="СМОТРЕТЬ">
             <div className={styles.imageContainer} ref={imageContainerRef}>
                 {product.is_new && <span className={styles.newBadge}>Новинка</span>}
 
@@ -105,10 +81,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
                         className={styles.imageHover}
                     />
                 )}
-
-                <div className={styles.discoverOverlay} ref={overlayRef}>
-                    <span>ПОДРОБНЕЕ</span>
-                </div>
             </div>
 
             <div className={styles.info} ref={infoRef}>

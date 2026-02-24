@@ -17,7 +17,12 @@
     height: 30px;
     border: 1px solid rgba(214, 209, 202, 0.5); // СЕРЫЙ ШЁЛК
     border-radius: 50%;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cursorDot {
@@ -25,4 +30,13 @@
     height: 6px;
     background-color: #D6D1CA; // СЕРЫЙ ШЁЛК
     border-radius: 50%;
+}
+
+.cursorText {
+    font-size: 0.6rem;
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-background); // Dark text on light brand background
+    font-weight: 700;
 }

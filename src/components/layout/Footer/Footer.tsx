@@ -1,30 +1,33 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './Footer.module.scss';
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
+    const { language, t } = useLanguage();
     return (
         <footer className={styles.footer}>
             <div className={styles.mainContent}>
                 {/* Left: Subscription */}
                 <div className={styles.column}>
-                    <h3 className={styles.title}>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
-                    <p className={styles.subtitle}>Оформите подписку, чтобы быть в курсе наших новостей</p>
+                    <h3 className={styles.title}>{t('footer.subscribeTitle')}</h3>
+                    <p className={styles.subtitle}>{t('footer.subscribeSubtitle')}</p>
                     <div className={styles.subscribeForm}>
-                        <form action="#" method="POST" className={styles.subscribeForm}>
-                            <input type="email" placeholder="Электронная почта" aria-label="Электронная почта" required />
-                            <button type="submit" aria-label="Подписаться">→</button>
+                        <form action="/thanks" method="GET" className={styles.subscribeForm}>
+                            <input type="email" placeholder={t('common.email')} aria-label={t('common.email')} required />
+                            <button type="submit" aria-label={t('common.subscribe')}>→</button>
                         </form>
                     </div>
                     <p style={{ marginTop: '20px', fontSize: '0.7em', opacity: 0.5, lineHeight: 1.5 }}>
-                        Оставляя свой электронный адрес, вы подтверждаете, что согласны с политикой обработки персональных данных
+                        {t('footer.subscribeConsent')}
                     </p>
                 </div>
 
                 {/* Center: Brand & Socials */}
                 <div className={styles.column} style={{ alignItems: 'center' }}>
                     <div className={styles.logo}>
-                        {/* Use SVG or styled text? Text for now as it's cleaner */}
                         VITTORIO
                     </div>
                     <div className={styles.socials}>
@@ -35,22 +38,22 @@ export default function Footer() {
 
                 {/* Right: Contacts */}
                 <div className={styles.column}>
-                    <h3 className={styles.title}>СВЯЗАТЬСЯ С НАМИ</h3>
-                    <a href="tel:+78002224147" className={styles.contactLink}>8 800 222-41-47</a>
+                    <h3 className={styles.title}>{t('footer.contactUs')}</h3>
+                    <a href="tel:+77051234567" className={styles.contactLink}>+7 (705) 123-45-67</a>
                     <a href="mailto:info@vittorio-parfum.ru" className={styles.contactLink}>info@vittorio-parfum.ru</a>
 
                     <div style={{ marginTop: '20px', fontSize: '0.8rem', fontStyle: 'italic', opacity: 0.7 }}>
-                        Ароматы Vittorio представлены в магазинах
+                        {t('footer.presentedIn')}
                     </div>
                     <div className={styles.partnerLogo}>
                         BEAUTYMANIA
                     </div>
                     <div className={styles.locations}>
                         <div className={styles.locItem}>
-                            <strong>АЛМАТЫ:</strong> ТРЦ MEGA Center Alma-Ata
+                            <strong>{language === 'ru' ? 'АЛМАТЫ:' : 'АЛМАТЫ:'}</strong> ТРЦ MEGA Center Alma-Ata
                         </div>
                         <div className={styles.locItem}>
-                            <strong>АСТАНА:</strong> ТЦ Ханшатыр
+                            <strong>{language === 'ru' ? 'АСТАНА:' : 'АСТАНА:'}</strong> ТЦ Ханшатыр
                         </div>
                     </div>
                 </div>
@@ -59,16 +62,15 @@ export default function Footer() {
             <div className={styles.bottomBar}>
                 <div>© 2026. Vittorio</div>
                 <div className={styles.linksGroup}>
-                    <Link href="/delivery" className={styles.link}>Доставка и оплата</Link>
-                    <Link href="/policy" className={styles.link}>Политика конфиденциальности</Link>
-                    <Link href="/policy" className={styles.link}>Публичная оферта</Link>
+                    <Link href="/delivery" className={styles.link}>{t('footer.delivery')}</Link>
+                    <Link href="/policy" className={styles.link}>{t('footer.policy')}</Link>
                 </div>
                 <div className={styles.legalGroup}>
-                    <span>Реквизиты:</span>
-                    <span>ОГРН: 1195275028299</span>
-                    <span>ИНН: 5259139506</span>
-                    <span style={{ marginTop: '10px' }}>Юридический адрес:</span>
-                    <span style={{ textAlign: 'right' }}>603035, Нижегородская область, г. Нижний Новгород, ул Чаадаева, дом 1, корпус 103, ЛИТЕР А</span>
+                    <span>{t('footer.requisites')}</span>
+                    <span>{t('footer.ogrn')}</span>
+                    <span>{t('footer.inn')}</span>
+                    <span style={{ marginTop: '10px' }}>{t('footer.addressLabel')}</span>
+                    <span style={{ textAlign: 'right' }}>{t('footer.addressValue')}</span>
                 </div>
             </div>
         </footer>

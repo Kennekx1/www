@@ -3,10 +3,11 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './ProductCard.module.scss';
-import { Product } from '@/utils/data';
+import { Product, LocalizedString } from '@/utils/data';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ProductCardProps {
     product: Product;
@@ -14,6 +15,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
+    const { language, t } = useLanguage();
     const cardRef = useRef<HTMLAnchorElement>(null);
     const imageContainerRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
@@ -22,7 +24,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         if (!cardRef.current) return;
 
         const onMouseEnter = () => {
-            // Animate text reveal in info section
             const infoElements = infoRef.current?.children;
             if (infoElements) {
                 gsap.to(infoElements, {
@@ -35,7 +36,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         };
 
         const onMouseLeave = () => {
-            // Reset info section
             const infoElements = infoRef.current?.children;
             if (infoElements) {
                 gsap.to(infoElements, {
@@ -56,12 +56,16 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         };
     }, { scope: cardRef });
 
-    return (
-        <Link href={`/product/${product.slug}`} className={styles.card} ref={cardRef} data-cursor-text="СМОТРЕТЬ">
-            <div className={styles.imageContainer} ref={imageContainerRef}>
-                {product.is_new && <span className={styles.newBadge}>Новинка</span>}
+    const getLoc = (field: LocalizedString) => {
+        if (typeof field === 'string') return field;
+        return field?.[language as 'ru' | 'kk'] || (field as any)?.['ru'] || '';
+    };
 
-                {/* Main Image */}
+    return (
+        <Link href={`/product/${product.slug}`} className={styles.card} ref={cardRef} data-cursor-text={t('common.more')}>
+            <div className={styles.imageContainer} ref={imageContainerRef}>
+                {product.is_new && <span className={styles.newBadge}>New</span>}
+
                 <Image
                     src={product.image}
                     alt={product.name}
@@ -71,7 +75,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
                     priority={priority}
                 />
 
-                {/* Hover Image (Swap) */}
                 {product.image_hover && (
                     <Image
                         src={product.image_hover}
@@ -84,11 +87,9 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             </div>
 
             <div className={styles.info} ref={infoRef}>
-                <span className={styles.collection}>{product.collection}</span>
+                <span className={styles.collection}>{getLoc(product.collection)}</span>
                 <h3 className={styles.title}>{product.name}</h3>
                 <p className={styles.price}>{product.price_100ml}</p>
-
-                {/* Decorative animated line */}
                 <div className={styles.line} />
             </div>
         </Link>

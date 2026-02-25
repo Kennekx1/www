@@ -5,12 +5,15 @@ import Link from 'next/link';
 import styles from './MenuOverlay.module.scss';
 import gsap from 'gsap';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 interface MenuOverlayProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
+    const { t } = useLanguage();
     const overlayRef = useRef<HTMLDivElement>(null);
     const linksRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLDivElement>(null);
@@ -93,11 +96,11 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
     }, [isOpen]);
 
     const navItems = [
-        { name: 'ГЛАВНАЯ', path: '/' },
-        { name: 'КАТАЛОГ', path: '/catalog' },
-        { name: 'ИСТОРИЯ', path: '/about' },
-        { name: 'МАГАЗИНЫ', path: '/shops' },
-        { name: 'КОНТАКТЫ', path: '/contacts' },
+        { name: t('nav.home'), path: '/' },
+        { name: t('nav.catalog'), path: '/catalog' },
+        { name: t('nav.about'), path: '/about' },
+        { name: t('nav.shops'), path: '/shops' },
+        { name: t('nav.contacts'), path: '/contacts' },
     ];
 
     return (
@@ -111,7 +114,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
 
             <div className={styles.menuSection}>
                 <button className={styles.closeButton} onClick={onClose} ref={closeBtnRef}>
-                    <span className={styles.closeText}>ЗАКРЫТЬ</span>
+                    <span className={styles.closeText}>{t('nav.close')}</span>
                     <div className={styles.closeIcon}></div>
                 </button>
 
@@ -135,7 +138,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                         <a href="https://t.me/VittorioParfum" target="_blank" rel="noopener noreferrer">Telegram</a>
                     </div>
                     <div className={styles.policy}>
-                        <Link href="/policy" onClick={onClose}>Privacy Policy</Link>
+                        <Link href="/policy" onClick={onClose}>{t('footer.policy')}</Link>
                     </div>
                 </div>
 

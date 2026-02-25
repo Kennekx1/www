@@ -1,217 +1,196 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Product } from '@/utils/data';
 import styles from './ProductDetailsClient.module.scss';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { Product, LocalizedString, LocalizedArray } from '@/utils/data';
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Reveal from '@/components/common/Reveal';
+import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-interface ProductDetailsClientProps {
+interface ProductDetailsProps {
     product: Product;
 }
 
-export default function ProductDetailsClient({ product }: ProductDetailsClientProps) {
+export default function ProductDetailsClient({ product }: ProductDetailsProps) {
+    const { language, t } = useLanguage();
+    const [selectedVolume, setSelectedVolume] = useState<'3ml' | '100ml'>('100ml');
     const containerRef = useRef<HTMLDivElement>(null);
-    const imageRef = useRef<HTMLDivElement>(null);
-    const infoRef = useRef<HTMLDivElement>(null);
-    const pyramidRef = useRef<HTMLDivElement>(null);
+    const heroImageRef = useRef<HTMLDivElement>(null);
+
+    const getLoc = (field: LocalizedString) => {
+        if (typeof field === 'string') return field;
+        return field?.[language as 'ru' | 'kk'] || (field as any)?.['ru'] || '';
+    };
+
+    const getLocNotes = (notesField: LocalizedArray | string[]): string[] => {
+        if (Array.isArray(notesField)) return notesField;
+        return (notesField as any)?.[language] || (notesField as any)?.['ru'] || [];
+    };
 
     useGSAP(() => {
-        const mm = gsap.matchMedia();
-
-        mm.add("(min-width: 1024px)", () => {
-            // Parallax effect for the image
-            gsap.to(imageRef.current?.querySelector('img') || null, {
-                y: -50,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true,
-                }
-            });
-
-            // Sticky-like effect or reveal for info section
-            gsap.from(infoRef.current?.children || [], {
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power3.out',
-                delay: 0.2
-            });
+        gsap.to(heroImageRef.current, {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+            }
         });
-
-        // Common animations
-        const pyramidLineFill = pyramidRef.current?.querySelector(`.${styles.pyramidLineFill}`);
-        const noteItems = pyramidRef.current?.querySelectorAll('.note-group');
-
-        if (pyramidLineFill && noteItems) {
-            // Set initial state
-            gsap.set(noteItems, { opacity: 0.3, x: -10 });
-            gsap.set(pyramidLineFill, { scaleY: 0, transformOrigin: "top center" });
-
-            // Animate line filling up
-            gsap.to(pyramidLineFill, {
-                scaleY: 1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: pyramidRef.current,
-                    start: 'top 60%',
-                    end: 'bottom 60%',
-                    scrub: true,
-                }
-            });
-
-            // Animate each note group as the line passes it
-            noteItems.forEach((item, i) => {
-                const innerPoint = item.querySelector(`.${styles.notePointInner}`);
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: item,
-                        start: 'top 60%', // Trigger when the item reaches 60% of viewport
-                        end: 'bottom 40%',
-                        toggleActions: 'play reverse play reverse',
-                        // scrub is not used here so it snaps/animates nicely when reaching the point
-                    }
-                });
-
-                tl.to(item, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" })
-                    .to(innerPoint, { scale: 1, backgroundColor: 'var(--color-santal)', duration: 0.4, ease: "back.out(2)" }, "<");
-            });
-        }
-
     }, { scope: containerRef });
 
-    const notes = product.notes;
+    if (!product) return null;
+
+    const notes = typeof product.notes === 'object' && !Array.isArray(product.notes) ? product.notes : null;
 
     return (
         <div className={styles.productPage} ref={containerRef}>
-            <div className={styles.orb}></div>
-            <div className={styles.orb}></div>
-
-            <div className={styles.productContainer}>
-                {/* Image Section */}
-                <div className={styles.imageSection} ref={imageRef}>
-                    <div className={styles.imageWrapper}>
-                        <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            priority
-                            className={styles.mainImage}
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
-                    </div>
-                    <div className={styles.productTag}>Vittorio Collection</div>
+            <section className={styles.hero}>
+                <div className={styles.heroBg} ref={heroImageRef}>
+                    <Image
+                        src={product.image_hover || product.image}
+                        alt={product.name}
+                        fill
+                        priority
+                        className={styles.heroImg}
+                    />
+                    <div className={styles.heroOverlay}></div>
                 </div>
 
-                {/* Info Section */}
-                <div className={styles.infoSection} ref={infoRef}>
+                <div className={styles.breadcrumbNav}>
                     <Link href="/catalog" className={styles.backLink}>
-                        <span className={styles.arrow}>←</span> НАЗАД В КАТАЛОГ
+                        ← {t('product.backToCatalog')}
                     </Link>
+                </div>
 
-                    <div className={styles.header}>
-                        <span className={styles.collection}>{product.collection}</span>
-                        <h1 className={styles.title}>{product.name}</h1>
-                        <span className={styles.group}>{product.group}</span>
-                    </div>
+                <div className={styles.heroContent}>
+                    <Reveal direction="up">
+                        <span className={styles.collectionLabel}>{t('product.vittorioCollection')}</span>
+                        <h1 className={styles.productName}>{product.name}</h1>
+                        <p className={styles.productGroup}>{getLoc(product.group || '')}</p>
+                    </Reveal>
+                </div>
+            </section>
 
-                    <p className={styles.shortDesc}>
-                        {product.description.split('.')[0]}. Бескомпромиссное качество ингредиентов и аутентичность в каждом флаконе.
-                    </p>
-
-                    <div className={styles.configurator}>
-                        <div className={styles.configLabel}>Объем:</div>
-                        <div className={styles.volumeValue}>
-                            <span className={styles.vol}>100 мл</span>
-                            <span className={styles.priceDivider}>—</span>
-                            <span className={styles.finalPrice}>{product.price_100ml}</span>
+            <section className={styles.configurator}>
+                <div className={styles.container}>
+                    <div className={styles.layout}>
+                        <div className={styles.imageColumn}>
+                            <Reveal direction="right">
+                                <div className={styles.productWrapper}>
+                                    <Image
+                                        src={product.image}
+                                        alt={product.name}
+                                        width={600}
+                                        height={800}
+                                        className={styles.mainProductImage}
+                                    />
+                                </div>
+                            </Reveal>
                         </div>
-                    </div>
 
-                    {/* Pyramid Section */}
-                    <div className={styles.pyramidSection}>
-                        <h3 className={styles.sectionTitle}>Слои аромата</h3>
-                        <div className={styles.pyramid} ref={pyramidRef}>
-                            <div className={styles.pyramidLine}>
-                                <div className={styles.pyramidLineFill} />
-                            </div>
+                        <div className={styles.infoColumn}>
+                            <Reveal direction="up">
+                                <div className={styles.description}>
+                                    {getLoc(product.description)}
+                                </div>
 
-                            {typeof notes === 'object' && !Array.isArray(notes) && (
-                                <>
-                                    <div className={`${styles.noteGroup} note-group`}>
-                                        <div className={styles.notePoint}>
-                                            <div className={styles.notePointInner} />
-                                        </div>
-                                        <div className={styles.noteLabel}>Верхние ноты</div>
-                                        <div className={styles.noteValues}>
-                                            {notes.upper.map((n, i) => (
-                                                <span key={i} className={styles.note}>{n}</span>
-                                            ))}
-                                        </div>
+                                <div className={styles.volumeSelector}>
+                                    <span className={styles.selectorLabel}>{t('product.selectVolume')}</span>
+                                    <div className={styles.volumeOptions}>
+                                        <button
+                                            className={`${styles.volumeBtn} ${selectedVolume === '3ml' ? styles.active : ''} ${!product.price_3ml ? styles.disabled : ''}`}
+                                            onClick={() => product.price_3ml && setSelectedVolume('3ml')}
+                                        >
+                                            3 {t('product.ml')}
+                                        </button>
+                                        <button
+                                            className={`${styles.volumeBtn} ${selectedVolume === '100ml' ? styles.active : ''}`}
+                                            onClick={() => setSelectedVolume('100ml')}
+                                        >
+                                            100 {t('product.ml')}
+                                        </button>
                                     </div>
+                                </div>
 
-                                    <div className={`${styles.noteGroup} note-group`}>
-                                        <div className={styles.notePoint}>
-                                            <div className={styles.notePointInner} />
-                                        </div>
-                                        <div className={styles.noteLabel}>Ноты сердца</div>
-                                        <div className={styles.noteValues}>
-                                            {notes.heart.map((n, i) => (
-                                                <span key={i} className={styles.note}>{n}</span>
-                                            ))}
-                                        </div>
-                                    </div>
+                                <div className={styles.priceContainer}>
+                                    <span className={styles.price}>
+                                        {selectedVolume === '100ml' ? product.price_100ml : product.price_3ml}
+                                    </span>
+                                </div>
 
-                                    <div className={`${styles.noteGroup} note-group`}>
-                                        <div className={styles.notePoint}>
-                                            <div className={styles.notePointInner} />
+                                <div className={styles.actions}>
+                                    <Link href={`/contacts?product=${product.slug}`} className={styles.orderBtn}>
+                                        {t('product.checkAvailability')}
+                                    </Link>
+                                    <a
+                                        href={`https://wa.me/77051234567?text=${encodeURIComponent(`${t('common.order')} ${product.name} (${selectedVolume})`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.whatsappBtn}
+                                    >
+                                        {t('product.whatsapp')}
+                                    </a>
+                                </div>
+                            </Reveal>
+
+                            {notes && (
+                                <div className={styles.pyramid}>
+                                    <Reveal direction="up" delay={0.2}>
+                                        <h3 className={styles.pyramidTitle}>{t('product.layers')}</h3>
+
+                                        <div className={styles.noteGroup}>
+                                            <span className={styles.groupLabel}>{t('product.upper')}</span>
+                                            <div className={styles.noteList}>
+                                                {getLocNotes(notes.upper).map((note: string, i: number) => (
+                                                    <span key={i} className={styles.noteItem}>{note}</span>
+                                                ))}
+                                            </div>
                                         </div>
-                                        <div className={styles.noteLabel}>Базовые ноты</div>
-                                        <div className={styles.noteValues}>
-                                            {notes.base.map((n, i) => (
-                                                <span key={i} className={styles.note}>{n}</span>
-                                            ))}
+
+                                        <div className={styles.noteGroup}>
+                                            <span className={styles.groupLabel}>{t('product.heart')}</span>
+                                            <div className={styles.noteList}>
+                                                {getLocNotes(notes.heart).map((note: string, i: number) => (
+                                                    <span key={i} className={styles.noteItem}>{note}</span>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                </>
+
+                                        <div className={styles.noteGroup}>
+                                            <span className={styles.groupLabel}>{t('product.base')}</span>
+                                            <div className={styles.noteList}>
+                                                {getLocNotes(notes.base).map((note: string, i: number) => (
+                                                    <span key={i} className={styles.noteItem}>{note}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </Reveal>
+                                </div>
                             )}
                         </div>
                     </div>
-
-                    <div className={styles.actions}>
-                        <Link href="/contacts" className={styles.btnPrimary} data-cursor-text="CONTACT">
-                            Узнать наличие в бутиках
-                        </Link>
-                        <a href="https://wa.me/something" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary} data-cursor-text="WHATSAPP">
-                            Связаться в WhatsApp
-                        </a>
-                    </div>
                 </div>
-            </div>
+            </section>
 
-            {/* Background Story Section */}
             <section className={styles.storySection}>
-                <div className={styles.storyContent}>
-                    <div className={styles.storyLabel}>История создания</div>
-                    <h2>Голос Маэстро</h2>
-                    <p>Италия — это мой дом, моё вдохновение и моё начало. С детства я впитывал ароматы узких улочек, цветущих садов и солёного морского ветра.</p>
-                    <p>{product.description}</p>
-                    <p className={styles.quote}>
-                        &quot;{product.name} — это не просто парфюм. Это отрывок из моей жизни, запечатанный во флаконе. Я хотел передать ту самую секунду абсолютного счастья.&quot;
-                    </p>
-                    <div className={styles.signature}>Vittorio</div>
+                <div className={styles.container}>
+                    <Reveal direction="up">
+                        <span className={styles.storyLabel}>{t('product.storyTitle')}</span>
+                        <h2 className={styles.storyTitle}>{t('product.masterVoice')}</h2>
+                        <div className={styles.storyContent}>
+                            <p>«{getLoc(product.description)}»</p>
+                        </div>
+                    </Reveal>
                 </div>
             </section>
         </div>

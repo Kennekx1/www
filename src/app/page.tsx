@@ -1,23 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import ScrollIndicator from '../components/common/ScrollIndicator/ScrollIndicator';
 import { getAllProducts } from '@/utils/data';
 import styles from './page.module.scss';
 import HomeIntro from '@/components/home/HomeIntro/HomeIntro';
 import FragranceShowcase from '@/components/home/FragranceShowcase/FragranceShowcase';
 import dynamic from 'next/dynamic';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Philosophy = dynamic(() => import('@/components/home/Philosophy/Philosophy'), {
   ssr: false,
-  loading: () => <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Загрузка...</div>
+  loading: () => <div style={{ height: '600px', background: '#0a0a0a' }}></div>
 });
 
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { useRef } from 'react';
+const AromaJournal = dynamic(() => import('@/components/home/AromaJournal/AromaJournal'), {
+  ssr: false,
+  loading: () => <div style={{ height: '800px', background: '#0a0a0a' }}></div>
+});
 
 export default function Home() {
+  const { t } = useLanguage();
   const products = getAllProducts();
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -68,7 +73,6 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-
       <section className={styles.hero} ref={heroRef}>
         <div className={styles.overlay} />
         <video
@@ -84,39 +88,34 @@ export default function Home() {
 
         <div className={styles.heroContent}>
           <h1 className={styles.mainTitle} ref={titleRef}>
-            <div className={styles.line}>ИСТОРИИ,</div>
-            <div className={styles.line}>РАССКАЗАННЫЕ</div>
-            <div className={styles.line}>
-              <span className={styles.highlight}>АРОМАТАМИ</span>
-            </div>
+            {t('home.heroTitle').split(',').map((line, i) => (
+              <div key={i} className={styles.line}>
+                {i === 2 ? <span className={styles.highlight}>{line.trim()}</span> : line.trim()}{i < 2 ? ',' : ''}
+              </div>
+            ))}
           </h1>
         </div>
 
         <ScrollIndicator />
       </section>
 
-      {/* Intro Section - World of Vittorio */}
       <HomeIntro />
 
-      {/* Atmospheric Transition Banner */}
-      <section className={styles.transitionBanner} data-cursor-text="РАСКРЫТЬ">
+      <section className={styles.transitionBanner} data-cursor-text={t('common.more')}>
         <div className={styles.bannerContent}>
-          <span className={styles.label}>Эстетика Совершенства</span>
+          <span className={styles.label}>{t('nav.about')}</span>
           <h2 className={styles.bannerTitle}>
-            <span>ИСКУССТВО</span>
-            <span>БЫТЬ</span>
-            <span>СОБОЙ</span>
+            {t('home.transitionBanner').split(' ').map((word, i) => (
+              <span key={i}>{word}</span>
+            ))}
           </h2>
         </div>
         <div className={styles.bannerBg}></div>
       </section>
 
-      {/* Fragrance Showcase - Stories Layout */}
       <FragranceShowcase products={products} />
-
-      {/* Philosophy Section */}
+      <AromaJournal />
       <Philosophy />
-
     </main>
   );
 }

@@ -2,109 +2,60 @@
 
 import React, { useRef } from 'react';
 import styles from './Philosophy.module.scss';
+import Image from 'next/image';
 import Reveal from '@/components/common/Reveal';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { useLanguage } from '@/context/LanguageContext';
 
-const pillars = [
-    {
-        id: '01',
-        title: 'ЭКСКЛЮЗИВНОСТЬ',
-        description: 'Каждое парфюмерное творение — результат долгих поисков и путешествий. Мы работаем исключительно с редкими компонентами, привезенными из самых отдаленных уголков мира.'
-    },
-    {
-        id: '02',
-        title: 'АВТОРСТВО',
-        description: 'Отражение личного опыта и вдохновения. Ароматы полностью создаются парфюмером Витторио, запечатлевая дух экспедиций и красоту подлинного мастерства.'
-    },
-    {
-        id: '03',
-        title: 'ИСТОРИИ',
-        description: 'Вы приглашены стать частью сюжета. Каждый аромат сопровождается увлекательным рассказом о его создании, добавляя интригу и неповторимость в каждый вдох.'
-    }
-];
-
-const Philosophy: React.FC = () => {
-    const sectionRef = useRef<HTMLElement>(null);
+export default function Philosophy() {
+    const { t } = useLanguage();
+    const containerRef = useRef<HTMLElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        const cards = gsap.utils.toArray(`.${styles.card}`);
-        gsap.from(cards, {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power3.out',
+        if (!scrollRef.current) return;
+
+        gsap.to(scrollRef.current, {
+            x: '-20%',
             scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 75%',
+                trigger: containerRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
             }
         });
-
-        // Philosophy Cards 3D Tilt
-        const philosophyCards = document.querySelectorAll(`.${styles.card}`);
-        philosophyCards.forEach((card) => {
-            const el = card as HTMLElement;
-
-            const onMouseMove = (e: MouseEvent) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                gsap.to(el, {
-                    rotateX,
-                    rotateY,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                    transformPerspective: 1000,
-                });
-            };
-
-            const onMouseLeave = () => {
-                gsap.to(el, {
-                    rotateX: 0,
-                    rotateY: 0,
-                    duration: 0.6,
-                    ease: 'power3.out'
-                });
-            };
-
-            el.addEventListener('mousemove', onMouseMove);
-            el.addEventListener('mouseleave', onMouseLeave);
-        });
-    }, { scope: sectionRef });
+    }, { scope: containerRef });
 
     return (
-        <section className={styles.philosophy} ref={sectionRef}>
-            <div className={styles.decoratorCircle} />
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <Reveal>
-                        <span className={styles.subtitle}>Эстетика Совершенства</span>
-                    </Reveal>
-                    <Reveal>
-                        <h2 className={styles.title}>МАСТЕРСТВО<br />И ФИЛОСОФИЯ</h2>
-                    </Reveal>
-                </div>
+        <section className={styles.philosophy} ref={containerRef}>
+            <div className={styles.backgroundImage}>
+                <Image
+                    src="/assets/original/images/welcome/perfumer_portrait.jpg"
+                    alt="Philosophy Background"
+                    fill
+                    className={styles.img}
+                />
+                <div className={styles.overlay}></div>
+            </div>
 
+            <div className={styles.scrollingText} ref={scrollRef}>
+                VITTORIO &nbsp; • &nbsp; {t('home.philosophyTitle')} &nbsp; • &nbsp; VITTORIO &nbsp; • &nbsp; {t('home.philosophyTitle')}
+            </div>
+
+            <div className={styles.container}>
                 <div className={styles.grid}>
-                    {pillars.map((pillar) => (
-                        <div key={pillar.id} className={styles.card} data-cursor-text="ИЗУЧИТЬ">
-                            <div className={styles.number}>{pillar.id}</div>
-                            <h3 className={styles.cardTitle}>{pillar.title}</h3>
-                            <p className={styles.description}>{pillar.description}</p>
-                        </div>
-                    ))}
+                    <div className={styles.content}>
+                        <Reveal direction="up">
+                            <span className={styles.label}>{t('home.philosophyTitle')}</span>
+                            <h2 className={styles.title}>{t('home.transitionBanner')}</h2>
+                            <p className={styles.text}>
+                                {t('home.introText')}
+                            </p>
+                        </Reveal>
+                    </div>
                 </div>
             </div>
         </section>
     );
-};
-
-export default Philosophy;
+}

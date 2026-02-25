@@ -2,13 +2,14 @@
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { Product } from '@/utils/data';
+import { Product, LocalizedString, LocalizedArray } from '@/utils/data';
 import styles from './FragranceShowcase.module.scss';
 import Link from 'next/link';
 import Reveal from '@/components/common/Reveal';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -47,21 +48,30 @@ const ExpandableRow = ({ label, value }: { label: string, value: string }) => {
 };
 
 export default function FragranceShowcase({ products }: ShowcaseProps) {
+    const { language, t } = useLanguage();
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollTracksRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
     const featured = products.filter(p => p.notes).slice(0, 8);
 
+    const getLoc = (field: LocalizedString) => {
+        if (typeof field === 'string') return field;
+        return field?.[language as 'ru' | 'kk'] || (field as any)?.['ru'] || '';
+    };
+
+    const getLocNotes = (notesField: LocalizedArray | string[]) => {
+        if (Array.isArray(notesField)) return notesField.join(', ');
+        const currentNotes = (notesField as any)?.[language] || (notesField as any)?.[language === 'ru' ? 'ru' : 'kk'] || (notesField as any)?.['ru'] || [];
+        return Array.isArray(currentNotes) ? currentNotes.join(', ') : '';
+    };
+
     useGSAP(() => {
-        let ctx = gsap.matchMedia();
+        const ctx = gsap.matchMedia();
 
         ctx.add("(min-width: 1024px)", () => {
-            // Desktop: Horizontal Scroll
-            const stories = gsap.utils.toArray(`.${styles.story}`) as HTMLDivElement[];
             const amountToScroll = 100 * (featured.length - 1);
-
-            const tween = gsap.to(scrollTracksRef.current, {
+            gsap.to(scrollTracksRef.current, {
                 x: `-${amountToScroll}vw`,
                 ease: "none",
                 scrollTrigger: {
@@ -70,12 +80,9 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                     scrub: 1,
                     end: () => `+=${window.innerWidth * featured.length}`,
                     onUpdate: (self) => {
-                        // Calculate active index based on progress
                         const index = Math.round(self.progress * (featured.length - 1));
                         setActiveIndex(index);
-
-                        // Also animate background color smoothly
-                        if (featured[index] && featured[index].themeColor) {
+                        if (featured[index]?.themeColor) {
                             gsap.to(containerRef.current, {
                                 backgroundColor: featured[index].themeColor,
                                 duration: 0.5,
@@ -85,30 +92,10 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                     }
                 }
             });
-
-            // Parallax on images inside horizontal scroll
-            stories.forEach((story) => {
-                const imgMask = story.querySelector(`.${styles.mask}`);
-                gsap.fromTo(imgMask,
-                    { x: 100 },
-                    {
-                        x: -100,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: story,
-                            containerAnimation: tween,
-                            start: "left right",
-                            end: "right left",
-                            scrub: true,
-                        }
-                    }
-                );
-            });
         });
 
         ctx.add("(max-width: 1023px)", () => {
-            // Mobile: Vertical Scroll (original behavior)
-            const stories = gsap.utils.toArray(`.${styles.story}`) as HTMLDivElement[];
+            const stories = gsap.utils.toArray(`.${styles.story}`) as HTMLElement[];
             stories.forEach((story, i) => {
                 ScrollTrigger.create({
                     trigger: story,
@@ -117,22 +104,16 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                     onEnter: () => setActiveIndex(i),
                     onEnterBack: () => setActiveIndex(i),
                 });
-
                 if (featured[i].themeColor) {
                     gsap.to(containerRef.current, {
                         backgroundColor: featured[i].themeColor,
-                        scrollTrigger: {
-                            trigger: story,
-                            start: 'top center',
-                            end: 'bottom center',
-                            scrub: true,
-                        }
+                        scrollTrigger: { trigger: story, start: 'top center', end: 'bottom center', scrub: true }
                     });
                 }
             });
         });
 
-        return () => ctx.revert(); // cleanup
+        return () => ctx.revert();
     }, { scope: containerRef });
 
     if (!featured.length) return null;
@@ -160,19 +141,19 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                         <div key={product.id} className={styles.story}>
                             <div className={styles.contentSide}>
                                 <Reveal direction="up" duration={1.2}>
-                                    <span className={styles.label}>Группа аромата — {product.group}</span>
+                                    <span className={styles.label}>{t('product.vittorioCollection')} — {getLoc(product.group || '')}</span>
                                     <h2 className={styles.title}>{product.name}</h2>
                                     <p className={styles.description}>
-                                        {product.description}
+                                        {getLoc(product.description)}
                                     </p>
 
                                     <div className={styles.notesTable}>
-                                        <ExpandableRow label="группа аромата" value={product.group || ''} />
+                                        <ExpandableRow label={t('product.layers')} value={getLoc(product.group || '') || ''} />
                                         {typeof product.notes === 'object' && !Array.isArray(product.notes) && (
                                             <>
-                                                <ExpandableRow label="верхние ноты" value={product.notes.upper.join(', ')} />
-                                                <ExpandableRow label="ноты сердца" value={product.notes.heart.join(', ')} />
-                                                <ExpandableRow label="базовые ноты" value={product.notes.base.join(', ')} />
+                                                <ExpandableRow label={t('product.upper')} value={getLocNotes(product.notes.upper)} />
+                                                <ExpandableRow label={t('product.heart')} value={getLocNotes(product.notes.heart)} />
+                                                <ExpandableRow label={t('product.base')} value={getLocNotes(product.notes.base)} />
                                             </>
                                         )}
                                     </div>
@@ -192,25 +173,23 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                                         </svg>
                                     </div>
 
-                                    <Reveal direction="right" duration={1.2} delay={0.2}>
-                                        <div className={styles.mask}>
-                                            <Image
-                                                src={product.image}
-                                                alt={product.name}
-                                                fill
-                                                className={styles.productImg}
-                                                priority={index === 0}
-                                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                            />
-                                        </div>
-                                    </Reveal>
+                                    <div className={styles.mask}>
+                                        <Image
+                                            src={product.image}
+                                            alt={product.name}
+                                            fill
+                                            className={styles.productImg}
+                                            priority={index === 0}
+                                            sizes="(max-width: 1024px) 100vw, 50vw"
+                                        />
+                                    </div>
 
                                     <Link href={`/product/${product.slug}`} className={styles.cartButton}>
-                                        ПОДРОБНЕЕ
+                                        {t('common.more')}
                                     </Link>
 
                                     <div className={styles.priceBar}>
-                                        <span>100 мл</span>
+                                        <span>100 {t('product.ml')}</span>
                                         <span>{product.price_100ml}</span>
                                     </div>
                                 </div>
@@ -227,7 +206,6 @@ export default function FragranceShowcase({ products }: ShowcaseProps) {
                         className={activeIndex === i ? styles.active : ''}
                         onClick={() => {
                             if (window.innerWidth >= 1024) {
-                                // Since we scrub, we jump window scroll to relative pinned progress
                                 const st = ScrollTrigger.getAll().find(t => t.pin === containerRef.current);
                                 if (st) {
                                     const progress = i / (featured.length - 1);

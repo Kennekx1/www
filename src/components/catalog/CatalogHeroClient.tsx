@@ -1,73 +1,58 @@
 'use client';
 
 import React, { useRef } from 'react';
+import styles from './CatalogHeroClient.module.scss';
 import Image from 'next/image';
-import Link from 'next/link';
-import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import styles from '@/app/catalog/catalog.module.scss';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Reveal from '@/components/common/Reveal';
+import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function CatalogHeroClient() {
-    const sectionRef = useRef<HTMLElement>(null);
-    const imageRef = useRef<HTMLImageElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const bgRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        // Subtle Parallax on the background image
-        gsap.to(imageRef.current, {
-            y: "20%",
+        gsap.to(bgRef.current, {
+            yPercent: 20,
             ease: "none",
             scrollTrigger: {
-                trigger: sectionRef.current,
+                trigger: containerRef.current,
                 start: "top top",
                 end: "bottom top",
                 scrub: true,
             }
         });
-
-        // Fade and move up the text content slightly faster
-        gsap.to(contentRef.current, {
-            y: -50,
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-            }
-        });
-    }, { scope: sectionRef });
+    }, { scope: containerRef });
 
     return (
-        <section className={styles.heroSection} ref={sectionRef}>
-            <Image
-                ref={imageRef}
-                src="/assets/images/banners/catalog_hero_bottles.png"
-                alt="Vittorio Parfum Collection"
-                fill
-                priority
-                unoptimized={true}
-                quality={100}
-                className={styles.heroImage}
-                style={{ objectPosition: 'center 40%' }}
-            />
-            {/* Vintage dust/scratches overlay exactly like About page */}
-            <div className={styles.heroNoiseOverlay}></div>
+        <section className={styles.hero} ref={containerRef}>
+            <div className={styles.bgWrapper} ref={bgRef}>
+                <Image
+                    src="/assets/images/banners/page-11.jpg"
+                    alt="Catalog Collection"
+                    fill
+                    priority
+                    className={styles.bgImage}
+                />
+                <div className={styles.noise}></div>
+                <div className={styles.overlay}></div>
+            </div>
 
-            <div className={styles.heroOverlay}></div>
-            <div className={styles.heroContent} ref={contentRef}>
-                <div className={styles.breadcrumbs}>
-                    <Link href="/">Главная</Link>
-                    <span>•</span>
-                    <span style={{ fontWeight: 600 }}>Коллекция ароматов</span>
-                </div>
-                <h1 className={styles.heroTitle}>КОЛЛЕКЦИЯ АРОМАТОВ</h1>
+            <div className={styles.content}>
+                <Reveal direction="up">
+                    <div className={styles.breadcrumbs}>
+                        <Link href="/">{t('nav.home')}</Link> / <span>{t('nav.catalog')}</span>
+                    </div>
+                    <h1 className={styles.title}>{t('catalog.title')}</h1>
+                </Reveal>
             </div>
         </section>
     );

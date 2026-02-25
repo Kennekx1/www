@@ -171,31 +171,55 @@
     }
 }
 
-.volumeValue {
+.volumeSelector {
     display: flex;
-    align-items: baseline;
     gap: 12px;
+}
+
+.volumeBtn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.06);
-    padding: 18px 24px;
+    padding: 16px 20px;
     border-radius: 4px;
-    width: fit-content;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 160px;
 
-    .vol {
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    &.active {
+        border-color: var(--color-santal);
+        background-color: #fcfaf8;
+        box-shadow: 0 10px 20px rgba(126, 71, 37, 0.05);
+
+        .volSize {
+            color: var(--color-santal);
+        }
+    }
+
+    .volSize {
         font-weight: 700;
-        font-size: 1.1rem;
+        font-size: 1rem;
         letter-spacing: 1px;
-    }
-
-    .priceDivider {
-        opacity: 0.2;
-        font-weight: 300;
-    }
-
-    .finalPrice {
-        font-size: 1.3rem;
-        font-family: var(--font-heading);
         color: var(--color-foreground);
+    }
+
+    .volPrice {
+        font-size: 0.9rem;
+        font-family: var(--font-heading);
+        opacity: 0.6;
+    }
+
+    &:hover:not(:disabled):not(.active) {
+        border-color: rgba(0, 0, 0, 0.2);
     }
 }
 

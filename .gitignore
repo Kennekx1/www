@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# venv
+/venv/
+
+# heavy files
+*.pdf
+# /public/assets/original/
+
+# temporary and logs
+parsed_pdf.txt
+parsed_pdf2.txt
+test_flip.ts
+vittorio.txt
+preview.py

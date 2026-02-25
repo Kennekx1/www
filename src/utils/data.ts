@@ -3,21 +3,24 @@ import navigationData from '../data/navigation.json';
 
 // --- Types ---
 
+export type LocalizedString = string | { ru: string, kk: string };
+export type LocalizedArray = string[] | { ru: string[], kk: string[] };
+
 export interface Product {
     id: string;
     slug: string;
     name: string;
-    collection: string;
-    description: string;
-    price?: number; // Legacy support
-    price_3ml?: string; // e.g. "290 ₽"
+    collection: LocalizedString;
+    description: LocalizedString;
+    price?: number;
+    price_3ml?: string;
     price_100ml?: string;
-    group?: string; // Olfactory group
+    group?: LocalizedString;
     notes: {
-        upper: string[];
-        heart: string[];
-        base: string[];
-    } | string[]; // Support both old array and new object format
+        upper: LocalizedArray;
+        heart: LocalizedArray;
+        base: LocalizedArray;
+    } | string[];
     image: string;
     image_hover: string;
     themeColor?: string;
@@ -36,7 +39,7 @@ export interface NavItem {
 // --- Utilities ---
 
 export function getAllProducts(): Product[] {
-    return (productsData as any[]).map(product => {
+    return (productsData as unknown as Product[]).map(product => {
         // Parse price string "80 000 ₸" to number 80000 for sorting
         const priceStr = product.price_100ml || product.price_3ml || "0";
         const priceNum = parseInt(priceStr.replace(/\s/g, '').replace(/\D/g, '')) || 0;

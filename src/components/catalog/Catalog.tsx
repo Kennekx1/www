@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Flip } from 'gsap/dist/Flip';
+import { useLanguage } from '@/context/LanguageContext';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(Flip);
@@ -18,6 +19,7 @@ interface CatalogProps {
 }
 
 export default function Catalog({ products }: CatalogProps) {
+    const { language, t } = useLanguage();
     const [activeFilter, setActiveFilter] = useState<string>('all');
     const [sortOrder, setSortOrder] = useState<string>('default');
     const [isSortOpen, setIsSortOpen] = useState(false);
@@ -25,32 +27,29 @@ export default function Catalog({ products }: CatalogProps) {
     const sortRef = useRef<HTMLDivElement>(null);
     const flipStateRef = useRef<Flip.FlipState | null>(null);
 
-    // Extract unique collections for filters
-    const collections = useMemo(() => {
-        const unique = new Set(products.map(p => p.collection));
-        return ['all', ...Array.from(unique)];
-    }, [products]);
+    const getLoc = (field: any) => {
+        if (typeof field === 'string') return field;
+        return field?.[language] || field?.['ru'] || '';
+    };
 
-    // Filter and Sort Logic
+    const collections = useMemo(() => {
+        const unique = new Set(products.map(p => getLoc(p.collection)));
+        return ['all', ...Array.from(unique)];
+    }, [products, language]);
+
     const filteredProducts = useMemo(() => {
         let result = [...products];
-
-        // Filter
         if (activeFilter !== 'all') {
-            result = result.filter(p => p.collection === activeFilter);
+            result = result.filter(p => getLoc(p.collection) === activeFilter);
         }
-
-        // Sort
         if (sortOrder === 'price-asc') {
             result.sort((a, b) => (a.price || 0) - (b.price || 0));
         } else if (sortOrder === 'price-desc') {
             result.sort((a, b) => (b.price || 0) - (a.price || 0));
         }
-
         return result;
-    }, [products, activeFilter, sortOrder]);
+    }, [products, activeFilter, sortOrder, language]);
 
-    // Capture state before change
     const triggerFlipState = () => {
         if (!gridRef.current) return;
         const q = gsap.utils.selector(gridRef);
@@ -70,7 +69,6 @@ export default function Catalog({ products }: CatalogProps) {
         setIsSortOpen(false);
     };
 
-    // Animation when data changes
     useGSAP(() => {
         if (!gridRef.current) return;
         const q = gsap.utils.selector(gridRef);
@@ -88,42 +86,20 @@ export default function Catalog({ products }: CatalogProps) {
             });
             flipStateRef.current = null;
         } else if (!flipStateRef.current && items.length > 0) {
-            // Initial load
             gsap.fromTo(items,
                 { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    stagger: 0.1,
-                    ease: 'power4.out',
-                    clearProps: 'all'
-                }
+                { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power4.out', clearProps: 'all' }
             );
         }
     }, { dependencies: [filteredProducts], scope: gridRef });
 
-    // Handle click outside to close custom select
-    React.useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
-                setIsSortOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
     const sortOptions = [
-        { value: 'default', label: 'По умолчанию' },
-        { value: 'price-asc', label: 'Сначала дешевле' },
-        { value: 'price-desc', label: 'Сначала дороже' }
+        { value: 'default', label: t('catalog.sortDefault') },
+        { value: 'price-asc', label: t('catalog.sortPriceAsc') },
+        { value: 'price-desc', label: t('catalog.sortPriceDesc') }
     ];
 
-    const currentSortLabel = sortOptions.find(opt => opt.value === sortOrder)?.label || 'Сортировка';
+    const currentSortLabel = sortOptions.find(opt => opt.value === sortOrder)?.label || t('catalog.sortDefault');
 
     return (
         <div className={styles.catalogLayout}>
@@ -135,7 +111,7 @@ export default function Catalog({ products }: CatalogProps) {
                             className={clsx(styles.filterBtn, { [styles.active]: activeFilter === col })}
                             onClick={() => changeFilter(col)}
                         >
-                            {col === 'all' ? 'Все' : col}
+                            {col === 'all' ? t('catalog.filterAll') : col}
                         </button>
                     ))}
                 </div>
@@ -178,7 +154,7 @@ export default function Catalog({ products }: CatalogProps) {
                     </div>
                 ) : (
                     <div className={styles.noResults}>
-                        В данной категории товаров пока нет.
+                        {t('catalog.noResults')}
                     </div>
                 )}
             </div>

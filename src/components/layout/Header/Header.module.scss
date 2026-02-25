@@ -168,6 +168,57 @@
     }
 }
 
+.langSwitcher {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+    font-size: 0.7rem;
+    font-family: var(--font-primary);
+    opacity: 0.8;
+
+    @media (min-width: 768px) {
+        gap: 12px;
+        margin-right: 25px;
+        font-size: 0.75rem;
+    }
+
+    button {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: 5px;
+        transition: all 0.3s ease;
+        opacity: 0.4;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        &.activeLang {
+            opacity: 1;
+            font-weight: 700;
+
+            &::after {
+                width: 100%;
+            }
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
 .scrollProgress {
     position: absolute;
     bottom: 0;

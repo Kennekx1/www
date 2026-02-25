@@ -1,327 +1,145 @@
 'use client';
 
-import React from 'react';
-import styles from './about.module.scss';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
+import styles from './AboutClient.module.scss';
 import Image from 'next/image';
-import Reveal from '@/components/common/Reveal';
-import dynamic from 'next/dynamic';
-import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Reveal from '@/components/common/Reveal';
+import { useLanguage } from '@/context/LanguageContext';
 
-gsap.registerPlugin(ScrollTrigger);
-
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function AboutClient() {
-    const heroRef = useRef<HTMLElement>(null);
-    const bgRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
-    const timelineRef = useRef<HTMLDivElement>(null);
+    const { language, t } = useLanguage();
     const containerRef = useRef<HTMLDivElement>(null);
+    const heroImageRef = useRef<HTMLDivElement>(null);
+
+    const timeline = [
+        {
+            year: "2011",
+            title: { ru: "Первая экспедиция", kk: "Алғашқы экспедиция" },
+            text: {
+                ru: "Витторио отправляется в свое первое путешествие в поисках уникальных ингредиентов для будущих ароматов.",
+                kk: "Витторио болашақ хош иістерге арналған бірегей ингредиенттерді іздеп, өзінің алғашқы саяхатына шығады."
+            }
+        },
+        {
+            year: "2015",
+            title: { ru: "Личный дневник", kk: "Жеке күнделік" },
+            text: {
+                ru: "Собрана коллекция из более чем 100 ольфакторных воспоминаний со всего мира.",
+                kk: "Әлемнің түкпір-түкпірінен 100-ден астам ольфакторлық естеліктер жинақталды."
+            }
+        },
+        {
+            year: "2018",
+            title: { ru: "Рождение бренда", kk: "Брендтің дүниеге келуі" },
+            text: {
+                ru: "Запуск первых пяти ароматов, ставших бестселлерами. Открытие первого концепт-стора.",
+                kk: "Бестселлерге айналған алғашқы бес хош иістің таныстырылымы. Алғашқы концепт-стордың ашылуы."
+            }
+        },
+        {
+            year: "2024",
+            title: { ru: "Мировое признание", kk: "Әлемдік танымалдылық" },
+            text: {
+                ru: "Vittorio Parfum представлен в крупнейших городах мира. Более 20 уникальных композиций.",
+                kk: "Vittorio Parfum әлемнің ірі қалаларында ұсынылған. 20-дан астам бірегей композициялар."
+            }
+        }
+    ];
 
     useGSAP(() => {
-        if (!heroRef.current || !bgRef.current) return;
-
-        // Parallax background
-        gsap.to(bgRef.current, {
-            yPercent: 20,
-            ease: 'none',
+        gsap.to(heroImageRef.current, {
+            yPercent: 30,
+            ease: "none",
             scrollTrigger: {
-                trigger: heroRef.current,
-                start: 'top top',
-                end: 'bottom top',
+                trigger: containerRef.current,
+                start: "top top",
+                end: "bottom top",
                 scrub: true,
-            },
+            }
         });
 
-        // Title Reveal Animation
-        const titleRows = titleRef.current?.querySelectorAll(`.${styles.titleText}`);
-        if (titleRows) {
-            gsap.fromTo(titleRows,
-                { y: '120%', rotateX: -30, opacity: 0 },
-                {
-                    y: '0%',
-                    rotateX: 0,
-                    opacity: 1,
-                    duration: 1.8,
-                    stagger: 0.2,
-                    ease: 'power4.out',
-                    delay: 0.8
-                }
-            );
-        }
-
-        // Timeline Animation
-        const timelineLineFill = timelineRef.current?.querySelector(`.${styles.timelineLineFill}`);
-        const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
-
-        if (timelineLineFill && timelineItems) {
-            // Set initial state
-            gsap.set(timelineItems, { opacity: 0.2, x: -20 });
-            gsap.set(timelineLineFill, { scaleY: 0, transformOrigin: "top center" });
-
-            // Animate line filling up
-            gsap.to(timelineLineFill, {
-                scaleY: 1,
-                ease: "none",
+        const stops = gsap.utils.toArray(`.${styles.stop}`);
+        stops.forEach((stop: any) => {
+            gsap.from(stop, {
+                opacity: 0,
+                x: -30,
+                duration: 1,
                 scrollTrigger: {
-                    trigger: timelineRef.current,
-                    start: 'top 50%',
-                    end: 'bottom 50%',
-                    scrub: true,
-                }
-            });
-
-            // Animate each timeline group as the line passes it
-            timelineItems.forEach((item) => {
-                const innerPoint = item.querySelector(`.${styles.pinInner}`);
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: item,
-                        start: 'top 50%', // Trigger when the item reaches 50% of viewport
-                        end: 'bottom 20%',
-                        toggleActions: 'play reverse play reverse',
-                    }
-                });
-
-                tl.to(item, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" })
-                    .to(innerPoint, { scale: 1, backgroundColor: 'var(--color-santal)', duration: 0.4, ease: "back.out(2)" }, "<");
-            });
-        }
-
-        // Image Parallax (Alchemy of Memory / Craftsmanship)
-        const visualImages = document.querySelectorAll(`.${styles.visualImage}`);
-        visualImages.forEach((img) => {
-            gsap.to(img, {
-                yPercent: 20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
+                    trigger: stop,
+                    start: "top 80%",
                 }
             });
         });
-
-        // Philosophy Cards 3D Tilt
-        const philosophyCards = document.querySelectorAll(`.${styles.valueCard}`);
-        philosophyCards.forEach((card) => {
-            const el = card as HTMLElement;
-
-            const onMouseMove = (e: MouseEvent) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                gsap.to(el, {
-                    rotateX,
-                    rotateY,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                    transformPerspective: 1000,
-                });
-            };
-
-            const onMouseLeave = () => {
-                gsap.to(el, {
-                    rotateX: 0,
-                    rotateY: 0,
-                    duration: 0.6,
-                    ease: 'power3.out'
-                });
-            };
-
-            el.addEventListener('mousemove', onMouseMove);
-            el.addEventListener('mouseleave', onMouseLeave);
-        });
-
     }, { scope: containerRef });
 
     return (
-        <main className={styles.aboutContainer} ref={containerRef}>
-            <div className={styles.orb}></div>
-            <div className={styles.orb}></div>
+        <div className={styles.aboutPage} ref={containerRef}>
+            <section className={styles.hero}>
+                <div className={styles.heroBg} ref={heroImageRef}>
+                    <Image
+                        src="/assets/original/images/welcome/perfumer_portrait.jpg"
+                        alt="About Vittorio"
+                        fill
+                        priority
+                        className={styles.heroImg}
+                    />
+                    <div className={styles.heroOverlay}></div>
+                </div>
+                <div className={styles.heroContent}>
+                    <Reveal direction="up">
+                        <h1 className={styles.title}>{t('home.philosophyTitle')} & {t('home.journalTitle')}</h1>
+                    </Reveal>
+                </div>
+            </section>
 
-            {/* Hero Section */}
-            <header ref={heroRef} className={styles.hero}>
-                <div ref={bgRef} className={styles.heroBackground}></div>
-                <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
-                    <div className={styles.heroOverlay}>
-                        <Reveal direction="down" delay={0.2}>
-                            <span className={styles.since}>PHILOSOPHY & HERITAGE</span>
-                        </Reveal>
-
-                        <h1 ref={titleRef}>
-                            <span className={styles.titleRow}>
-                                <span className={styles.titleText}>Искусство</span>
-                            </span>
-                            <span className={styles.titleRow}>
-                                <span className={styles.titleText}>Путешествий</span>
-                            </span>
-                        </h1>
-
-                        <Reveal delay={1.2}>
-                            <div className={styles.heroDivider}></div>
-                        </Reveal>
+            <section className={styles.philosophy}>
+                <div className={styles.container}>
+                    <div className={styles.flexLayout}>
+                        <div className={styles.textSide}>
+                            <Reveal direction="up">
+                                <span className={styles.label}>{t('home.philosophyTitle')}</span>
+                                <h2 className={styles.heading}>{t('home.transitionBanner')}</h2>
+                                <p className={styles.para}>
+                                    {t('home.introText')}
+                                </p>
+                            </Reveal>
+                        </div>
+                        <div className={styles.visualSide}>
+                            <Image
+                                src="/assets/original/images/products/essay.jpg"
+                                alt="Philosophy"
+                                width={500}
+                                height={600}
+                                className={styles.sideImg}
+                            />
+                        </div>
                     </div>
                 </div>
-            </header>
+            </section>
 
-            <div className={styles.contentWrapper}>
-                {/* The Perfumer Section */}
-                <section className={styles.splitSection}>
-                    <div className={styles.visualWrapper}>
-                        <Reveal direction="right" duration={1.2}>
-                            <div className={styles.premiumPlaceholder} data-cursor-text="ИЗУЧИТЬ">
-                                <Image
-                                    src="/assets/original/images/about/perfumer_new.png"
-                                    alt="Парфюмер Витторио"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    className={styles.visualImage}
-                                />
-                                <span className={styles.vLabel}>VITTORIO</span>
-                            </div>
-                        </Reveal>
-                    </div>
-                    <div className={styles.textWrapper}>
-                        <Reveal direction="up" delay={0.4}>
-                            <h2 className={styles.sectionTitle}>01. Алхимия Памяти</h2>
-                            <p>
-                                Витторио — не просто парфюмер, он коллекционер моментов.
-                                Каждое его создание начинается не в лаборатории, а в пути.
-                                От утреннего тумана над тосканскими холмами до соленого бриза
-                                амальфитанского побережья — всё становится частью ольфакторной летописи.
-                            </p>
-                            <p>
-                                Мы верим, что аромат — единственная машина времени,
-                                доступная человеку. Он способен мгновенно вернуть нас
-                                в забытый полдень детства или на залитую солнцем площадь заброшенного города.
-                            </p>
-                        </Reveal>
-                    </div>
-                </section>
-
-                {/* The Journey Section */}
-                <section className={`${styles.splitSection} ${styles.reversed}`}>
-                    <div className={styles.visualWrapper}>
-                        <Reveal direction="left" duration={1.2}>
-                            <div className={styles.premiumPlaceholder} data-cursor-text="ИЗУЧИТЬ">
-                                <Image
-                                    src="/assets/original/images/about/craftmanship_detail.png"
-                                    alt="Детали мастерства"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    className={styles.visualImage}
-                                />
-                                <span className={styles.vLabel}>EST. 2018</span>
-                            </div>
-                        </Reveal>
-                    </div>
-                    <div className={styles.textWrapper}>
-                        <Reveal direction="up" delay={0.4}>
-                            <h2 className={styles.sectionTitle}>02. Культура Материи</h2>
-                            <p>
-                                Мы фанатично преданы качеству ингредиентов. Если это сандал —
-                                то только из экологически чистых лесов, если кожа — то с характером
-                                старой флорентийской мастерской.
-                            </p>
-                            <p>
-                                Каждый флакон Vittorio — это баланс между грубой силой природы
-                                и изысканностью ручной работы. Мы создаем ароматы, которые
-                                живут на коже, меняются вместе с вами и рассказывают вашу собственную историю.
-                            </p>
-                        </Reveal>
-                    </div>
-                </section>
-
-                {/* Traveler's Journal Timeline */}
-                <section className={styles.journalSection}>
-                    <Reveal>
-                        <span className={styles.sectionLabel}>Ольфакторный Дневник</span>
-                        <h2 className={styles.philosophyTitle}>Хронология Путешествий</h2>
-                    </Reveal>
-
-                    <div className={styles.timeline} ref={timelineRef}>
-                        <div className={styles.timelineLine}>
-                            <div className={styles.timelineLineFill} />
-                        </div>
-
-                        <div className={`${styles.timelineItem} timeline-item`}>
-                            <div className={styles.year}>2011</div>
-                            <div className={styles.log}>
-                                <div className={styles.pin}>
-                                    <div className={styles.pinInner} />
+            <section className={styles.history}>
+                <div className={styles.container}>
+                    <h2 className={styles.sectionTitle}>{t('common.since')}</h2>
+                    <div className={styles.timeline}>
+                        {timeline.map((item, i) => (
+                            <div key={i} className={styles.stop}>
+                                <div className={styles.year}>{item.year}</div>
+                                <div className={styles.info}>
+                                    <h3 className={styles.itemTitle}>{item.title[language as 'ru' | 'kk']}</h3>
+                                    <p className={styles.itemText}>{item.text[language as 'ru' | 'kk']}</p>
                                 </div>
-                                <h3>Северная Италия</h3>
-                                <p>Первые записи в дневнике. Обучение в Грасе и возвращение к истокам — в аптеку деда. Поиск того самого «запаха дождя над виноградниками».</p>
                             </div>
-                        </div>
-
-                        <div className={`${styles.timelineItem} timeline-item`}>
-                            <div className={styles.year}>2014</div>
-                            <div className={styles.log}>
-                                <div className={styles.pin}>
-                                    <div className={styles.pinInner} />
-                                </div>
-                                <h3>Марокко, Фес</h3>
-                                <p>Запах кожи, обожженной солнцем, и прохладного атласского кедра. Здесь родился прототип «Santal & Leather».</p>
-                            </div>
-                        </div>
-
-                        <div className={`${styles.timelineItem} timeline-item`}>
-                            <div className={styles.year}>2018</div>
-                            <div className={styles.log}>
-                                <div className={styles.pin}>
-                                    <div className={styles.pinInner} />
-                                </div>
-                                <h3>Основание Vittorio</h3>
-                                <p>Открытие первой мастерской. Релиз легендарной коллекции ароматов, которые навсегда изменили представление о нишевой парфюмерии.</p>
-                            </div>
-                        </div>
-
-                        <div className={`${styles.timelineItem} timeline-item`}>
-                            <div className={styles.year}>2021</div>
-                            <div className={styles.log}>
-                                <div className={styles.pin}>
-                                    <div className={styles.pinInner} />
-                                </div>
-                                <h3>Япония, Киото</h3>
-                                <p>Медитация под цветущей сакурой. Тонкие грани мускуса и пудровых нот — рождение нежной мелодии «Musk Melody».</p>
-                            </div>
-                        </div>
+                        ))}
                     </div>
-                </section>
-
-
-                {/* Philosophy & Values */}
-                <section className={styles.philosophySection}>
-                    <h2 className={styles.philosophyTitle}>Философия</h2>
-                    <div className={styles.valuesGrid}>
-                        <div className={styles.valueCard}>
-                            <h3>Уникальность</h3>
-                            <p>Мы не следуем трендам. Мы создаем классику вне времени, которая подчеркивает вашу индивидуальность.</p>
-                        </div>
-                        <div className={styles.valueCard}>
-                            <h3>Эмоции</h3>
-                            <p>Наши ароматы — это истории, рассказанные без слов. Они пробуждают воспоминания и переносят в другие миры.</p>
-                        </div>
-                        <div className={styles.valueCard}>
-                            <h3>Мастерство</h3>
-                            <p>Используя знания старых итальянских аптекарей и современные технологии, мы добиваемся идеального баланса.</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
+                </div>
+            </section>
+        </div>
     );
 }

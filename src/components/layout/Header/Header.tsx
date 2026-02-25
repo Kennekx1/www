@@ -9,7 +9,10 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function Header() {
+    const { language, setLanguage, t } = useLanguage();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -19,7 +22,7 @@ export default function Header() {
     const cartBtnRef = useRef<HTMLAnchorElement>(null);
 
     // Pages that have a dark hero section or split layout and need transparent header at the top
-    const isDarkHeroPage = pathname === '/' || pathname === '/about' || pathname === '/catalog' || pathname === '/contacts';
+    const isDarkHeroPage = pathname === '/' || pathname === '/about' || pathname === '/catalog' || pathname === '/contacts' || pathname === '/shops';
     const isContacts = pathname === '/contacts';
 
     useGSAP(() => {
@@ -97,7 +100,7 @@ export default function Header() {
             <header className={headerClasses} ref={headerRef}>
                 <div className={clsx(styles.leftSection, 'anim-item')}>
                     <button className={styles.menuBtn} onClick={() => setIsMenuOpen(true)} ref={menuBtnRef}>
-                        МЕНЮ
+                        {t('nav.menu')}
                     </button>
                 </div>
 
@@ -108,8 +111,22 @@ export default function Header() {
                 </div>
 
                 <div className={clsx(styles.rightSection, 'anim-item')}>
+                    <div className={styles.langSwitcher}>
+                        <button
+                            className={clsx(language === 'ru' && styles.activeLang)}
+                            onClick={() => setLanguage('ru')}
+                        >
+                            RU
+                        </button>
+                        <button
+                            className={clsx(language === 'kk' && styles.activeLang)}
+                            onClick={() => setLanguage('kk')}
+                        >
+                            KK
+                        </button>
+                    </div>
                     <Link href="/contacts" className={styles.cartLink} ref={cartBtnRef}>
-                        СВЯЗАТЬСЯ
+                        {t('nav.connect')}
                     </Link>
                 </div>
 

@@ -188,7 +188,9 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
                         <span className={styles.storyLabel}>{t('product.storyTitle')}</span>
                         <h2 className={styles.storyTitle}>{t('product.masterVoice')}</h2>
                         <div className={styles.storyContent}>
-                            <p>«{getLoc(product.description)}»</p>
+                            <p className={styles.quote}>
+                                «{t(`product.phil_${product.slug.replace('-11-01', '_legend').replace('-leather', '_santal').replace('-of-the-sea', '_voice').replace('-melody', '_musk').replace('-v', '_ethnos').replace('-peony', '_velvet')}`)}»
+                            </p>
                         </div>
                     </Reveal>
                 </div>

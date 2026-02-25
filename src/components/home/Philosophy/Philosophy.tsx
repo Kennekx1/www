@@ -50,7 +50,10 @@ export default function Philosophy() {
                             <span className={styles.label}>{t('home.philosophyTitle')}</span>
                             <h2 className={styles.title}>{t('home.transitionBanner')}</h2>
                             <p className={styles.text}>
-                                {t('home.introText')}
+                                {t('history.intro')}
+                            </p>
+                            <p className={styles.text} style={{ marginTop: '1.5rem', opacity: 0.6 }}>
+                                {t('history.passion')}
                             </p>
                         </Reveal>
                     </div>

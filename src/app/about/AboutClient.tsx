@@ -94,11 +94,67 @@ export default function AboutClient() {
                 </div>
                 <div className={styles.heroContent}>
                     <Reveal direction="up">
-                        <h1 className={styles.title}>{t('home.philosophyTitle')} & {t('home.journalTitle')}</h1>
+                        <h1 className={styles.title}>{t('history.title')}</h1>
                     </Reveal>
                 </div>
             </section>
 
+            {/* Section 1: Introduction */}
+            <section className={styles.philosophy}>
+                <div className={styles.container}>
+                    <div className={styles.flexLayout}>
+                        <div className={styles.textSide}>
+                            <Reveal direction="up">
+                                <span className={styles.label}>{t('nav.about')}</span>
+                                <h2 className={styles.heading}>{t('home.introTitle')}</h2>
+                                <p className={styles.para}>
+                                    {t('history.intro')}
+                                </p>
+                                <p className={styles.para} style={{ marginTop: '20px' }}>
+                                    {t('history.passion')}
+                                </p>
+                            </Reveal>
+                        </div>
+                        <div className={styles.visualSide}>
+                            <Image
+                                src="/assets/images/banners/page-12.jpg"
+                                alt="Philosophy"
+                                width={500}
+                                height={600}
+                                className={styles.sideImg}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 2: Art of Travel */}
+            <section className={styles.travelSection} style={{ backgroundColor: 'var(--color-background-soft)', padding: '100px 0' }}>
+                <div className={styles.container}>
+                    <div className={styles.flexLayout} style={{ flexDirection: 'row-reverse' }}>
+                        <div className={styles.textSide}>
+                            <Reveal direction="up">
+                                <span className={styles.label}>{t('home.journalLabel')}</span>
+                                <h2 className={styles.heading}>{t('home.journalTitle')}</h2>
+                                <p className={styles.para}>
+                                    {t('history.travel')}
+                                </p>
+                            </Reveal>
+                        </div>
+                        <div className={styles.visualSide}>
+                            <Image
+                                src="/assets/images/banners/page-05.jpg"
+                                alt="Travel"
+                                width={500}
+                                height={600}
+                                className={styles.sideImg}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 3: Mission & Laboratory */}
             <section className={styles.philosophy}>
                 <div className={styles.container}>
                     <div className={styles.flexLayout}>
@@ -107,14 +163,14 @@ export default function AboutClient() {
                                 <span className={styles.label}>{t('home.philosophyTitle')}</span>
                                 <h2 className={styles.heading}>{t('home.transitionBanner')}</h2>
                                 <p className={styles.para}>
-                                    {t('home.introText')}
+                                    {t('history.mission')}
                                 </p>
                             </Reveal>
                         </div>
                         <div className={styles.visualSide}>
                             <Image
                                 src="/assets/original/images/products/essay.jpg"
-                                alt="Philosophy"
+                                alt="Mission"
                                 width={500}
                                 height={600}
                                 className={styles.sideImg}

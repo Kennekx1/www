@@ -579,3 +579,89 @@
         }
     }
 }
+
+.philosophy {
+    padding: 100px 20px;
+    background-color: var(--color-background);
+
+    @media (min-width: 1024px) {
+        padding: 160px 40px;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+.travelSection {
+    background-color: var(--color-background-soft);
+    padding: 100px 0;
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+}
+
+.flexLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        gap: 100px;
+
+        &.reversed {
+            flex-direction: row-reverse;
+        }
+    }
+}
+
+.textSide {
+    flex: 1;
+    max-width: 600px;
+}
+
+.visualSide {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+}
+
+.sideImg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    letter-spacing: 2px;
+}
+
+.para {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.label {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}

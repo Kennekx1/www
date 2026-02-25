@@ -56,7 +56,8 @@
         "base": "Базовые ноты",
         "storyTitle": "История создания",
         "masterVoice": "Голос Маэстро",
-        "whatsapp": "Связаться в WhatsApp"
+        "whatsapp": "Связаться в WhatsApp",
+        "checkAvailability": "Узнать наличие в бутиках"
     },
     "shops": {
         "heroLabel": "ГДЕ НАС НАЙТИ",

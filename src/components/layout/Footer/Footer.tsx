@@ -50,10 +50,10 @@ export default function Footer() {
                     </div>
                     <div className={styles.locations}>
                         <div className={styles.locItem}>
-                            <strong>{language === 'ru' ? 'АЛМАТЫ:' : 'АЛМАТЫ:'}</strong> ТРЦ MEGA Center Alma-Ata
+                            <strong>{t('footer.almatyLabel')}</strong> {t('footer.almatyValue')}
                         </div>
                         <div className={styles.locItem}>
-                            <strong>{language === 'ru' ? 'АСТАНА:' : 'АСТАНА:'}</strong> ТЦ Ханшатыр
+                            <strong>{t('footer.astanaLabel')}</strong> {t('footer.astanaValue')}
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ const AromaJournal: React.FC = () => {
                 ru: "«В воздухе разлит аромат спелых цитрусов и морской соли...»",
                 kk: "«Ауада піскен цитрус пен теңіз тұзының хош иісі аңқиды...»"
             },
-            image: "/assets/images/banners/page-05.jpg",
+            image: "/assets/images/banners/journal_italy.png",
             align: 'left'
         },
         {
@@ -35,7 +35,7 @@ const AromaJournal: React.FC = () => {
                 ru: "«Запах специй, кожи и раскаленного солнца на узких улочках...»",
                 kk: "«Тар көшелердегі дәмдеуіштердің, былғарының және аптап күннің иісі...»"
             },
-            image: "/assets/images/banners/page-12.jpg",
+            image: "/assets/images/banners/journal_morocco.png",
             align: 'right'
         },
         {
@@ -45,7 +45,7 @@ const AromaJournal: React.FC = () => {
                 ru: "«Тонкий аромат влажного мха и тишины буддийских храмов...»",
                 kk: "«Ылғал мүк пен будда храмдарындағы тыныштықтың нәзік хош иісі...»"
             },
-            image: "/assets/images/banners/page-18.jpg",
+            image: "/assets/images/banners/journal_japan.png",
             align: 'left'
         }
     ];

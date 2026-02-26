@@ -31,7 +31,7 @@ export default function Philosophy() {
         <section className={styles.philosophy} ref={containerRef}>
             <div className={styles.backgroundImage}>
                 <Image
-                    src="/assets/images/banners/page-14.jpg"
+                    src="/assets/images/banners/philosophy_amber_bg.png"
                     alt="Philosophy Background"
                     fill
                     className={styles.img}

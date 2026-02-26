@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from "@/components/common/SmoothScroll";
-import CustomCursor from "@/components/common/CustomCursor/CustomCursor";
 import FilmGrain from "@/components/common/FilmGrain/FilmGrain";
 import { LanguageProvider } from "@/context/LanguageContext";
 
@@ -23,7 +22,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <LanguageProvider>
           <FilmGrain />
-          <CustomCursor />
           <SmoothScroll>
             <Header />
             {children}

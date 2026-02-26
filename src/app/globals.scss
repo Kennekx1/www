@@ -78,20 +78,6 @@ video {
   display: block; // Remove inline gap
 }
 
-// Custom Cursor Hide standard on desktop
-@media (pointer: fine) {
-  body {
-    cursor: none;
-
-    a,
-    button,
-    input,
-    textarea,
-    [role="button"] {
-      cursor: none !important;
-    }
-  }
-}
 
 // Lenis
 html.lenis {

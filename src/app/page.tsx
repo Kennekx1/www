@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import ScrollIndicator from '../components/common/ScrollIndicator/ScrollIndicator';
 import { getAllProducts } from '@/utils/data';
 import styles from './page.module.scss';
-import HomeIntro from '@/components/home/HomeIntro/HomeIntro';
 import FragranceShowcase from '@/components/home/FragranceShowcase/FragranceShowcase';
 import dynamic from 'next/dynamic';
 import { useGSAP } from '@gsap/react';
@@ -99,7 +98,6 @@ export default function Home() {
         <ScrollIndicator />
       </section>
 
-      <HomeIntro />
 
       <section className={styles.transitionBanner} data-cursor-text={t('common.more')}>
         <div className={styles.bannerContent}>

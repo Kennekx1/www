@@ -106,7 +106,10 @@ export default function Header() {
 
                 <div className={clsx(styles.logoContainer, 'anim-item')}>
                     <Link href="/" className={styles.logo}>
-                        VITTORIO
+                        <svg className={styles.featherIcon} viewBox="55 0 26 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M73.9674 33.2564C74.8778 33.6466 75.5282 34.0368 76.1785 34.557C75.3981 33.6466 74.6177 32.8662 74.2275 32.476C64.3425 24.1517 60.5706 21.2903 58.6196 17.2582C56.6686 11.9255 57.7091 6.46277 61.7412 1C61.6111 6.7229 63.1719 11.4053 65.383 15.9576C67.0739 18.819 72.9268 26.623 75.1379 28.8341C78.7798 32.606 79.4301 35.4675 79.3001 38.5891C78.2595 37.2884 75.5282 36.2479 74.2275 35.8577C65.5131 32.9962 62.2614 32.0858 59.7902 30.0047C57.0588 27.0132 56.2784 23.1112 57.579 18.4288C59.0098 22.3308 61.351 24.9321 63.9523 27.4034C65.9033 28.8341 71.8863 32.3459 73.9674 33.2564Z" fill="currentColor" />
+                        </svg>
+                        <span className={styles.logoText}>VITTORIO</span>
                     </Link>
                 </div>
 

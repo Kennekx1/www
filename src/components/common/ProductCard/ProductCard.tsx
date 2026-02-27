@@ -74,16 +74,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
                     className={styles.image}
                     priority={priority}
                 />
-
-                {product.image_hover && (
-                    <Image
-                        src={product.image_hover}
-                        alt={`${product.name} alternate view`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className={styles.imageHover}
-                    />
-                )}
             </div>
 
             <div className={styles.info} ref={infoRef}>

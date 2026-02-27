@@ -38,31 +38,16 @@
         pointer-events: none;
     }
 
-    .image,
-    .imageHover {
+    .image {
         width: 100% !important;
         height: 100% !important;
         object-fit: contain !important;
         padding: 40px;
         transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.8s ease;
         will-change: transform, opacity;
-    }
-
-    .image {
         z-index: 1;
         opacity: 1;
     }
-
-    .imageHover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        opacity: 0;
-        transform: scale(1.05);
-    }
-
-
 
     .newBadge {
         position: absolute;
@@ -91,13 +76,7 @@
         }
 
         .image {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        .imageHover {
-            opacity: 1;
-            transform: scale(1.1);
+            transform: scale(1.05); // Subtle zoom instead of hiding
         }
     }
 }

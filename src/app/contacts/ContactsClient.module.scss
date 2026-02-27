@@ -122,7 +122,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 60px 24px 80px;
+    padding: 100px 24px 80px; // Increased top padding for mobile to clear header
     background-color: transparent; // Let the premium texture show through
     position: relative;
     z-index: 1;
@@ -135,7 +135,7 @@
     }
 
     @media (min-width: 1024px) {
-        padding: 100px 40px 40px; // Increased top padding to avoid header overlap
+        padding: 140px 60px 80px; // Significantly increased top padding for desktop
         height: 100vh;
         display: flex;
         align-items: center; // Center content vertically in the panel
@@ -276,20 +276,20 @@
     input,
     textarea {
         width: 100%;
-        padding: 12px 0;
+        padding: 16px 0; // Increased padding for a larger feel
         border: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2); // slightly darker border
         background: transparent;
         font-family: var(--font-primary);
-        font-size: 0.8rem;
+        font-size: 0.9rem; // Slightly larger text
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 2px; // wider letter spacing
         color: var(--color-foreground);
         transition: border-color 0.3s;
         border-radius: 0;
 
         &::placeholder {
-            color: rgba(0, 0, 0, 0.3);
+            color: rgba(0, 0, 0, 0.4); // Darker placeholder for contrast
         }
 
         &:focus {
@@ -299,9 +299,9 @@
     }
 
     textarea {
-        min-height: 40px;
+        min-height: 80px; // Provide a more substantial textarea by default
         resize: none; // Prevent manual resize to keep layout stable
-        padding-top: 15px;
+        padding-top: 20px;
         overflow: hidden;
     }
 }

@@ -428,7 +428,8 @@
         grid-template-columns: 1fr 1fr;
         gap: 160px;
         align-items: flex-start;
-        padding-top: 60px; // Spacing at top of node
+        padding-top: 60px;
+        align-content: flex-start; // Ensure grid rows start at top
 
         &.left {
             .nodeContent {
@@ -448,6 +449,7 @@
 
             .nodeYear {
                 left: 50%;
+                top: 72px; // Fine-tuned alignment
                 transform: translateX(-50%);
                 flex-direction: row-reverse;
 
@@ -473,6 +475,7 @@
 
             .nodeYear {
                 left: 50%;
+                top: 72px;
                 transform: translateX(-50%);
 
                 span {

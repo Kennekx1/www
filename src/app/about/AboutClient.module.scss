@@ -435,7 +435,8 @@
             .nodeContent {
                 grid-column: 1;
                 text-align: right;
-                padding-right: 20px;
+                padding-right: 40px;
+                margin-top: 0;
 
                 .itemText {
                     margin-left: auto;
@@ -444,12 +445,13 @@
 
             .nodeImage {
                 grid-column: 2;
-                padding-left: 20px;
+                padding-left: 0;
+                margin-top: 0;
             }
 
             .nodeYear {
                 left: 50%;
-                top: 72px; // Fine-tuned alignment
+                top: 72px;
                 transform: translateX(-50%);
                 flex-direction: row-reverse;
 
@@ -463,13 +465,13 @@
             .nodeContent {
                 grid-column: 2;
                 text-align: left;
-                padding-left: 20px;
+                padding-left: 40px;
                 margin-top: 0;
             }
 
             .nodeImage {
                 grid-column: 1;
-                padding-right: 20px;
+                padding-right: 0;
                 margin-top: 0;
             }
 

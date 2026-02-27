@@ -428,7 +428,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 160px;
         align-items: flex-start;
-        padding-top: 40px;
+        padding-top: 60px; // Spacing at top of node
 
         &.left {
             .nodeContent {
@@ -509,7 +509,8 @@
 .nodeYear {
     position: absolute;
     left: 0;
-    top: 48px;
+    top: 66px; // Align dot with center of first line of text (60px + ~6px half-height of text)
+    height: 24px; // Match title height roughly
     display: flex;
     align-items: center;
     gap: 20px;
@@ -538,8 +539,9 @@
         font-family: var(--font-heading);
         font-size: 1.5rem;
         text-transform: uppercase;
+        margin-top: 0; // Fix: browser default margin could push text down
         margin-bottom: 15px;
-        letter-spacing: 1px;
+        line-height: 1.2;
     }
 
     .itemText {

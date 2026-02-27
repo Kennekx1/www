@@ -245,8 +245,10 @@ export default function AboutClient() {
                                     <span>{item.year}</span>
                                 </div>
                                 <div className={styles.nodeContent}>
-                                    <h3 className={styles.itemTitle}>{item.title[language as 'ru' | 'kk']}</h3>
-                                    <p className={styles.itemText}>{item.text[language as 'ru' | 'kk']}</p>
+                                    <Reveal direction={i % 2 === 0 ? "left" : "right"}>
+                                        <h3 className={styles.itemTitle}>{item.title[language as 'ru' | 'kk']}</h3>
+                                        <p className={styles.itemText}>{item.text[language as 'ru' | 'kk']}</p>
+                                    </Reveal>
                                 </div>
                                 <div className={styles.nodeImage}>
                                     <Reveal direction={i % 2 === 0 ? "right" : "left"}>

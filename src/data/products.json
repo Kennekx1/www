@@ -444,5 +444,334 @@
                 ]
             }
         }
+    },
+    {
+        "id": "prod_009",
+        "name": "ERATO",
+        "slug": "erato",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Вдохновленный музой любовной поэзии, этот аромат воспевает нежность и страсть.",
+            "kk": "Махаббат поэзиясының музасы шабыттандырған бұл хош иіс нәзіктік пен құмарлықты жырлайды."
+        },
+        "group": {
+            "ru": "цветочные",
+            "kk": "гүлді"
+        },
+        "themeColor": "#E8D8D8",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "цитрусы"
+                ],
+                "kk": [
+                    "цитрустар"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "цветочные ноты"
+                ],
+                "kk": [
+                    "гүлді ноталар"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "мускус"
+                ],
+                "kk": [
+                    "мускус"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_010",
+        "name": "BAKED BLISS",
+        "slug": "baked-bliss",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Гурманский аромат, дарящий ощущение домашнего уюта и тепла.",
+            "kk": "Үйдің жайлылығы мен жылулығын сыйлайтын гурман хош иісі."
+        },
+        "group": {
+            "ru": "гурманские",
+            "kk": "гурмандық"
+        },
+        "themeColor": "#D9C6B0",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "ваниль"
+                ],
+                "kk": [
+                    "ваниль"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "выпечка"
+                ],
+                "kk": [
+                    "пісірілген өнімдер"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "карамель"
+                ],
+                "kk": [
+                    "карамель"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_011",
+        "name": "LURE OF MUSE",
+        "slug": "lure-muse",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Таинственный аромат, пробуждающий вдохновение.",
+            "kk": "Шабыт оятатын жұмбақ хош иіс."
+        },
+        "group": {
+            "ru": "древесные",
+            "kk": "ағаш текті"
+        },
+        "themeColor": "#D6BBA6",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "бергамот"
+                ],
+                "kk": [
+                    "бергамот"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "ирис"
+                ],
+                "kk": [
+                    "ирис"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "сандал"
+                ],
+                "kk": [
+                    "сандал"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_012",
+        "name": "MORE LOVE",
+        "slug": "more-love",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Аромат, воплощающий безграничную любовь и нежность.",
+            "kk": "Шексіз махаббат пен нәзіктікті бейнелейтін хош иіс."
+        },
+        "group": {
+            "ru": "фруктовые цветочные",
+            "kk": "жемісті гүлді"
+        },
+        "themeColor": "#E2D8C9",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "ягоды"
+                ],
+                "kk": [
+                    "жидектер"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "роза"
+                ],
+                "kk": [
+                    "раушан"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "мускус"
+                ],
+                "kk": [
+                    "мускус"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_013",
+        "name": "CREATOR'S DELIGHT",
+        "slug": "creators-delight",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Аромат творца, полный неожиданных контрастов.",
+            "kk": "Күтпеген қарама-қайшылықтарға толы жасаушының хош иісі."
+        },
+        "group": {
+            "ru": "восточные древесные",
+            "kk": "шығыстық ағаш текті"
+        },
+        "themeColor": "#D9A066",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "специи"
+                ],
+                "kk": [
+                    "дәмдеуіштер"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "уд"
+                ],
+                "kk": [
+                    "уд"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "амбра"
+                ],
+                "kk": [
+                    "амбра"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_014",
+        "name": "SMELL THE STARS",
+        "slug": "smell-stars",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Прохладный и мерцающий аромат, подобно звездному небу.",
+            "kk": "Жұлдызды аспан сияқты салқын және жарқыраған хош иіс."
+        },
+        "group": {
+            "ru": "свежие",
+            "kk": "жаңа"
+        },
+        "themeColor": "#D6E0E6",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "озон"
+                ],
+                "kk": [
+                    "озон"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "ландыш"
+                ],
+                "kk": [
+                    "мамыргүл"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "белый мускус"
+                ],
+                "kk": [
+                    "ақ мускус"
+                ]
+            }
+        }
+    },
+    {
+        "id": "prod_015",
+        "name": "QUIET MASTERY",
+        "slug": "quiet-mastery",
+        "collection": {
+            "ru": "Коллекция ароматов",
+            "kk": "Хош иістер жинағы"
+        },
+        "price_100ml": "80 000 ₸",
+        "image": "/assets/original/images/products/essay_upgraded.png",
+        "image_hover": "/assets/original/images/products/essay.jpg",
+        "description": {
+            "ru": "Сдержанный, но уверенный аромат, отражающий истинное мастерство.",
+            "kk": "Нағыз шеберлікті көрсететін ұстамды, бірақ сенімді хош иіс."
+        },
+        "group": {
+            "ru": "кожаные",
+            "kk": "былғары"
+        },
+        "themeColor": "#996677",
+        "notes": {
+            "upper": {
+                "ru": [
+                    "шафран"
+                ],
+                "kk": [
+                    "шафран"
+                ]
+            },
+            "heart": {
+                "ru": [
+                    "кожа"
+                ],
+                "kk": [
+                    "былғары"
+                ]
+            },
+            "base": {
+                "ru": [
+                    "древесные ноты"
+                ],
+                "kk": [
+                    "ағаш ноталары"
+                ]
+            }
+        }
     }
 ]

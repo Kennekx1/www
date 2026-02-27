@@ -84,7 +84,7 @@ export default function AboutClient() {
             <section className={styles.hero}>
                 <div className={styles.heroBg} ref={heroImageRef}>
                     <Image
-                        src="/assets/original/images/welcome/perfumer_portrait.jpg"
+                        src="/assets/images/about/hero_about.png"
                         alt="About Vittorio"
                         fill
                         priority
@@ -94,6 +94,7 @@ export default function AboutClient() {
                 </div>
                 <div className={styles.heroContent}>
                     <Reveal direction="up">
+                        <span className={styles.sinceLabel}>{t('common.since')}</span>
                         <h1 className={styles.title}>{t('history.title')}</h1>
                     </Reveal>
                 </div>
@@ -116,22 +117,24 @@ export default function AboutClient() {
                             </Reveal>
                         </div>
                         <div className={styles.visualSide}>
-                            <Image
-                                src="/assets/images/banners/page-12.jpg"
-                                alt="Philosophy"
-                                width={500}
-                                height={600}
-                                className={styles.sideImg}
-                            />
+                            <Reveal direction="right">
+                                <Image
+                                    src="/assets/images/about/ingredients.png"
+                                    alt="Philosophy"
+                                    width={500}
+                                    height={600}
+                                    className={styles.sideImg}
+                                />
+                            </Reveal>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* Section 2: Art of Travel */}
-            <section className={styles.travelSection} style={{ backgroundColor: 'var(--color-background-soft)', padding: '100px 0' }}>
+            <section className={styles.travelSection}>
                 <div className={styles.container}>
-                    <div className={styles.flexLayout} style={{ flexDirection: 'row-reverse' }}>
+                    <div className={`${styles.flexLayout} ${styles.reversed}`}>
                         <div className={styles.textSide}>
                             <Reveal direction="up">
                                 <span className={styles.label}>{t('home.journalLabel')}</span>
@@ -142,13 +145,15 @@ export default function AboutClient() {
                             </Reveal>
                         </div>
                         <div className={styles.visualSide}>
-                            <Image
-                                src="/assets/images/banners/page-05.jpg"
-                                alt="Travel"
-                                width={500}
-                                height={600}
-                                className={styles.sideImg}
-                            />
+                            <Reveal direction="left">
+                                <Image
+                                    src="/assets/images/about/journal.png"
+                                    alt="Travel"
+                                    width={500}
+                                    height={600}
+                                    className={styles.sideImg}
+                                />
+                            </Reveal>
                         </div>
                     </div>
                 </div>
@@ -168,13 +173,15 @@ export default function AboutClient() {
                             </Reveal>
                         </div>
                         <div className={styles.visualSide}>
-                            <Image
-                                src="/assets/original/images/products/essay.jpg"
-                                alt="Mission"
-                                width={500}
-                                height={600}
-                                className={styles.sideImg}
-                            />
+                            <Reveal direction="right">
+                                <Image
+                                    src="/assets/images/about/lab.png"
+                                    alt="Mission"
+                                    width={500}
+                                    height={600}
+                                    className={styles.sideImg}
+                                />
+                            </Reveal>
                         </div>
                     </div>
                 </div>
@@ -182,12 +189,21 @@ export default function AboutClient() {
 
             <section className={styles.history}>
                 <div className={styles.container}>
-                    <h2 className={styles.sectionTitle}>{t('common.since')}</h2>
-                    <div className={styles.timeline}>
+                    <Reveal direction="up">
+                        <span className={styles.historyLabel}>{t('common.since')}</span>
+                        <h2 className={styles.sectionTitle}>{t('home.journalTitle')}</h2>
+                    </Reveal>
+
+                    <div className={styles.modernTimeline}>
+                        <div className={styles.timelineLine}></div>
+
                         {timeline.map((item, i) => (
-                            <div key={i} className={styles.stop}>
-                                <div className={styles.year}>{item.year}</div>
-                                <div className={styles.info}>
+                            <div key={i} className={`${styles.timelineNode} ${i % 2 === 0 ? styles.left : styles.right}`}>
+                                <div className={styles.nodeYear}>
+                                    <div className={styles.yearCircle}></div>
+                                    <span>{item.year}</span>
+                                </div>
+                                <div className={styles.nodeContent}>
                                     <h3 className={styles.itemTitle}>{item.title[language as 'ru' | 'kk']}</h3>
                                     <p className={styles.itemText}>{item.text[language as 'ru' | 'kk']}</p>
                                 </div>

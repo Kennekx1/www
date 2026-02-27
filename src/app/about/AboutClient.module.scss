@@ -462,11 +462,13 @@
                 grid-column: 2;
                 text-align: left;
                 padding-left: 20px;
+                margin-top: 0;
             }
 
             .nodeImage {
                 grid-column: 1;
                 padding-right: 20px;
+                margin-top: 0;
             }
 
             .nodeYear {
@@ -484,8 +486,11 @@
 .nodeImage {
     width: 100%;
     max-width: 450px;
+    margin-top: 0;
+    display: block; // Ensure no flex gaps
 
     .tmImg {
+        display: block; // Fix for inline-block spacing
         width: 100%;
         height: auto;
         aspect-ratio: 4/3;

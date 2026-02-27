@@ -23,7 +23,8 @@
 
 .bgImage {
     object-fit: cover;
-    filter: brightness(0.6);
+    object-position: center 20%; // Shift image slightly down so bottles are more centered
+    filter: brightness(0.65); // Slightly lighter image
 }
 
 .noise {
@@ -44,7 +45,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+    // Gradient darkens the center where the text is, and fades to black at bottom to match page
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+    box-shadow: inset 0 -40px 60px var(--color-background); // Blend into next section
     z-index: 2;
 }
 
@@ -52,8 +55,9 @@
     position: relative;
     z-index: 3;
     text-align: center;
-    color: var(--color-foreground);
+    color: #ffffff; // Ensure text is white for contrast against dark bottles
     padding: 0 20px;
+    margin-top: -30px; // Slightly lift the text
 }
 
 .breadcrumbs {
@@ -62,7 +66,8 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 20px;
-    opacity: 0.6;
+    opacity: 0.7; // Make breadcrumbs more visible
+
 
     a {
         color: inherit;
@@ -79,7 +84,8 @@
     font-family: var(--font-heading);
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     margin: 0;
     font-weight: 300;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); // Add shadow for extreme legibility
 }

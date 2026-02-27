@@ -20,6 +20,11 @@ const AromaJournal = dynamic(() => import('@/components/home/AromaJournal/AromaJ
   loading: () => <div style={{ height: '800px', background: '#0a0a0a' }}></div>
 });
 
+const BottleSequence = dynamic(() => import('@/components/home/BottleSequence/BottleSequence'), {
+  ssr: false,
+  loading: () => <div style={{ height: '100vh', background: '#0a0a0a' }}></div>
+});
+
 export default function Home() {
   const { t } = useLanguage();
   const products = getAllProducts();
@@ -99,18 +104,7 @@ export default function Home() {
       </section>
 
 
-      <section className={styles.transitionBanner} data-cursor-text={t('common.more')}>
-        <div className={styles.bannerContent}>
-          <span className={styles.label}>{t('nav.about')}</span>
-          <h2 className={styles.bannerTitle}>
-            {t('home.transitionBanner').split(' ').map((word, i) => (
-              <span key={i}>{word}</span>
-            ))}
-          </h2>
-        </div>
-        <div className={styles.bannerBg}></div>
-      </section>
-
+      <BottleSequence />
       <FragranceShowcase products={products} />
       <AromaJournal />
       <Philosophy />

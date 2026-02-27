@@ -25,7 +25,8 @@ export default function AboutClient() {
             text: {
                 ru: "Витторио отправляется в свое первое путешествие в поисках уникальных ингредиентов для будущих ароматов.",
                 kk: "Витторио болашақ хош иістерге арналған бірегей ингредиенттерді іздеп, өзінің алғашқы саяхатына шығады."
-            }
+            },
+            image: "/assets/images/about/timeline/2011.png"
         },
         {
             year: "2015",
@@ -33,7 +34,8 @@ export default function AboutClient() {
             text: {
                 ru: "Собрана коллекция из более чем 100 ольфакторных воспоминаний со всего мира.",
                 kk: "Әлемнің түкпір-түкпірінен 100-ден астам ольфакторлық естеліктер жинақталды."
-            }
+            },
+            image: "/assets/images/about/timeline/2015.png"
         },
         {
             year: "2018",
@@ -41,7 +43,8 @@ export default function AboutClient() {
             text: {
                 ru: "Запуск первых пяти ароматов, ставших бестселлерами. Открытие первого концепт-стора.",
                 kk: "Бестселлерге айналған алғашқы бес хош иістің таныстырылымы. Алғашқы концепт-стордың ашылуы."
-            }
+            },
+            image: "/assets/images/about/timeline/2018.png"
         },
         {
             year: "2024",
@@ -49,7 +52,8 @@ export default function AboutClient() {
             text: {
                 ru: "Vittorio Parfum представлен в крупнейших городах мира. Более 20 уникальных композиций.",
                 kk: "Vittorio Parfum әлемнің ірі қалаларында ұсынылған. 20-дан астам бірегей композициялар."
-            }
+            },
+            image: "/assets/images/about/timeline/2024.png"
         }
     ];
 
@@ -206,6 +210,17 @@ export default function AboutClient() {
                                 <div className={styles.nodeContent}>
                                     <h3 className={styles.itemTitle}>{item.title[language as 'ru' | 'kk']}</h3>
                                     <p className={styles.itemText}>{item.text[language as 'ru' | 'kk']}</p>
+                                </div>
+                                <div className={styles.nodeImage}>
+                                    <Reveal direction={i % 2 === 0 ? "right" : "left"}>
+                                        <Image
+                                            src={item.image}
+                                            alt={item.year}
+                                            width={400}
+                                            height={300}
+                                            className={styles.tmImg}
+                                        />
+                                    </Reveal>
                                 </div>
                             </div>
                         ))}

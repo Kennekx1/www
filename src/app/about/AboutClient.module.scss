@@ -427,7 +427,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 160px;
-        align-items: center;
+        align-items: flex-start;
+        padding-top: 40px;
 
         &.left {
             .nodeContent {
@@ -508,7 +509,7 @@
 .nodeYear {
     position: absolute;
     left: 0;
-    top: 5px;
+    top: 48px;
     display: flex;
     align-items: center;
     gap: 20px;

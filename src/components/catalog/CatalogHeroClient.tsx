@@ -36,7 +36,7 @@ export default function CatalogHeroClient() {
         <section className={styles.hero} ref={containerRef}>
             <div className={styles.bgWrapper} ref={bgRef}>
                 <Image
-                    src="/assets/images/banners/page-11.jpg"
+                    src="/assets/images/banners/catalog_hero_bottles.png"
                     alt="Catalog Collection"
                     fill
                     priority

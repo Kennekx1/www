@@ -132,6 +132,7 @@
         font-weight: 400;
         color: #ffffff;
         max-width: 12ch;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); // Better contrast
     }
 }
 
@@ -610,26 +611,28 @@
 
 .sideImg {
     width: 100%;
-    height: auto;
+    height: 70vh; // taller images
     object-fit: cover;
-    border-radius: 2px;
+    border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     line-height: 1.1;
     letter-spacing: 2px;
 }
 
 .para {
     font-family: var(--font-primary);
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.2rem; // slightly larger
+    line-height: 1.9;
     opacity: 0.8;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-weight: 300;
 }
 
 .label {

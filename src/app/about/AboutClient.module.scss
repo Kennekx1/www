@@ -352,11 +352,63 @@
         top: 0;
         bottom: 0;
         width: 1px;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.05);
 
         @media (min-width: 1024px) {
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        .lineProgress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-foreground);
+            transform-origin: top;
+            scale: 1 0;
+        }
+    }
+}
+
+.bgDecor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+
+    .decorYear {
+        position: absolute;
+        font-family: var(--font-heading);
+        font-size: 20vw;
+        color: var(--color-foreground);
+        opacity: 0.02;
+        line-height: 1;
+        white-space: nowrap;
+
+        &:nth-child(1) {
+            top: 5%;
+            left: -5%;
+        }
+
+        &:nth-child(2) {
+            top: 30%;
+            right: -5%;
+        }
+
+        &:nth-child(3) {
+            top: 60%;
+            left: -10%;
+        }
+
+        &:nth-child(4) {
+            bottom: 5%;
+            right: -5%;
         }
     }
 }

@@ -69,6 +69,33 @@ export default function AboutClient() {
             }
         });
 
+        // Timeline progress line animation
+        gsap.to(`.${styles.lineProgress}`, {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+                trigger: `.${styles.modernTimeline}`,
+                start: "top 70%",
+                end: "bottom 80%",
+                scrub: true,
+            }
+        });
+
+        // Parallax for background years
+        const bgYears = gsap.utils.toArray(`.${styles.decorYear}`);
+        bgYears.forEach((year: any, idx: number) => {
+            gsap.to(year, {
+                y: -100 * (idx + 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: `.${styles.modernTimeline}`,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
+        });
+
         const stops = gsap.utils.toArray(`.${styles.stop}`);
         stops.forEach((stop: any) => {
             gsap.from(stop, {
@@ -199,7 +226,17 @@ export default function AboutClient() {
                     </Reveal>
 
                     <div className={styles.modernTimeline}>
-                        <div className={styles.timelineLine}></div>
+                        <div className={styles.timelineLine}>
+                            <div className={styles.lineProgress}></div>
+                        </div>
+
+                        {/* Background Decorations */}
+                        <div className={styles.bgDecor}>
+                            <span className={styles.decorYear}>2011</span>
+                            <span className={styles.decorYear}>2015</span>
+                            <span className={styles.decorYear}>2018</span>
+                            <span className={styles.decorYear}>2024</span>
+                        </div>
 
                         {timeline.map((item, i) => (
                             <div key={i} className={`${styles.timelineNode} ${i % 2 === 0 ? styles.left : styles.right}`}>

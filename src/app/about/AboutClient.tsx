@@ -44,7 +44,7 @@ export default function AboutClient() {
                 ru: "Запуск первых пяти ароматов, ставших бестселлерами. Открытие первого концепт-стора.",
                 kk: "Бестселлерге айналған алғашқы бес хош иістің таныстырылымы. Алғашқы концепт-стордың ашылуы."
             },
-            image: "/assets/original/images/products/legend-11-01.jpeg"
+            image: "/assets/images/about/timeline/2018_birth.png"
         },
         {
             year: "2024",
@@ -53,7 +53,7 @@ export default function AboutClient() {
                 ru: "Vittorio Parfum представлен в крупнейших городах мира. Более 20 уникальных композиций.",
                 kk: "Vittorio Parfum әлемнің ірі қалаларында ұсынылған. 20-дан астам бірегей композициялар."
             },
-            image: "/assets/original/images/products/voice-of-the-sea.jpg"
+            image: "/assets/images/about/timeline/2024_global.png"
         }
     ];
 
@@ -178,7 +178,7 @@ export default function AboutClient() {
                         <div className={styles.visualSide}>
                             <Reveal direction="left">
                                 <Image
-                                    src="/assets/original/images/products/santal-leather.jpg"
+                                    src="/assets/images/about/travel_art.png"
                                     alt="Travel"
                                     width={500}
                                     height={600}

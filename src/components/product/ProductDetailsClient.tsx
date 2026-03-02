@@ -23,7 +23,6 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
     const { language, t } = useLanguage();
     const [selectedVolume, setSelectedVolume] = useState<'3ml' | '100ml'>('100ml');
     const containerRef = useRef<HTMLDivElement>(null);
-    const heroImageRef = useRef<HTMLDivElement>(null);
 
     const getLoc = (field: LocalizedString) => {
         if (typeof field === 'string') return field;
@@ -36,16 +35,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
     };
 
     useGSAP(() => {
-        gsap.to(heroImageRef.current, {
-            yPercent: 20,
-            ease: "none",
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-            }
-        });
+        // Any other animations can go here
     }, { scope: containerRef });
 
     if (!product) return null;
@@ -54,41 +44,20 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
 
     return (
         <div className={styles.productPage} ref={containerRef}>
-            <section className={styles.hero}>
-                <div className={styles.heroBg} ref={heroImageRef}>
-                    <Image
-                        src={product.image_hover || product.image}
-                        alt={product.name}
-                        fill
-                        priority
-                        className={styles.heroImg}
-                    />
-                    <div className={styles.heroOverlay}></div>
-                </div>
-
-                <div className={styles.breadcrumbNav}>
-                    <Link href="/" className={styles.backLink}>
-                        {t('common.home')}
-                    </Link>
-                    <span className={styles.breadcrumbSeparator}> / </span>
-                    <Link href="/catalog" className={styles.backLink}>
-                        {t('common.catalog')}
-                    </Link>
-                    <span className={styles.breadcrumbSeparator}> / </span>
-                    <span className={styles.breadcrumbCurrent}>{product.name}</span>
-                </div>
-
-                <div className={styles.heroContent}>
-                    <Reveal direction="up">
-                        <span className={styles.collectionLabel}>{t('product.vittorioCollection')}</span>
-                        <h1 className={styles.productName}>{product.name}</h1>
-                        <p className={styles.productGroup}>{getLoc(product.group || '')}</p>
-                    </Reveal>
-                </div>
-            </section>
-
             <section className={styles.configurator}>
                 <div className={styles.container}>
+                    <div className={styles.breadcrumbNav}>
+                        <Link href="/" className={styles.backLink}>
+                            {t('common.home')}
+                        </Link>
+                        <span className={styles.breadcrumbSeparator}> / </span>
+                        <Link href="/catalog" className={styles.backLink}>
+                            {t('common.catalog')}
+                        </Link>
+                        <span className={styles.breadcrumbSeparator}> / </span>
+                        <span className={styles.breadcrumbCurrent}>{product.name}</span>
+                    </div>
+
                     <div className={styles.layout}>
                         <div className={styles.imageColumn}>
                             <Reveal direction="right">
@@ -106,6 +75,10 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
 
                         <div className={styles.infoColumn}>
                             <Reveal direction="up">
+                                <span className={styles.collectionLabel}>{t('product.vittorioCollection')}</span>
+                                <h1 className={styles.productName}>{product.name}</h1>
+                                <p className={styles.productGroup}>{getLoc(product.group || '')}</p>
+
                                 <div className={styles.description}>
                                     {getLoc(product.description)}
                                 </div>

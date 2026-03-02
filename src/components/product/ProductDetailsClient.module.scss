@@ -25,64 +25,23 @@
     }
 }
 
-.hero {
-    position: relative;
-    height: 80vh;
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 100px 24px 60px;
-    overflow: hidden;
-
-    @media (min-width: 1024px) {
-        height: 100vh;
-        padding: 140px 60px 100px;
-    }
-}
-
-.heroBg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 120%;
-    z-index: 0;
-}
-
-.heroImg {
-    object-fit: cover;
-}
-
-.heroOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
-    z-index: 1;
-}
-
 .breadcrumbNav {
-    position: absolute;
-    top: 100px;
-    left: 24px;
-    z-index: 10;
-
-    @media (min-width: 1024px) {
-        top: 140px;
-        left: 60px;
-    }
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
 }
+
+
 
 .backLink {
     font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--color-foreground);
     text-decoration: none;
-    opacity: 0.6;
+    opacity: 0.4;
     transition: opacity 0.3s;
 
     &:hover {
@@ -91,8 +50,8 @@
 }
 
 .breadcrumbSeparator {
-    color: #fff;
-    opacity: 0.3;
+    color: var(--color-foreground);
+    opacity: 0.2;
     margin: 0 10px;
     font-size: 0.75rem;
 }
@@ -101,41 +60,39 @@
     font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #fff;
-    opacity: 0.9;
+    color: var(--color-foreground);
+    opacity: 0.6;
 }
 
-.heroContent {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    max-width: 800px;
-}
+
 
 .collectionLabel {
     font-family: var(--font-primary);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    opacity: 0.8;
+    color: var(--color-santal);
     display: block;
     margin-bottom: 15px;
 }
 
 .productName {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    line-height: 1;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
     text-transform: uppercase;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: var(--color-foreground);
 }
 
 .productGroup {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    opacity: 0.6;
+    opacity: 0.4;
+    color: var(--color-foreground);
+    margin-bottom: 30px;
 }
 
 .configurator {

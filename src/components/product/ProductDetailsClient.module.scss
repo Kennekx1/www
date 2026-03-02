@@ -13,7 +13,6 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        /* Premium Watercolor Paper / Smooth Leather Texture Effect */
         background-image:
             url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
             radial-gradient(circle at 70% 30%, rgba(200, 169, 126, 0.05) 0%, transparent 60%),
@@ -26,173 +25,194 @@
     }
 }
 
-.orb {
-    position: fixed;
-    width: 60vw;
-    height: 60vw;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
-    background: var(--color-santal);
-    z-index: 0;
-    pointer-events: none;
-    transition: background 1s ease;
-
-    &:nth-child(1) {
-        top: -10%;
-        left: -10%;
-    }
-
-    &:nth-child(2) {
-        bottom: -10%;
-        right: -10%;
-        opacity: 0.1;
-    }
-}
-
-.productContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 100px 20px 60px;
-    gap: 40px;
+.hero {
     position: relative;
-    z-index: 1;
-
-    @media (min-width: 1024px) {
-        grid-template-columns: 1fr 1fr;
-        padding: 160px 60px 80px; // Optimized padding
-        gap: 80px;
-    }
-}
-
-.imageSection {
-    position: relative;
-
-    .imageWrapper {
-        position: relative;
-        aspect-ratio: 4/5;
-        background: var(--color-smoke);
-        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        border-radius: 4px;
-
-        img {
-            object-fit: contain;
-            padding: 40px;
-        }
-    }
-
-    .productTag {
-        position: absolute;
-        top: 40px;
-        left: -20px;
-        background: var(--color-foreground);
-        color: #fff;
-        padding: 8px 16px;
-        transform: rotate(-90deg) translateX(-100%);
-        transform-origin: left top;
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        font-family: var(--font-primary);
-    }
-}
-
-.infoSection {
+    height: 80vh;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    justify-content: flex-end;
+    padding: 100px 24px 60px;
+    overflow: hidden;
+
+    @media (min-width: 1024px) {
+        height: 100vh;
+        padding: 140px 60px 100px;
+    }
+}
+
+.heroBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    z-index: 0;
+}
+
+.heroImg {
+    object-fit: cover;
+}
+
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+}
+
+.breadcrumbNav {
+    position: absolute;
+    top: 100px;
+    left: 24px;
+    z-index: 10;
+
+    @media (min-width: 1024px) {
+        top: 140px;
+        left: 60px;
+    }
 }
 
 .backLink {
-    grid-column: 1 / -1; // Span full width if in grid
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--color-santal);
+    color: #fff;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    opacity: 0.7;
+    opacity: 0.6;
     transition: opacity 0.3s;
-    margin-bottom: -20px; // Tighten space to header on mobile
-
-    @media (min-width: 1024px) {
-        font-size: 0.75rem;
-        margin-bottom: 0;
-    }
 
     &:hover {
         opacity: 1;
     }
 }
 
-.header {
-    .collection {
-        font-family: var(--font-primary);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        color: var(--color-santal);
-        display: block;
-        margin-bottom: 12px;
-    }
-
-    .title {
-        font-family: var(--font-heading);
-        font-size: clamp(2rem, 5vw, 4rem);
-        line-height: 1.1;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-
-        @media (min-width: 768px) {
-            letter-spacing: 2px;
-        }
-    }
-
-    .group {
-        display: inline-block;
-        padding: 4px 12px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        font-size: 0.65rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--color-foreground);
-        opacity: 0.6;
-    }
+.breadcrumbSeparator {
+    color: #fff;
+    opacity: 0.3;
+    margin: 0 10px;
+    font-size: 0.75rem;
 }
 
-.shortDesc {
-    font-family: var(--font-primary);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--color-foreground);
-    opacity: 0.8;
+.breadcrumbCurrent {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.9;
+}
 
-    @media (min-width: 768px) {
-        font-size: 1.1rem;
-    }
+.heroContent {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    max-width: 800px;
+}
+
+.collectionLabel {
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.productName {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.productGroup {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.6;
 }
 
 .configurator {
-    .configLabel {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 16px;
-        opacity: 0.5;
-        font-weight: 700;
+    padding: 100px 24px;
+    position: relative;
+    z-index: 1;
+
+    @media (min-width: 1024px) {
+        padding: 140px 60px;
     }
 }
 
-.volumeSelector {
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.layout {
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    gap: 60px;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 120px;
+    }
+}
+
+.imageColumn {
+    flex: 1;
+    position: relative;
+}
+
+.productWrapper {
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-smoke);
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 40px;
+}
+
+.mainProductImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.infoColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    max-width: 600px;
+}
+
+.selectorLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0.5;
+}
+
+.volumeOptions {
+    display: flex;
+    gap: 15px;
 }
 
 .volumeBtn {
@@ -219,22 +239,7 @@
         background-color: #fcfaf8;
         box-shadow: 0 10px 20px rgba(126, 71, 37, 0.05);
 
-        .volSize {
-            color: var(--color-santal);
-        }
-    }
-
-    .volSize {
-        font-weight: 700;
-        font-size: 1rem;
-        letter-spacing: 1px;
-        color: var(--color-foreground);
-    }
-
-    .volPrice {
-        font-size: 0.9rem;
-        font-family: var(--font-heading);
-        opacity: 0.6;
+        color: var(--color-santal);
     }
 
     &:hover:not(:disabled):not(.active) {
@@ -242,185 +247,121 @@
     }
 }
 
-.pyramidSection {
-    .sectionTitle {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 30px;
-        opacity: 0.4;
-    }
+.priceContainer {
+    margin: 20px 0;
 }
 
-.pyramid {
-    position: relative;
-    padding-left: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px; // Slightly tighter on mobile
-
-    @media (min-width: 768px) {
-        padding-left: 30px;
-        gap: 40px;
-    }
-}
-
-.pyramidLine {
-    position: absolute;
-    left: 0;
-    top: 5px;
-    bottom: 5px;
-    width: 2px;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.pyramidLineFill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-santal); // The filling color
-    transform: scaleY(0);
-    transform-origin: top center;
-}
-
-.noteGroup {
-    position: relative;
-    opacity: 0.3; // Starting opacity
-    transform: translateX(-10px);
-
-    .notePoint {
-        position: absolute;
-        left: -33px;
-        top: 2px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--color-background);
-        border: 2px solid var(--color-foreground);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .notePointInner {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: transparent; // Fills up on scroll
-        transform: scale(0);
-        transition: transform 0.4s ease, background-color 0.4s ease;
-    }
-
-    .noteLabel {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 12px;
-        color: var(--color-santal);
-        font-weight: 700;
-    }
-
-    .noteValues {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 16px;
-    }
-
-    .note {
-        font-size: 1rem;
-        font-family: var(--font-heading);
-        color: var(--color-foreground);
-        opacity: 0.85;
-
-        @media (min-width: 768px) {
-            font-size: 1.1rem;
-        }
-
-        &:not(:last-child)::after {
-            content: "•";
-            margin-left: 10px;
-            opacity: 0.3;
-            font-size: 0.8rem;
-            vertical-align: middle;
-
-            @media (min-width: 768px) {
-                margin-left: 16px;
-            }
-        }
-    }
+.price {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--color-foreground);
 }
 
 .actions {
     display: flex;
-    flex-direction: column; // Stacked by default for mobile
+    flex-direction: column;
     gap: 12px;
-    margin-top: 10px;
 
     @media (min-width: 768px) {
         flex-direction: row;
         gap: 16px;
-        margin-top: 20px;
     }
 }
 
-.btnPrimary {
+.orderBtn {
     background: var(--color-foreground);
     color: #fff;
-    padding: 18px 30px;
-    border-radius: 40px;
+    padding: 20px 40px;
+    border-radius: 4px;
     text-decoration: none;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: transform 0.3s, box-shadow 0.3s;
-
-    @media (min-width: 768px) {
-        flex: 1;
-        padding: 20px 40px;
-        font-size: 0.85rem;
-    }
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     &:hover {
+        background: var(--color-santal);
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 }
 
-.btnSecondary {
+.whatsappBtn {
     background: transparent;
     border: 1px solid var(--color-foreground);
     color: var(--color-foreground);
-    padding: 18px 30px;
-    border-radius: 40px;
+    padding: 20px 40px;
+    border-radius: 4px;
+    text-decoration: none;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    @media (min-width: 768px) {
-        flex: 1;
-        padding: 20px 40px;
-        font-size: 0.85rem;
-    }
+    font-weight: 700;
+    transition: all 0.3s;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background: rgba(0, 0, 0, 0.05);
+    }
+}
+
+.pyramid {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.pyramidTitle {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    color: var(--color-santal);
+}
+
+.noteGroup {
+    position: relative;
+}
+
+.groupLabel {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    display: block;
+    opacity: 0.4;
+}
+
+.noteList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+
+.noteItem {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-foreground);
+    opacity: 0.9;
+    white-space: nowrap;
+
+    &:not(:last-child)::after {
+        content: "•";
+        margin-left: 20px;
+        opacity: 0.3;
     }
 }
 
 .storySection {
-    background-color: transparent; // Let global texture show
-    padding: 100px 20px;
+    background-color: transparent;
+    padding: 100px 24px;
     position: relative;
     z-index: 1;
 
-    @media (min-width: 768px) {
-        padding: 120px 24px;
+    @media (min-width: 1024px) {
+        padding: 160px 60px;
     }
 
     &::after {
@@ -431,7 +372,7 @@
         width: 100%;
         height: 100%;
         background-color: var(--color-silk);
-        opacity: 0.8; // Blend silk color with the global noise texture
+        opacity: 0.8;
         pointer-events: none;
         z-index: -1;
     }
@@ -461,28 +402,17 @@
 
     p {
         font-family: var(--font-primary);
-        font-size: 1rem;
+        font-size: 1.1rem;
         line-height: 1.8;
         opacity: 0.7;
-
-        @media (min-width: 768px) {
-            font-size: 1.1rem;
-        }
     }
 
     .quote {
         font-style: italic;
         font-family: var(--font-heading);
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         color: var(--color-foreground);
         opacity: 0.9;
         margin: 20px 0;
-    }
-
-    .signature {
-        font-family: var(--font-logo);
-        font-size: 2.5rem;
-        color: var(--color-santal);
-        margin-top: 20px;
     }
 }

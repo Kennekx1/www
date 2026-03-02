@@ -67,9 +67,15 @@ export default function ProductDetailsClient({ product }: ProductDetailsProps) {
                 </div>
 
                 <div className={styles.breadcrumbNav}>
-                    <Link href="/catalog" className={styles.backLink}>
-                        ← {t('product.backToCatalog')}
+                    <Link href="/" className={styles.backLink}>
+                        {t('common.home')}
                     </Link>
+                    <span className={styles.breadcrumbSeparator}> / </span>
+                    <Link href="/catalog" className={styles.backLink}>
+                        {t('common.catalog')}
+                    </Link>
+                    <span className={styles.breadcrumbSeparator}> / </span>
+                    <span className={styles.breadcrumbCurrent}>{product.name}</span>
                 </div>
 
                 <div className={styles.heroContent}>
